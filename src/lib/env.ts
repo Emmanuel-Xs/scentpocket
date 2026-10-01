@@ -31,7 +31,11 @@ const serverSchema = z.object({
 export type PublicEnv = z.infer<typeof publicSchema>
 export type ServerEnv = z.infer<typeof serverSchema>
 
-function parse<T extends z.ZodType>(schema: T, source: unknown, label: string): z.infer<T> {
+function parse<T extends z.ZodType>(
+  schema: T,
+  source: unknown,
+  label: string,
+): z.infer<T> {
   const result = schema.safeParse(source)
   if (!result.success) {
     const issues = result.error.issues
@@ -51,7 +55,8 @@ export function getPublicEnv(): PublicEnv {
     publicSchema,
     {
       VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
-      VITE_SUPABASE_PUBLISHABLE_KEY: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+      VITE_SUPABASE_PUBLISHABLE_KEY: import.meta.env
+        .VITE_SUPABASE_PUBLISHABLE_KEY,
     },
     'public',
   )

@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 0: Setup** (next: 0.9) |
+| Current phase | **Phase 0: Setup** (next: 1.1, Phase 0 done except 0.9) |
 | Last updated | Thu 1 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.netlify.app  |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
@@ -44,9 +44,9 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 - [x] 0.6 Supabase project, keys in `.env` and Netlify (project `scentpocket` ref `xogxpyzydlnmvweerjwj`, eu-west-2; bucket `products` public)
 - [x] 0.7 Drizzle schema (TRD §4), enums, RLS enabled, first migration applied
 - [x] 0.8 Verify anon key can't read `orders`
-- [ ] 0.9 Buy `scentpocket.shop`, auto renew off, start Mailgun domain verification (`mg.`)
-- [ ] 0.10 Install agent skills from [docs/SKILLS.md](../docs/SKILLS.md) and run `npx @tanstack/intent install`
-- [ ] 0.11 Design tokens: port [docs/design/tokens.css](../docs/design/tokens.css) into `src/styles/app.css`, Fontsource fonts, mobile native meta tags (viewport-fit, theme-color)
+- [ ] 0.9 (skipped for now by user, no domain yet; Mailgun sandbox + netlify.app until bought) Buy `scentpocket.shop`, auto renew off, start Mailgun domain verification (`mg.`)
+- [x] 0.10 Install agent skills from [docs/SKILLS.md](../docs/SKILLS.md) and run `npx @tanstack/intent install`
+- [x] 0.11 Design tokens: port [docs/design/tokens.css](../docs/design/tokens.css) into `src/styles/app.css`, Fontsource fonts, mobile native meta tags (viewport-fit, theme-color)
 
 ### Phase 1: Catalog (Thu afternoon)
 - [ ] 1.1 `features/images/process.ts` (sharp → WebP + blur) and `<Image>` wrapper
@@ -111,6 +111,8 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ## Progress log
 Newest first. One line per finished step: date, step, note.
 
+- 2026-10-01 · 0.10, 0.11 · Skills installed to `.claude/skills` (react-best-practices and composition-patterns not found by that name; global vercel-* versions cover them; `@tanstack/intent install` needs an interactive terminal, run it by hand). Tokens ported to `src/styles/app.css`, Fontsource fonts, clsx, cva, lucide-react added, viewport-fit + theme-color in `__root.tsx`. Prettier run over src
+- 2026-10-01 · 0.9 · Skipped by user (no domain yet)
 - 2026-10-01 · 0.7, 0.8 · Drizzle schema (`src/db/schema.ts`, 11 enums, 6 tables, RLS on all, no policies), `src/db/client.ts` (lazy, `prepare:false`), migration `drizzle/0000` applied. Anon key: select returns nothing, insert into orders rejected (42501). Re-check with data after seeding. Scripts `db:generate|migrate|studio` load `.env` via `node --env-file`
 - 2026-10-01 · 0.6 · Netlify env vars set (incl. SITE_URL); step complete
 - 2026-10-01 · 0.6 (partly) · Supabase project created via CLI, `.env` written (gitignored), public bucket `products` (8 MB, webp/png/jpeg). Pooler host is `aws-0-eu-west-2` (aws-1 fails). Netlify env vars NOT set: write was blocked, user to run `netlify env:import .env` then set `SITE_URL=https://scentpocket.netlify.app`. Also installed postgres, drizzle-orm, drizzle-kit, @supabase/ssr, @supabase/supabase-js

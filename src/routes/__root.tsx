@@ -2,7 +2,7 @@ import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
-import appCss from '../styles.css?url'
+import appCss from '../styles/app.css?url'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -12,10 +12,15 @@ export const Route = createRootRoute({
       },
       {
         name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
+        content:
+          'width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content',
       },
       {
-        title: 'TanStack Start Starter',
+        name: 'theme-color',
+        content: '#FAF6EF',
+      },
+      {
+        title: 'Scentpocket · A scent for every pocket',
       },
     ],
     links: [

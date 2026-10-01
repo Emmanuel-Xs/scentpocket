@@ -8,14 +8,23 @@ import {
   pgTable,
   text,
   timestamp,
-  uuid
-  
+  uuid,
 } from 'drizzle-orm/pg-core'
-import type {AnyPgColumn} from 'drizzle-orm/pg-core';
+import type { AnyPgColumn } from 'drizzle-orm/pg-core'
 
-export const tierEnum = pgEnum('tier', ['pocket', 'arabian_gems', 'designer', 'niche'])
+export const tierEnum = pgEnum('tier', [
+  'pocket',
+  'arabian_gems',
+  'designer',
+  'niche',
+])
 export const genderEnum = pgEnum('gender', ['men', 'women', 'unisex'])
-export const occasionEnum = pgEnum('occasion', ['office', 'owambe', 'date_night', 'everyday'])
+export const occasionEnum = pgEnum('occasion', [
+  'office',
+  'owambe',
+  'date_night',
+  'everyday',
+])
 export const scentFamilyEnum = pgEnum('scent_family', [
   'fresh',
   'woody',
@@ -23,8 +32,17 @@ export const scentFamilyEnum = pgEnum('scent_family', [
   'floral',
   'gourmand',
 ])
-export const longevityEnum = pgEnum('longevity', ['short', 'moderate', 'long', 'very_long'])
-export const projectionEnum = pgEnum('projection', ['soft', 'moderate', 'strong'])
+export const longevityEnum = pgEnum('longevity', [
+  'short',
+  'moderate',
+  'long',
+  'very_long',
+])
+export const projectionEnum = pgEnum('projection', [
+  'soft',
+  'moderate',
+  'strong',
+])
 export const roleEnum = pgEnum('role', ['customer', 'admin', 'owner'])
 export const orderStatusEnum = pgEnum('order_status', [
   'placed',
@@ -38,11 +56,15 @@ export const deliveryZoneEnum = pgEnum('delivery_zone', [
   'lagos_island',
   'outside_lagos',
 ])
-export const paymentMethodEnum = pgEnum('payment_method', ['pay_on_delivery', 'paystack'])
+export const paymentMethodEnum = pgEnum('payment_method', [
+  'pay_on_delivery',
+  'paystack',
+])
 export const emailProviderEnum = pgEnum('email_provider', ['mailgun', 'smtp'])
 
 const id = () => uuid('id').primaryKey().defaultRandom()
-const createdAt = () => timestamp('created_at', { withTimezone: true }).notNull().defaultNow()
+const createdAt = () =>
+  timestamp('created_at', { withTimezone: true }).notNull().defaultNow()
 const updatedAt = () =>
   timestamp('updated_at', { withTimezone: true })
     .notNull()
@@ -74,15 +96,30 @@ export const products = pgTable(
     tier: tierEnum('tier').notNull(),
     gender: genderEnum('gender').notNull(),
     family: scentFamilyEnum('family').notNull(),
-    occasions: occasionEnum('occasions').array().notNull().default(sql`'{}'`),
-    topNotes: text('top_notes').array().notNull().default(sql`'{}'`),
-    heartNotes: text('heart_notes').array().notNull().default(sql`'{}'`),
-    baseNotes: text('base_notes').array().notNull().default(sql`'{}'`),
+    occasions: occasionEnum('occasions')
+      .array()
+      .notNull()
+      .default(sql`'{}'`),
+    topNotes: text('top_notes')
+      .array()
+      .notNull()
+      .default(sql`'{}'`),
+    heartNotes: text('heart_notes')
+      .array()
+      .notNull()
+      .default(sql`'{}'`),
+    baseNotes: text('base_notes')
+      .array()
+      .notNull()
+      .default(sql`'{}'`),
     longevity: longevityEnum('longevity').notNull(),
     projection: projectionEnum('projection').notNull(),
-    inspiredById: uuid('inspired_by_id').references((): AnyPgColumn => products.id, {
-      onDelete: 'set null',
-    }),
+    inspiredById: uuid('inspired_by_id').references(
+      (): AnyPgColumn => products.id,
+      {
+        onDelete: 'set null',
+      },
+    ),
     isActive: boolean('is_active').notNull().default(true),
     featuredRank: integer('featured_rank'),
     createdAt: createdAt(),
@@ -142,7 +179,9 @@ export const orders = pgTable(
       .notNull()
       .references(() => profiles.id),
     status: orderStatusEnum('status').notNull().default('placed'),
-    paymentMethod: paymentMethodEnum('payment_method').notNull().default('pay_on_delivery'),
+    paymentMethod: paymentMethodEnum('payment_method')
+      .notNull()
+      .default('pay_on_delivery'),
     paymentRef: text('payment_ref'),
     customerName: text('customer_name').notNull(),
     email: text('email').notNull(),
