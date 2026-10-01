@@ -45,3 +45,10 @@ export async function requireAdmin(): Promise<SessionUser> {
   if (!isAdminRole(user.role)) throw new Response('Not found', { status: 404 })
   return user
 }
+
+/** Team management is for the owner only; plain admins get a 404 like everyone else. */
+export async function requireOwner(): Promise<SessionUser> {
+  const user = await requireUser()
+  if (user.role !== 'owner') throw new Response('Not found', { status: 404 })
+  return user
+}

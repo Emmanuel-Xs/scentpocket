@@ -2,6 +2,7 @@ import { queryOptions } from '@tanstack/react-query'
 import type { OrderStatus } from '#/features/orders/status'
 import { getAdminOrder, listAdminOrders } from './server/orders'
 import { getAdminProduct, listAdminProducts } from './server/products'
+import { listTeamMembers } from './server/team'
 
 export const adminOrdersQueryOptions = (filter: {
   status?: OrderStatus
@@ -31,5 +32,12 @@ export const adminProductQueryOptions = (id?: string) =>
   queryOptions({
     queryKey: ['admin', 'product', id ?? 'new'],
     queryFn: () => getAdminProduct({ data: { id } }),
+    staleTime: 0,
+  })
+
+export const teamQueryOptions = () =>
+  queryOptions({
+    queryKey: ['admin', 'team'],
+    queryFn: () => listTeamMembers(),
     staleTime: 0,
   })

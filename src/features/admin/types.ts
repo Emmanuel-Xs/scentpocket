@@ -75,3 +75,11 @@ export type AdminProductDetail = {
 }
 
 export type ProductOption = { id: string; name: string; brand: string }
+
+export type TeamMember = {
+  id: string
+  email: string
+  name: string | null
+  avatarUrl: string | null
+  role: 'owner' | 'admin'
+}
