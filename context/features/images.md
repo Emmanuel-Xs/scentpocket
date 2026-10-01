@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | 🟨 1.1, 1.2 done; CDN check (1.3) pending |
+| Status | ✅ 1.1 to 1.3 done (more image work arrives with admin upload, 4.5) |
 | FRD | [F8](../../docs/FRD.md) |
 | Steps | 1.1 to 1.3 in [context/README.md](../README.md) |
 | Decisions | D8, D30 ([DECISIONS.md](../../docs/DECISIONS.md)) |
@@ -13,7 +13,7 @@
 * Hero preload + high priority; above the fold eager; rest lazy
 
 ## Notes and gotchas
-* Netlify docs don't list TanStack Start for Image CDN: verify on first deploy, fallback is direct WebP
+* Netlify Image CDN verified working on the TanStack Start deploy (2026-10-01), no fallback needed
 
 ## Files
 * `src/features/images/{process.ts,url.ts,Image.tsx}`, `tests/unit/images.test.ts`, `netlify.toml` `[images]`
