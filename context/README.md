@@ -67,7 +67,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 - [ ] 2.6 **Publish Google app to production**; test sign in with a Gmail that isn't yours on the live URL
 
 ### Phase 3: Checkout and orders (Fri morning)
-- [ ] 3.1 `lib/money.ts`, `lib/config.ts`, `lib/order-ref.ts`, phone schema + unit tests
+- [x] 3.1 `lib/money.ts`, `lib/config.ts`, `lib/order-ref.ts`, phone schema + unit tests
 - [ ] 3.2 Checkout page: form, zones, live totals, summary, pay on delivery
 - [ ] 3.3 `placeOrder` server function with transaction, idempotency, stock errors
 - [ ] 3.4 Receipt page `/account/orders/$ref` (with `?placed=1` state)
@@ -112,6 +112,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ## Progress log
 Newest first. One line per finished step: date, step, note.
 
+- 2026-10-01 · 3.1 · `lib/config.ts` (zones, fees, ETAs, threshold, 37 states, duplicate window), `lib/money.ts` (`deliveryFeeKobo`, `orderTotals`, free at exactly ₦300,000), `lib/order-ref.ts` (`SP-` + 6 chars, no 0/O/1/I/L, crypto), `features/checkout/schemas.ts` (Nigerian phone normalised to +234XXXXXXXXXX, delivery + placeOrder Zod schemas). Tests: 48 pass
 - 2026-10-01 · 2.4, 2.5 · Auth code: `features/auth` (`@supabase/ssr` server client that passes cookie options through, `readSessionUser` via `getUser()` + profiles role, `requireUser`/`requireAdmin`, `startGoogleSignIn`/`signOut`/`getSessionUser` server fns), `/auth/callback` server route (exchange code, upsert profile, owner from ADMIN_EMAILS, `safeNext` open-redirect guard, tested), `/sign-in` (design, loading state, error alert, redirects if already signed in), root `beforeLoad` puts `user` in context, `_authed` and `_admin` layouts, avatar `AccountMenu` (My orders, Admin for admins, Sign out), stubs `/account/orders` and `/admin`. Verified without Google: guards 307 to `/sign-in?next=`, callback without a valid code goes to `/sign-in?error=auth`, the button reaches Supabase `/auth/v1/authorize` with PKCE + callback redirect. NOT verified: a real sign in (needs 2.3). Added dep @radix-ui/react-dropdown-menu. Tests: 26 pass
 - 2026-10-01 · 2.3 (partly) · gcloud project `scentpocket-hng` (number 835505533302) created. gcloud cannot create a web OAuth client or the consent screen; Supabase token on disk is read only (403 on auth config)
 - 2026-10-01 · 2.1, 2.2 · Cart: `getCartLines` server fn (Zod uuid array, max 50; absent = gone or inactive), pure `reconcileCart` + `cartSubtotalKobo` (tested), `CartSync` fixes the persisted cart when the server disagrees (drops sold out, clamps to stock and 10) and says why via toast + a notice in the drawer. `CartDrawer` (Vaul: right on desktop, bottom sheet on phone) with lines, steppers, remove, free delivery progress, NumberFlow subtotal, empty and loading states; header `CartButton` with count; Add to cart now opens the drawer. Checked at 1440 and 390. Added dep @number-flow/react. Drawer's Checkout button links to /sign-in until /checkout exists (3.2). Tests: 23 pass
