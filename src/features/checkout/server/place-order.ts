@@ -2,7 +2,8 @@ import { createServerFn } from '@tanstack/react-start'
 import { getDb } from '#/db/client'
 import { requireUser } from '#/features/auth/server/session'
 import { placeOrderSchema } from '../schemas'
-import { createOrder, StockError, type ShortLine } from './create-order'
+import { createOrder, StockError  } from './create-order'
+import type {ShortLine} from './create-order';
 
 export type PlaceOrderResult =
   { ok: true; ref: string } | { ok: false; reason: 'stock'; short: ShortLine[] }

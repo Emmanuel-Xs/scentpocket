@@ -103,7 +103,7 @@ beforeAll(async () => {
       projection: 'soft',
     })
     .returning({ id: products.id })
-  productId = p?.id ?? ''
+  productId = p.id
   const rows = await db
     .insert(productVariants)
     .values([
@@ -204,9 +204,7 @@ describe('createOrder', () => {
     const failed = results.filter((r) => r.status === 'rejected')
     expect(ok).toHaveLength(1)
     expect(failed).toHaveLength(1)
-    expect((failed[0] as PromiseRejectedResult).reason).toBeInstanceOf(
-      StockError,
-    )
+    expect(failed[0].reason).toBeInstanceOf(StockError)
     expect(await stockOf(variants.last.id)).toBe(0)
   })
 
@@ -368,8 +366,8 @@ describe('cancelOrder', () => {
       .select()
       .from(orders)
       .where(eq(orders.id, created.id))
-    expect(row?.status).toBe('cancelled')
-    expect(row?.cancelledAt).not.toBeNull()
+    expect(row.status).toBe('cancelled')
+    expect(row.cancelledAt).not.toBeNull()
   })
 
   it('refuses to cancel twice (no double restock) or an unknown ref', async () => {
