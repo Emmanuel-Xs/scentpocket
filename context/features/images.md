@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | ⬜ not started |
+| Status | 🟨 1.1 done; seed upload (1.2) and CDN check (1.3) pending |
 | FRD | [F8](../../docs/FRD.md) |
 | Steps | 1.1 to 1.3 in [context/README.md](../README.md) |
 | Decisions | D8, D30 ([DECISIONS.md](../../docs/DECISIONS.md)) |
@@ -16,10 +16,10 @@
 * Netlify docs don't list TanStack Start for Image CDN: verify on first deploy, fallback is direct WebP
 
 ## Files
-_List key files here as they're created._
+* `src/features/images/{process.ts,url.ts,Image.tsx}`, `tests/unit/images.test.ts`, `netlify.toml` `[images]`
 
 ## Progress
-_Newest first: date · what changed · what's next._
+2026-10-01 · 1.1 built. `<Image>` uses raw `<img>` in dev (no /.netlify/images locally). Next: seed script uploads WebP (1.2), then verify CDN on live (1.3).
 
 ## Gotcha: egress (user note, 2026-10-01)
 * Everything stored must be WebP (`contentType: image/webp`, `cacheControl: 31536000`) to keep Supabase cached egress low. Never upload PNG/JPEG masters; the bucket still allows them only as safety.

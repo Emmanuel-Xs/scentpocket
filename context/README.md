@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 0: Setup** (next: 1.1, Phase 0 done except 0.9) |
+| Current phase | **Phase 1: Catalog** → **Phase 1** (next: 1.2; 0.9 skipped) |
 | Last updated | Thu 1 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.netlify.app  |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
@@ -49,7 +49,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 - [x] 0.11 Design tokens: port [docs/design/tokens.css](../docs/design/tokens.css) into `src/styles/app.css`, Fontsource fonts, mobile native meta tags (viewport-fit, theme-color)
 
 ### Phase 1: Catalog (Thu afternoon)
-- [ ] 1.1 `features/images/process.ts` (sharp → WebP + blur) and `<Image>` wrapper
+- [x] 1.1 `features/images/process.ts` (sharp → WebP + blur) and `<Image>` wrapper
 - [ ] 1.2 `seed-data.ts` from [docs/CATALOG.md](../docs/CATALOG.md); `pnpm db:seed` uploads images, idempotent
 - [ ] 1.3 Netlify Image CDN check on the live deploy (fallback decided if it fails)
 - [ ] 1.4 Layout shell: demo banner, sticky header, footer, phone tab bar (safe areas), route progress bar, Sonner toaster, error + 404 components
@@ -111,6 +111,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ## Progress log
 Newest first. One line per finished step: date, step, note.
 
+- 2026-10-01 · 1.1 · `features/images/{process.ts,url.ts,Image.tsx}`: sharp to WebP (1600 max, q80) + 16px blur; `<Image>` via unpic netlify CDN (raw img in dev), blur bg, fade in, priority/eager props. `netlify.toml` remote_images for the Supabase bucket. Vitest added (`npm test`), 3 unit tests pass
 - 2026-10-01 · 0.10, 0.11 · Skills installed to `.claude/skills` (react-best-practices and composition-patterns not found by that name; global vercel-* versions cover them; `@tanstack/intent install` needs an interactive terminal, run it by hand). Tokens ported to `src/styles/app.css`, Fontsource fonts, clsx, cva, lucide-react added, viewport-fit + theme-color in `__root.tsx`. Prettier run over src
 - 2026-10-01 · 0.9 · Skipped by user (no domain yet)
 - 2026-10-01 · 0.7, 0.8 · Drizzle schema (`src/db/schema.ts`, 11 enums, 6 tables, RLS on all, no policies), `src/db/client.ts` (lazy, `prepare:false`), migration `drizzle/0000` applied. Anon key: select returns nothing, insert into orders rejected (42501). Re-check with data after seeding. Scripts `db:generate|migrate|studio` load `.env` via `node --env-file`
