@@ -18,7 +18,8 @@ export const Route = createFileRoute('/')({
   }),
   beforeLoad: ({ context, search }) => {
     if (!search.code) return
-    if (context.user) throw redirect({ to: '/', search: {} })
+    // An explicit href, so the query string is really dropped (a search-less `to` kept it and looped).
+    if (context.user) throw redirect({ href: '/' })
     const next = encodeURIComponent(safeNext(search.next))
     throw redirect({
       href: `/auth/callback?code=${encodeURIComponent(search.code)}&next=${next}`,
