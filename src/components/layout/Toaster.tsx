@@ -1,21 +1,9 @@
-import { useSyncExternalStore } from 'react'
 import { Toaster as Sonner } from 'sonner'
-
-const query = '(max-width: 760px)'
-
-function subscribe(onChange: () => void) {
-  const mq = window.matchMedia(query)
-  mq.addEventListener('change', onChange)
-  return () => mq.removeEventListener('change', onChange)
-}
+import { useIsPhone } from '#/lib/use-is-phone'
 
 /** Top centre on phone (clear of tab bar and sticky bars), bottom right on desktop. */
 export function Toaster() {
-  const isPhone = useSyncExternalStore(
-    subscribe,
-    () => window.matchMedia(query).matches,
-    () => false,
-  )
+  const isPhone = useIsPhone()
   return (
     <Sonner
       position={isPhone ? 'top-center' : 'bottom-right'}

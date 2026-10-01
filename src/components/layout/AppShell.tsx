@@ -1,4 +1,6 @@
 import type { ReactNode } from 'react'
+import { CartDrawer } from '#/features/cart/components/CartDrawer'
+import { CartSync } from '#/features/cart/components/CartSync'
 import { SearchDialog } from '#/features/search/components/SearchDialog'
 import { useSearchShortcut } from '#/features/search/useSearchShortcut'
 import { DemoBanner } from './DemoBanner'
@@ -18,6 +20,8 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="flex flex-1 flex-col">{children}</div>
       <SiteFooter />
       <TabBar />
+      <CartSync />
+      <CartDrawer />
       <SearchDialog />
       <Toaster />
     </div>

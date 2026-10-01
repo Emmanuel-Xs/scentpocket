@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import { QuantityStepper } from '#/components/ui/QuantityStepper'
 import { useCartStore } from '#/features/cart/store'
+import { useCartUi } from '#/features/cart/ui-store'
 import type { ProductDetail } from '#/features/catalog/types'
 import { MAX_QTY_PER_LINE } from '#/lib/config'
 import { formatKobo } from '#/lib/money'
@@ -37,6 +38,7 @@ export function BuyBox({ product }: { product: ProductDetail }) {
   const add = () => {
     addToCart(variant.id, qty, variant.stock)
     toast.success(`Added ${qty} × ${product.card.name} (${variant.sizeMl}ml)`)
+    useCartUi.getState().setOpen(true)
   }
 
   const label = soldOut ? 'Sold out' : `Add to cart · ${formatKobo(totalKobo)}`

@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | ⬜ not started |
+| Status | ✅ 2.1 and 2.2 done (Checkout button target switches to /checkout in 3.2; clear cart after order in 3.3) |
 | FRD | [F3](../../docs/FRD.md) |
 | Steps | 2.1, 2.2 in [context/README.md](../README.md) |
 | Decisions | D5, D13 ([DECISIONS.md](../../docs/DECISIONS.md)) |
@@ -16,7 +16,7 @@
 * Clear only after a successful order
 
 ## Files
-_List key files here as they're created._
+* `src/features/cart/{store,ui-store,reconcile,queries,types}.ts`, `server/lines.ts`, `components/{CartDrawer,CartLineRow,CartButton,CartSync,FreeDeliveryProgress}.tsx`, `src/lib/use-is-phone.ts`
 
 ## Progress
-_Newest first: date · what changed · what's next._
+2026-10-01 · 2.1 and 2.2 built and checked at 1440 and 390. Reconcile runs whenever the server data changes, not only on load.
