@@ -37,7 +37,17 @@ export const Route = createFileRoute('/auth/callback')({
         const supabase = createSupabaseServerClient()
         // Already signed in (a repeated or stray code): skip the exchange and land on a clean URL.
         const existing = await supabase.auth.getUser()
-        if (existing.data.user) return redirectTo(next)
+        if (existing.data.user) {
+          console.log(
+            '[auth/callback] already signed in, redirecting to',
+            getServerEnv().SITE_URL + next,
+          )
+          return redirectTo(next)
+        }
+        console.log(
+          '[auth/callback] no session yet, exchanging',
+          existing.error?.message,
+        )
 
         const { data, error } = await supabase.auth.exchangeCodeForSession(code)
         const user = data.user
