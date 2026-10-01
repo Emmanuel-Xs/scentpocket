@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FAF6EF">
+<title>Loading shop · Scentpocket design</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../reference.css">
+</head>
+<body>
+<div style="min-height: 100vh; display: flex; flex-direction: column; background: var(--cream)">
+<div class="demo-banner">Demo store for HNG Internship. Nothing here is for sale.</div>
+<header class="site-header">
+<div class="container bar">
+<div style="display: flex; align-items: center; gap: 36px">
+<a href="Home.html" style="display: inline-flex; align-items: center; gap: 10px; color: #1C1915; text-decoration: none" aria-label="Scentpocket home"><svg width="26" height="30" viewBox="0 0 100 116" fill="none" aria-hidden="true" style="flex-shrink: 0"><rect x="37" y="2" width="26" height="14" rx="4" fill="#1C1915"></rect><rect x="44" y="15" width="12" height="10" rx="1.5" fill="#1C1915"></rect><path d="M14 31 Q14 25 20 25 H80 Q86 25 86 31 V70 Q86 78 81 85 L69 104 Q65 112 56 112 H44 Q35 112 31 104 L19 85 Q14 78 14 70 Z" fill="#1C1915"></path><path d="M23 35 H77 V69 Q77 75 73 80 L62 98 Q59 103 53 103 H47 Q41 103 38 98 L27 80 Q23 75 23 69 Z" stroke="#FAF6EF" stroke-width="2.5" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"></path></svg><span style="font-family: var(--font-serif); font-size: 28px; line-height: 1; letter-spacing: -0.01em">scentpocket</span></a>
+<nav class="nav desk" aria-label="Main"><a href="Shop.html" aria-current="page">Shop all</a><a href="Shop-Tier.html">Tiers</a><a href="Dupes.html">Dupes</a></nav>
+</div>
+<div style="display: flex; align-items: center; gap: 6px">
+<a href="Search.html" class="search-trigger desk" aria-label="Search scents"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg><span>Search scents</span><kbd>/</kbd></a>
+<a href="Search.html" class="btn btn-icon mob" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></a>
+<span class="desk"><a href="Sign-In.html" class="btn btn-icon" aria-label="Sign in"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg></a></span>
+<a href="Cart.html" class="cart-btn" aria-label="Cart, 2 items"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="num">2</span></a>
+</div>
+</div>
+</header>
+<main style="flex: 1">
+<div class="container" style="padding-top: 32px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 24px" aria-busy="true" aria-label="Loading scents">
+<div class="sk sk-text" style="width: 120px"></div>
+<div class="sk" style="height: 56px; width: min(320px, 70%); border-radius: 12px"></div>
+<div style="display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 40px" class="shop-layout">
+<div class="desk" style="display: flex; flex-direction: column; gap: 18px" aria-hidden="true"><div class="sk sk-text" style="width: 50%"></div><div class="sk sk-text" style="width: 80%"></div><div class="sk sk-text" style="width: 70%"></div><div class="sk sk-text" style="width: 75%"></div><div class="sk sk-text" style="width: 60%"></div><div class="sk sk-pill" style="width: 70%"></div><div class="sk sk-pill" style="width: 90%"></div><div class="sk sk-pill" style="width: 60%"></div></div>
+<div style="display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; justify-content: space-between"><div class="sk sk-text" style="width: 80px"></div><div class="sk sk-pill" style="width: 160px"></div></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 28px 20px"><div style="display: flex; flex-direction: column; gap: 14px" aria-hidden="true">
+<div class="sk sk-media"></div>
+<div class="sk sk-text" style="width: 40%"></div>
+<div class="sk sk-title" style="width: 75%"></div>
+<div class="sk sk-text" style="width: 60%"></div>
+<div class="sk sk-text" style="width: 30%; height: 18px"></div>
+</div><div style="display: flex; flex-direction: column; gap: 14px" aria-hidden="true">
+<div class="sk sk-media"></div>
+<div class="sk sk-text" style="width: 40%"></div>
+<div class="sk sk-title" style="width: 75%"></div>
+<div class="sk sk-text" style="width: 60%"></div>
+<div class="sk sk-text" style="width: 30%; height: 18px"></div>
+</div><div style="display: flex; flex-direction: column; gap: 14px" aria-hidden="true">
+<div class="sk sk-media"></div>
+<div class="sk sk-text" style="width: 40%"></div>
+<div class="sk sk-title" style="width: 75%"></div>
+<div class="sk sk-text" style="width: 60%"></div>
+<div class="sk sk-text" style="width: 30%; height: 18px"></div>
+</div><div style="display: flex; flex-direction: column; gap: 14px" aria-hidden="true">
+<div class="sk sk-media"></div>
+<div class="sk sk-text" style="width: 40%"></div>
+<div class="sk sk-title" style="width: 75%"></div>
+<div class="sk sk-text" style="width: 60%"></div>
+<div class="sk sk-text" style="width: 30%; height: 18px"></div>
+</div><div style="display: flex; flex-direction: column; gap: 14px" aria-hidden="true">
+<div class="sk sk-media"></div>
+<div class="sk sk-text" style="width: 40%"></div>
+<div class="sk sk-title" style="width: 75%"></div>
+<div class="sk sk-text" style="width: 60%"></div>
+<div class="sk sk-text" style="width: 30%; height: 18px"></div>
+</div><div style="display: flex; flex-direction: column; gap: 14px" aria-hidden="true">
+<div class="sk sk-media"></div>
+<div class="sk sk-text" style="width: 40%"></div>
+<div class="sk sk-title" style="width: 75%"></div>
+<div class="sk sk-text" style="width: 60%"></div>
+<div class="sk sk-text" style="width: 30%; height: 18px"></div>
+</div><div style="display: flex; flex-direction: column; gap: 14px" aria-hidden="true">
+<div class="sk sk-media"></div>
+<div class="sk sk-text" style="width: 40%"></div>
+<div class="sk sk-title" style="width: 75%"></div>
+<div class="sk sk-text" style="width: 60%"></div>
+<div class="sk sk-text" style="width: 30%; height: 18px"></div>
+</div><div style="display: flex; flex-direction: column; gap: 14px" aria-hidden="true">
+<div class="sk sk-media"></div>
+<div class="sk sk-text" style="width: 40%"></div>
+<div class="sk sk-title" style="width: 75%"></div>
+<div class="sk sk-text" style="width: 60%"></div>
+<div class="sk sk-text" style="width: 30%; height: 18px"></div>
+</div></div>
+</div>
+</div>
+</div>
+</main>
+<footer class="site-footer">
+<div class="container" style="padding-top: 56px; padding-bottom: 32px; display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 14px; max-width: 320px">
+<a href="Home.html" style="display: inline-flex; align-items: center; gap: 10px; color: #FAF6EF; text-decoration: none" aria-label="Scentpocket home"><svg width="28" height="32" viewBox="0 0 100 116" fill="none" aria-hidden="true" style="flex-shrink: 0"><rect x="37" y="2" width="26" height="14" rx="4" fill="#FAF6EF"></rect><rect x="44" y="15" width="12" height="10" rx="1.5" fill="#FAF6EF"></rect><path d="M14 31 Q14 25 20 25 H80 Q86 25 86 31 V70 Q86 78 81 85 L69 104 Q65 112 56 112 H44 Q35 112 31 104 L19 85 Q14 78 14 70 Z" fill="#FAF6EF"></path><path d="M23 35 H77 V69 Q77 75 73 80 L62 98 Q59 103 53 103 H47 Q41 103 38 98 L27 80 Q23 75 23 69 Z" stroke="#1C1915" stroke-width="2.5" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"></path></svg><span style="font-family: var(--font-serif); font-size: 30px; line-height: 1; letter-spacing: -0.01em">scentpocket</span></a>
+<p style="font-size: 14px; line-height: 1.6; color: #CFC6B8">A Lagos fragrance shop where a ₦3,500 body spray and a Baccarat Rouge share the same shelf.</p>
+</div>
+<div style="display: flex; gap: 56px; flex-wrap: wrap; font-size: 14px">
+<div style="display: flex; flex-direction: column; gap: 10px"><span style="color: var(--gold); font-weight: 600">Shop</span><a href="Shop-Tier.html">Pocket</a><a href="Shop-Tier.html">Arabian Gems</a><a href="Shop-Tier.html">Designer</a><a href="Shop-Tier.html">Niche</a><a href="Dupes.html">Dupes</a></div>
+<div style="display: flex; flex-direction: column; gap: 10px"><span style="color: var(--gold); font-weight: 600">Help</span><a href="Terms.html">Delivery</a><a href="Terms.html">Returns</a><a href="Orders.html">My orders</a></div>
+<div style="display: flex; flex-direction: column; gap: 10px"><span style="color: var(--gold); font-weight: 600">Legal</span><a href="Privacy.html">Privacy Policy</a><a href="Terms.html">Terms of Service</a></div>
+</div>
+</div>
+<hr class="stitch stitch-light">
+<span style="font-size: 13px; color: #CFC6B8">© 2026 Scentpocket. A demo by Emmanuel Nwaohiri. Brand names and product names belong to their owners.</span>
+</div>
+</footer>
+<nav class="tabbar mob" aria-label="App">
+<a href="Home.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span>Home</span></a><a href="Shop.html" aria-current="page"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></svg><span>Shop</span></a><a href="Dupes.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3 4 7l4 4"></path><path d="M4 7h16"></path><path d="m16 21 4-4-4-4"></path><path d="M20 17H4"></path></svg><span>Dupes</span></a><a href="Orders.html"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg><span>Account</span></a>
+</nav>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+/* Scentpocket design tokens for Tailwind CSS v4.
+   Copy into src/styles/app.css. Values mirror docs/design/reference.css,
+   which is the visual source of truth used on the design canvas. */
+
+@import "tailwindcss";
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
+@import "@fontsource-variable/instrument-sans";
+
+@theme {
+  /* colour */
+  --color-ink: #1C1915;
+  --color-cream: #FAF6EF;
+  --color-surface: #FFFFFF;
+  --color-blush: #F3EADD;
+  --color-border: #E7DFD2;
+  --color-border-strong: #CFC4B3;
+  --color-muted: #5E564C;
+  --color-text-2: #4A433B;
+  --color-disabled: #8A8177;
+  --color-pocket: #B4532F;
+  --color-pocket-text: #A1462A;
+  --color-arabian: #9A6510;
+  --color-designer: #1F2F52;
+  --color-niche: #1C1915;
+  --color-gold: #C9A45C;
+  --color-success: #2F6B4F;
+  --color-danger: #9B2C2C;
+
+  /* type */
+  --font-serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --text-display: clamp(56px, 8vw, 112px);
+  --text-h1: clamp(44px, 6vw, 72px);
+  --text-h2: clamp(36px, 4.5vw, 56px);
+
+  /* radius */
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+
+  /* shadow */
+  --shadow-sm: 0 1px 2px rgb(28 25 21 / 0.06);
+  --shadow-md: 0 8px 24px -8px rgb(28 25 21 / 0.18);
+  --shadow-lg: 0 24px 64px -16px rgb(28 25 21 / 0.30);
+
+  /* motion (Emil Kowalski) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --animate-enter: sp-enter 240ms var(--ease-out) both;
+  --animate-shimmer: sp-shimmer 1.4s ease-in-out infinite;
+  @keyframes sp-enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @keyframes sp-shimmer { to { transform: translateX(100%); } }
+}
+
+/* z-index scale (use these, never arbitrary z values) */
+:root { --z-header: 30; --z-tabbar: 30; --z-drawer: 50; --z-dialog: 60; --z-toast: 70; --z-progress: 80; }
+
+/* mobile native baseline (emilkowalski/skills: mobile-native) */
+@layer base {
+  html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; background: var(--color-cream); }
+  body { background: var(--color-cream); color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; text-wrap: balance; letter-spacing: -0.01em; }
+  p { text-wrap: pretty; }
+  input, textarea, select { font-size: 16px; }
+  button, a, [role="button"] { touch-action: manipulation; }
+  button, [role="button"], [role="radio"], [role="tab"] { user-select: none; -webkit-user-select: none; }
+  :focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
+}
+
+/* Tailwind v4's hover: variant already compiles to @media (hover: hover).
+   Press feedback for every pressable: active:scale-[0.97] transition-transform duration-150 ease-[var(--ease-out)] */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; transition-property: opacity, color, background-color, border-color !important; }
+}

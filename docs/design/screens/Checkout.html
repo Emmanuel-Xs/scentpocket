@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FAF6EF">
+<title>Checkout · Scentpocket design</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="../reference.css">
+</head>
+<body>
+<div style="min-height: 100vh; display: flex; flex-direction: column; background: var(--cream)">
+<div class='demo-banner'>Demo store for HNG Internship. Nothing here is for sale.</div>
+<header class="site-header"><div class="container bar"><a href="Home.html" style="display: inline-flex; align-items: center; gap: 10px; color: #1C1915; text-decoration: none" aria-label="Scentpocket home"><svg width="26" height="30" viewBox="0 0 100 116" fill="none" aria-hidden="true" style="flex-shrink: 0"><rect x="37" y="2" width="26" height="14" rx="4" fill="#1C1915"></rect><rect x="44" y="15" width="12" height="10" rx="1.5" fill="#1C1915"></rect><path d="M14 31 Q14 25 20 25 H80 Q86 25 86 31 V70 Q86 78 81 85 L69 104 Q65 112 56 112 H44 Q35 112 31 104 L19 85 Q14 78 14 70 Z" fill="#1C1915"></path><path d="M23 35 H77 V69 Q77 75 73 80 L62 98 Q59 103 53 103 H47 Q41 103 38 98 L27 80 Q23 75 23 69 Z" stroke="#FAF6EF" stroke-width="2.5" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round"></path></svg><span style="font-family: var(--font-serif); font-size: 28px; line-height: 1; letter-spacing: -0.01em">scentpocket</span></a><span style="display: inline-flex; gap: 8px; align-items: center; font-size: 14px" class="text-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Secure checkout</span></div></header>
+<main style="flex: 1"><div class="container" style="padding-top: 32px; padding-bottom: 72px">
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 40px; align-items: start" class="checkout-layout">
+<form style="display: flex; flex-direction: column; gap: 28px" novalidate aria-busy="false">
+<div style="display: flex; flex-direction: column; gap: 8px"><a href="Cart.html" class="link link-quiet" style="font-size: 14px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg> Back to cart</a><h1 class="h1" style="font-size: clamp(40px, 5vw, 56px)">Checkout</h1></div>
+
+<section class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 18px">
+<h2 class="h3" style="font-size: 24px">1. Contact</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px">
+<div class="field"><label class="label" for="name">Full name</label><input id="name" class="input" type="text" value="Emmanuel Nwaohiri" autocomplete="name"></div>
+<div class="field"><label class="label" for="email">Email</label><input id="email" class="input" type="email" value="emmanuelxs101@gmail.com" readonly aria-describedby="email-msg" ><span id="email-msg" class="hint">From your Google account. Your receipt goes here.</span></div>
+</div>
+<div class="field"><label class="label" for="phone">Phone number</label><div class="input-group"><span class="input-prefix">+234</span><input id="phone" class="input" type="tel" value="0803 123 4567" aria-describedby="phone-msg" inputmode="tel" autocomplete="tel"></div><span id="phone-msg" class="hint">We call when the rider is close.</span></div>
+</section>
+<section class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 18px">
+<h2 class="h3" style="font-size: 24px">2. Delivery</h2>
+<div class="field"><label class="label" for="address">Address</label><input id="address" class="input" type="text" value="12 Ikorodu Road, Fadeyi" placeholder="House number and street" autocomplete="street-address"></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px">
+<div class="field"><label class="label" for="city">City</label><input id="city" class="input" type="text" value="Yaba" autocomplete="address-level2"></div>
+<div class="field"><label class="label" for="state">State</label><select id="state" class="select input"><option selected>Lagos</option><option>Ogun</option><option>Oyo</option><option>FCT Abuja</option><option>Rivers</option><option>Other</option></select></div>
+</div>
+<fieldset style="border: 0; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px"><legend class="label" style="margin-bottom: 10px">Delivery zone</legend><div style="display: flex; flex-wrap: wrap; gap: 10px"><label class="radio-card is-checked" style="flex: 1 1 180px">
+<span class="radio-dot" aria-hidden="true"></span><input type="radio" name="zone" class="sr-only" checked >
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Lagos Mainland</span><span class="text-2" style="font-size: 14px"><span class="price">₦3,000</span> · 1 to 2 working days</span></span></label><label class="radio-card" style="flex: 1 1 180px">
+<span class="radio-dot" aria-hidden="true"></span><input type="radio" name="zone" class="sr-only"  >
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Lagos Island</span><span class="text-2" style="font-size: 14px"><span class="price">₦4,500</span> · 1 to 2 working days</span></span></label><label class="radio-card" style="flex: 1 1 180px">
+<span class="radio-dot" aria-hidden="true"></span><input type="radio" name="zone" class="sr-only"  >
+<span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Outside Lagos</span><span class="text-2" style="font-size: 14px"><span class="price">₦7,000</span> · 3 to 5 working days</span></span></label></div></fieldset>
+</section>
+<section class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<h2 class="h3" style="font-size: 24px">3. Payment</h2>
+<label class="radio-card is-checked"><span class="radio-dot" aria-hidden="true"></span><input type="radio" name="pay" class="sr-only" checked><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Pay on delivery</span><span class="text-2" style="font-size: 14px">Cash or bank transfer to the rider when your scent arrives.</span></span><span style="margin-left: auto"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="12" x="2" y="6" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg></span></label>
+<div class="radio-card" aria-disabled="true" style="opacity: 0.6; cursor: not-allowed"><span class="radio-dot" aria-hidden="true"></span><span style="display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 600">Card or transfer with Paystack</span><span class="text-2" style="font-size: 14px">Coming soon</span></span></div>
+</section>
+<div class="desk" style="display: flex; flex-direction: column; gap: 12px"><a href="Checkout-Errors.html" class="btn btn-primary btn-lg btn-block">Place order · ₦98,500</a><p class="muted" style="font-size: 13px; text-align: center">Demo store: no real order is created and nothing is delivered.</p></div>
+</form>
+<aside class="card" style="padding: 24px; display: flex; flex-direction: column; gap: 18px; position: sticky; top: 96px" aria-label="Order summary">
+<div style="display: flex; justify-content: space-between; align-items: center"><h2 class="h3" style="font-size: 26px">Order summary</h2><a href="Cart.html" class="link" style="font-size: 14px">Edit</a></div>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px"><li style="display: flex; gap: 12px; align-items: center">
+<span style="width: 56px; height: 68px; border-radius: 12px; background: #9A651014; display: grid; place-items: center; position: relative; flex-shrink: 0"><svg width="37" height="52" viewBox="0 0 100 140" fill="none" role="img" aria-label="Product photo placeholder"><circle cx="50" cy="16" r="12" fill="#C9A45C"></circle><rect x="44" y="26" width="12" height="10" fill="#C9A45C"></rect><path d="M14 52 Q14 36 30 36 H70 Q86 36 86 52 V122 Q86 136 72 136 H28 Q14 136 14 122 Z" fill="#9A6510"></path><rect x="32" y="74" width="36" height="22" rx="3" fill="#FAF6EF" opacity="0.85"></rect></svg><span class="num" style="position: absolute; top: -6px; right: -6px; min-width: 22px; height: 22px; border-radius: 999px; background: var(--ink); color: var(--cream); font-size: 12px; font-weight: 600; display: grid; place-items: center">2</span></span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">Khamrah</span><span class="muted" style="font-size: 13px">Lattafa · 100ml</span></span>
+<span class="price">₦84,000</span></li><li style="display: flex; gap: 12px; align-items: center">
+<span style="width: 56px; height: 68px; border-radius: 12px; background: #B4532F14; display: grid; place-items: center; position: relative; flex-shrink: 0"><svg width="37" height="52" viewBox="0 0 100 140" fill="none" role="img" aria-label="Product photo placeholder"><rect x="34" y="4" width="32" height="10" rx="4" fill="#1C1915"></rect><rect x="38" y="14" width="24" height="16" fill="#9A9187"></rect><rect x="28" y="30" width="44" height="106" rx="8" fill="#B4532F"></rect><rect x="34" y="66" width="32" height="30" rx="2" fill="#FAF6EF" opacity="0.85"></rect></svg><span class="num" style="position: absolute; top: -6px; right: -6px; min-width: 22px; height: 22px; border-radius: 999px; background: var(--ink); color: var(--cream); font-size: 12px; font-weight: 600; display: grid; place-items: center">1</span></span>
+<span style="flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0"><span style="font-weight: 600">Club de Nuit Untold</span><span class="muted" style="font-size: 13px">Armaf · 250ml</span></span>
+<span class="price">₦11,500</span></li></ul>
+<hr class="stitch">
+<dl style="margin: 0; display: grid; grid-template-columns: 1fr auto; gap: 10px; font-size: 15px">
+<dt class="text-2">Subtotal</dt><dd class="price" style="margin: 0">₦95,500</dd>
+<dt class="text-2">Delivery · Lagos Mainland</dt><dd class="price" style="margin: 0">₦3,000</dd>
+<dt style="font-weight: 600; font-size: 17px; padding-top: 6px">Total</dt><dd class="price" style="margin: 0; font-size: 22px; padding-top: 6px">₦98,500</dd>
+</dl>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 14px; border-radius: var(--r-lg); background: var(--blush)"><span style="font-size: 14px">Add <strong class="num">₦204,500</strong> more for free delivery</span><div class="progress" style="background: var(--surface)"><span style="transform: scaleX(0.32)"></span></div></div>
+</aside>
+</div>
+</div>
+<div class="mob" style="position: sticky; bottom: 0; z-index: 31; background: var(--surface); border-top: 1px solid var(--border); padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px))"><a href="Checkout-Errors.html" class="btn btn-primary btn-lg btn-block">Place order · ₦98,500</a></div></main>
+</div>
+</body>
+</html>
