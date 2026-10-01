@@ -16,6 +16,17 @@ export const Route = createFileRoute('/auth/callback')({
     handlers: {
       GET: async ({ request }) => {
         const url = new URL(request.url)
+        console.log(
+          '[auth/callback] hit',
+          JSON.stringify({
+            hasCode: url.searchParams.has('code'),
+            next: url.searchParams.get('next'),
+            referer: request.headers.get('referer'),
+            hasVerifierCookie: (request.headers.get('cookie') ?? '').includes(
+              'code-verifier',
+            ),
+          }),
+        )
         const code = url.searchParams.get('code')
         const next = safeNext(url.searchParams.get('next'))
         if (!code) {
@@ -59,6 +70,7 @@ export const Route = createFileRoute('/auth/callback')({
             },
           })
 
+        console.log('[auth/callback] ok, redirecting to', next)
         return redirectTo(next)
       },
     },

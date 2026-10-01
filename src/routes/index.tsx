@@ -2,6 +2,7 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute, redirect } from '@tanstack/react-router'
 import { z } from 'zod'
 import { safeNext } from '#/features/auth/next'
+import { logStrayCode } from '#/features/auth/server/diagnostics'
 import { homeQueryOptions } from '#/features/catalog/queries'
 import { DupesStrip } from '#/features/home/components/DupesStrip'
 import { Featured } from '#/features/home/components/Featured'
@@ -16,8 +17,9 @@ export const Route = createFileRoute('/')({
     code: z.string().optional().catch(undefined),
     next: z.string().optional().catch(undefined),
   }),
-  beforeLoad: ({ context, search }) => {
+  beforeLoad: async ({ context, search }) => {
     if (!search.code) return
+    await logStrayCode()
     // An explicit href, so the query string is really dropped (a search-less `to` kept it and looped).
     if (context.user) throw redirect({ href: '/' })
     const next = encodeURIComponent(safeNext(search.next))
