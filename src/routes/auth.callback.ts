@@ -18,12 +18,21 @@ export const Route = createFileRoute('/auth/callback')({
         const url = new URL(request.url)
         const code = url.searchParams.get('code')
         const next = safeNext(url.searchParams.get('next'))
-        if (!code) return redirectTo('/sign-in?error=auth')
+        if (!code) {
+          console.error('[auth/callback] no code in the request')
+          return redirectTo('/sign-in?error=auth')
+        }
 
         const supabase = createSupabaseServerClient()
         const { data, error } = await supabase.auth.exchangeCodeForSession(code)
         const user = data.user
-        if (error || !user?.email) return redirectTo('/sign-in?error=auth')
+        if (error || !user?.email) {
+          console.error(
+            '[auth/callback] code exchange failed:',
+            error?.message ?? 'no user email',
+          )
+          return redirectTo('/sign-in?error=auth')
+        }
 
         const email = user.email.toLowerCase()
         const meta = user.user_metadata as Record<string, unknown>
