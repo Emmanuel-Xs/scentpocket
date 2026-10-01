@@ -2,7 +2,7 @@ import { asc, eq } from 'drizzle-orm'
 import { getDb } from '#/db/client'
 import { productImages, productVariants, products } from '#/db/schema'
 import { productImageUrl } from '#/features/images/url'
-import type { ProductCardData } from '../types'
+import type { DupePair, ProductCardData } from '../types'
 
 /** Every active product as card data, plus the dupe link, in one pass (16 rows). */
 export async function loadActiveCards() {
@@ -36,6 +36,7 @@ export async function loadActiveCards() {
       featuredRank: p.featuredRank,
       createdAt: p.createdAt.getTime(),
       notes: p.topNotes.slice(0, 3),
+      allNotes: [...p.topNotes, ...p.heartNotes, ...p.baseNotes],
       fromKobo: Math.min(...priced.map((v) => v.priceKobo)),
       multiSize: variants.length > 1,
       soldOut: inStock.length === 0,
@@ -52,4 +53,26 @@ export async function loadActiveCards() {
     }
     return { card, inspiredById: p.inspiredById, featuredRank: p.featuredRank }
   })
+}
+
+/** Every dupe link as a pair, biggest saving first. */
+export function buildDupePairs(
+  rows: Awaited<ReturnType<typeof loadActiveCards>>,
+): DupePair[] {
+  const byId = new Map(rows.map((r) => [r.card.id, r.card]))
+  return rows
+    .flatMap<DupePair>((r) => {
+      const original = r.inspiredById ? byId.get(r.inspiredById) : undefined
+      if (!original) return []
+      const savingKobo = Math.max(0, original.fromKobo - r.card.fromKobo)
+      return [
+        {
+          original,
+          dupe: r.card,
+          savingKobo,
+          savingPercent: Math.round((savingKobo / original.fromKobo) * 100),
+        },
+      ]
+    })
+    .sort((a, b) => b.savingKobo - a.savingKobo)
 }

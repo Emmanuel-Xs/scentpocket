@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 1: Catalog** → **Phase 1** (next: 1.8; 0.9 skipped) |
+| Current phase | **Phase 2: Cart and auth** (next: 2.1; 0.9 skipped) |
 | Last updated | Thu 1 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.netlify.app  |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
@@ -56,7 +56,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 - [x] 1.5 Home: hero (preloaded), tier cards, dupes strip, trust strip
 - [x] 1.6 `/shop`: search params schema, filters, sort, search, grid, empty state
 - [x] 1.7 `/p/$slug`: size buttons, notes, meters, chips, dupes, same tier row, sticky buy bar (phone), sold out + dupe states, 404
-- [ ] 1.8 Skeletons for shop and product (`pendingMs: 300`, `pendingMinMs: 500`); search dialog (`/` shortcut, no animation on keys); `/dupes` page
+- [x] 1.8 Skeletons for shop and product (`pendingMs: 300`, `pendingMinMs: 500`); search dialog (`/` shortcut, no animation on keys); `/dupes` page
 
 ### Phase 2: Cart and auth (Thu evening)
 - [ ] 2.1 Zustand cart store with persist, `getCartLines` server function, reconciliation
@@ -112,6 +112,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ## Progress log
 Newest first. One line per finished step: date, step, note.
 
+- 2026-10-01 · 1.8 · Search dialog (`features/search`: Radix Dialog, `/` opens instantly with no animation, arrow keys + Enter + Esc, scents and notes with highlight, popular when empty, Enter with no match browses `/shop?q=`), header buttons open it, search now also matches notes (card `allNotes`). `/dupes` page with all 3 pairs (`DupeCard` shared with home, `getDupePairs`). Fixed missing `--color-info` and `--color-overlay` tokens (drawer overlay and inspired-by alert were unstyled). Skeletons for shop/product were done in 1.6/1.7. Added dep @radix-ui/react-dialog. Tests: 18 pass
 - 2026-10-01 · 1.7 · `/p/$slug`: `getProduct` server fn (Zod slug, 404 via notFound for unknown or inactive), gallery, size radiogroup (sold out dashed + struck, per-ml in whole naira), stepper capped by stock and 10, Add to cart wired to a first Zustand cart store (`features/cart/store.ts`, persisted, ids + qty only; drawer, server lookup and reconciliation come in 2.1/2.2), toast, notes pyramid, meters, chips, inspired-by alert, dupe callout, sold-out alert with dupe CTA, More {tier} row, phone sticky buy bar (tab bar hidden), skeleton. `lib/config.ts` has the free delivery threshold. Product has no `<link>` JSON-LD yet (5.2). Only one photo per product so thumbs render only when there are 2+. Tests: 15 pass. Added dep zustand
 - 2026-10-01 · 1.6 · `/shop`: `getShopProducts` server fn returns all 16 cards; `filter.ts` (pure, unit tested) does tier/gender/family/occasion/q/sort; all state in Zod-validated URL params (invalid values fall back, 307 to a clean URL). Desktop sidebar, phone tier scroller + Vaul bottom sheet (`components/ui/drawer.tsx`, reused by the cart in 2.2), tier banner, empty state with Clear filters + suggestions, skeleton as `pendingComponent` (`.sk` shimmer in app.css). Added dep `vaul`. Single select per filter (tier is one at a time). Tests: 12 pass
 - 2026-10-01 · 1.5 · Home from the seeded catalog: `getHomeData` server fn (`features/catalog/server`), TanStack Query + SSR integration in router context, `lib/money.ts` formatKobo (+ tests), shared `ProductCard`/`TierChip`/`tiers.ts`, home sections in `features/home/components` (hero price ladder, tier cards, dupes strip, Lagos is wearing, trust strip). Photos use mix-blend-multiply on tier tints so white backgrounds disappear. No entrance stagger on SSR paint (rule 8). Hero LCP image has fetchpriority high but no `<link rel=preload>` yet (add in 5.2). `/p/$slug` is a stub until 1.7. Added deps @tanstack/react-query and @tanstack/react-router-ssr-query

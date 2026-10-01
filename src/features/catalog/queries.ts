@@ -1,5 +1,6 @@
 import { queryOptions } from '@tanstack/react-query'
 import { getHomeData } from './server/home'
+import { getDupePairs } from './server/dupes'
 import { getProduct } from './server/product'
 import { getShopProducts } from './server/shop'
 
@@ -22,4 +23,11 @@ export const productQueryOptions = (slug: string) =>
     queryKey: ['catalog', 'product', slug],
     queryFn: () => getProduct({ data: { slug } }),
     staleTime: 30_000,
+  })
+
+export const dupesQueryOptions = () =>
+  queryOptions({
+    queryKey: ['catalog', 'dupes'],
+    queryFn: () => getDupePairs(),
+    staleTime: 60_000,
   })

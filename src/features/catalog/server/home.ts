@@ -1,7 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { tiers } from '../schemas'
-import type { DupePair, HomeData } from '../types'
-import { loadActiveCards } from './cards'
+import type { HomeData } from '../types'
+import { buildDupePairs, loadActiveCards } from './cards'
 
 /** One product per tier, cheapest to priciest, for the hero price ladder. */
 const LADDER_SLUGS = [
@@ -17,26 +17,10 @@ export const getHomeData = createServerFn({ method: 'GET' }).handler(
   async (): Promise<HomeData> => {
     const rows = await loadActiveCards()
     const bySlug = new Map(rows.map((r) => [r.card.slug, r.card]))
-    const byId = new Map(rows.map((r) => [r.card.id, r.card]))
 
     const ladder = LADDER_SLUGS.flatMap((slug) => bySlug.get(slug) ?? [])
 
-    const dupes = rows
-      .flatMap<DupePair>((r) => {
-        const original = r.inspiredById ? byId.get(r.inspiredById) : undefined
-        if (!original) return []
-        const savingKobo = Math.max(0, original.fromKobo - r.card.fromKobo)
-        return [
-          {
-            original,
-            dupe: r.card,
-            savingKobo,
-            savingPercent: Math.round((savingKobo / original.fromKobo) * 100),
-          },
-        ]
-      })
-      .sort((a, b) => b.savingKobo - a.savingKobo)
-      .slice(0, HOME_DUPES)
+    const dupes = buildDupePairs(rows).slice(0, HOME_DUPES)
 
     const featured = rows
       .filter((r) => r.featuredRank !== null)

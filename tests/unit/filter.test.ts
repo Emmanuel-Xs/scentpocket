@@ -3,6 +3,8 @@ import { applyShopSearch, hasActiveFilters } from '#/features/catalog/filter'
 import { shopSearchSchema } from '#/features/catalog/schemas'
 import type { ProductCardData } from '#/features/catalog/types'
 
+import { searchCatalog } from '#/features/search/search'
+
 function product(over: Partial<ProductCardData>): ProductCardData {
   return {
     id: over.slug ?? 'x',
@@ -16,6 +18,7 @@ function product(over: Partial<ProductCardData>): ProductCardData {
     featuredRank: null,
     createdAt: 0,
     notes: [],
+    allNotes: [],
     fromKobo: 1000,
     multiSize: false,
     soldOut: false,
@@ -91,6 +94,13 @@ describe('applyShopSearch', () => {
     expect(applyShopSearch(catalog, { q: 'nothing' })).toEqual([])
   })
 
+  it('also matches notes', () => {
+    const withNotes = [
+      product({ slug: 'n', name: 'N', allNotes: ['Saffron', 'Cedar'] }),
+    ]
+    expect(applyShopSearch(withNotes, { q: 'saff' })).toHaveLength(1)
+  })
+
   it('sorts by price and newest', () => {
     expect(
       applyShopSearch(catalog, { sort: 'price_asc' }).map((p) => p.slug),
@@ -127,5 +137,33 @@ describe('hasActiveFilters', () => {
   it('ignores sort and blank search', () => {
     expect(hasActiveFilters({ sort: 'price_asc', q: '  ' })).toBe(false)
     expect(hasActiveFilters({ tier: 'niche' })).toBe(true)
+  })
+})
+
+describe('searchCatalog', () => {
+  const items = [
+    product({
+      slug: 'a',
+      name: 'Khamrah',
+      brand: 'Lattafa',
+      allNotes: ['Cinnamon', 'Dates'],
+    }),
+    product({
+      slug: 'b',
+      name: 'Asad',
+      brand: 'Lattafa',
+      allNotes: ['Cinnamon'],
+    }),
+    product({ slug: 'c', name: 'Layton', brand: 'PDM', allNotes: ['Apple'] }),
+  ]
+
+  it('returns nothing for an empty query', () => {
+    expect(searchCatalog(items, '  ')).toEqual({ scents: [], notes: [] })
+  })
+
+  it('finds scents and counts notes', () => {
+    const res = searchCatalog(items, 'cinn')
+    expect(res.scents.map((p) => p.slug)).toEqual(['a', 'b'])
+    expect(res.notes).toEqual([{ note: 'Cinnamon', count: 2 }])
   })
 })

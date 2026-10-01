@@ -26,6 +26,8 @@
   --color-gold: #c9a45c;
   --color-success: #2f6b4f;
   --color-danger: #9b2c2c;
+  --color-info: #1f2f52;
+  --color-overlay: rgb(28 25 21 / 0.45);
 
   /* type */
   --font-serif: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
@@ -54,6 +56,7 @@
 
   --animate-enter: sp-enter 240ms var(--ease-out) both;
   --animate-progress: sp-progress 1.6s var(--ease-out) forwards;
+  --animate-pop: sp-pop-in 180ms var(--ease-out) both;
   --animate-shimmer: sp-shimmer 1.4s ease-in-out infinite;
   @keyframes sp-enter {
     from {
@@ -74,6 +77,16 @@
     }
     100% {
       transform: scaleX(0.9);
+    }
+  }
+  @keyframes sp-pop-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
     }
   }
   @keyframes sp-shimmer {

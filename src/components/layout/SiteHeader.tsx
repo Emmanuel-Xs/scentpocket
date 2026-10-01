@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { Search, User } from 'lucide-react'
+import { useSearchStore } from '#/features/search/store'
 import { Logo } from './Logo'
 
 const pressable =
@@ -10,6 +11,7 @@ const navLink =
 
 /** Sticky blurred header. Cart pill arrives with the cart drawer (2.2), search dialog with 1.8. */
 export function SiteHeader() {
+  const show = useSearchStore((s) => s.show)
   return (
     <header className="sticky top-0 z-(--z-header) border-b border-border bg-cream/92 pt-[env(safe-area-inset-top,0px)] backdrop-blur-md backdrop-saturate-150">
       <div className="page-container flex min-h-(--header-h) items-center justify-between gap-4">
@@ -31,8 +33,9 @@ export function SiteHeader() {
           </nav>
         </div>
         <div className="flex items-center gap-1.5">
-          <Link
-            to="/shop"
+          <button
+            type="button"
+            onClick={() => show()}
             aria-label="Search scents"
             className={`hidden min-h-11 min-w-55 items-center gap-2.5 rounded-pill border border-border bg-surface px-4 text-sm text-muted transition-colors duration-180 hover:border-ink hover:text-ink md:inline-flex ${pressable}`}
           >
@@ -41,14 +44,15 @@ export function SiteHeader() {
             <kbd className="ml-auto rounded-md border border-border px-1.5 py-0.5 text-xs font-medium">
               /
             </kbd>
-          </Link>
-          <Link
-            to="/shop"
+          </button>
+          <button
+            type="button"
+            onClick={() => show()}
             aria-label="Search"
             className={`inline-flex size-11 items-center justify-center rounded-pill md:hidden ${pressable}`}
           >
             <Search size={22} strokeWidth={1.5} aria-hidden="true" />
-          </Link>
+          </button>
           <Link
             to="/sign-in"
             aria-label="Account"

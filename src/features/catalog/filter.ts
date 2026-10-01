@@ -13,7 +13,7 @@ export function applyShopSearch(
     if (search.gender && p.gender !== search.gender) return false
     if (search.family && p.family !== search.family) return false
     if (search.occasion && !p.occasions.includes(search.occasion)) return false
-    if (q && !`${p.brand} ${p.name}`.toLowerCase().includes(q)) return false
+    if (q && !matchesQuery(p, q)) return false
     return true
   })
 
@@ -34,6 +34,13 @@ export function applyShopSearch(
         )
     }
   })
+}
+
+/** Brand, name or any note. `q` must already be lower case. */
+export function matchesQuery(p: ProductCardData, q: string): boolean {
+  return `${p.brand} ${p.name} ${p.allNotes.join(' ')}`
+    .toLowerCase()
+    .includes(q)
 }
 
 export function hasActiveFilters(search: ShopSearch): boolean {

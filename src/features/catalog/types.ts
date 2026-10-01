@@ -30,6 +30,8 @@ export type ProductCardData = {
   createdAt: number
   /** First three top notes, for the card subtitle. */
   notes: string[]
+  /** Top, heart and base notes together, for search. */
+  allNotes: string[]
   /** Cheapest in-stock variant (cheapest overall when everything is sold out). */
   fromKobo: number
   /** More than one size: show "from". */
