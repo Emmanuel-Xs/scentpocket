@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 2: Cart and auth** **Phase 4: Email and admin** (next: 4.2; 2.6 half done; 0.9 skipped) |
+| Current phase | **Phase 4: Email and admin** (next: 4.2; 2.6 half done; 0.9 skipped) |
 | Last updated | Thu 1 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.netlify.app  |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
