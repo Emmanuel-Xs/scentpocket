@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 2: Cart and auth** (next: 2.3; 0.9 skipped) |
+| Current phase | **Phase 2: Cart and auth** (next: 2.3 manual setup, then 2.6; 0.9 skipped) |
 | Last updated | Thu 1 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.netlify.app  |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
@@ -61,9 +61,9 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ### Phase 2: Cart and auth (Thu evening)
 - [x] 2.1 Zustand cart store with persist, `getCartLines` server function, reconciliation
 - [x] 2.2 Cart drawer (Vaul: right on desk, bottom sheet on phone), header count, free delivery progress, NumberFlow subtotal, empty + changed states
-- [ ] 2.3 Google Cloud OAuth client + Supabase Google provider + URL config (docs/SETUP.md §4 to §5)
-- [ ] 2.4 Supabase server client, `/sign-in`, `/auth/callback`, profile upsert, owner from `ADMIN_EMAILS`
-- [ ] 2.5 Root `beforeLoad` user, `_authed` and `_admin` layouts, avatar menu, sign out
+- [ ] 2.3 (GCP project `scentpocket-hng` created via gcloud; consent screen, web client, Supabase provider and URL config are manual, see the log) Google Cloud OAuth client + Supabase Google provider + URL config (docs/SETUP.md §4 to §5)
+- [x] 2.4 Supabase server client, `/sign-in`, `/auth/callback`, profile upsert, owner from `ADMIN_EMAILS`
+- [x] 2.5 Root `beforeLoad` user, `_authed` and `_admin` layouts, avatar menu, sign out
 - [ ] 2.6 **Publish Google app to production**; test sign in with a Gmail that isn't yours on the live URL
 
 ### Phase 3: Checkout and orders (Fri morning)
@@ -112,6 +112,8 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ## Progress log
 Newest first. One line per finished step: date, step, note.
 
+- 2026-10-01 · 2.4, 2.5 · Auth code: `features/auth` (`@supabase/ssr` server client that passes cookie options through, `readSessionUser` via `getUser()` + profiles role, `requireUser`/`requireAdmin`, `startGoogleSignIn`/`signOut`/`getSessionUser` server fns), `/auth/callback` server route (exchange code, upsert profile, owner from ADMIN_EMAILS, `safeNext` open-redirect guard, tested), `/sign-in` (design, loading state, error alert, redirects if already signed in), root `beforeLoad` puts `user` in context, `_authed` and `_admin` layouts, avatar `AccountMenu` (My orders, Admin for admins, Sign out), stubs `/account/orders` and `/admin`. Verified without Google: guards 307 to `/sign-in?next=`, callback without a valid code goes to `/sign-in?error=auth`, the button reaches Supabase `/auth/v1/authorize` with PKCE + callback redirect. NOT verified: a real sign in (needs 2.3). Added dep @radix-ui/react-dropdown-menu. Tests: 26 pass
+- 2026-10-01 · 2.3 (partly) · gcloud project `scentpocket-hng` (number 835505533302) created. gcloud cannot create a web OAuth client or the consent screen; Supabase token on disk is read only (403 on auth config)
 - 2026-10-01 · 2.1, 2.2 · Cart: `getCartLines` server fn (Zod uuid array, max 50; absent = gone or inactive), pure `reconcileCart` + `cartSubtotalKobo` (tested), `CartSync` fixes the persisted cart when the server disagrees (drops sold out, clamps to stock and 10) and says why via toast + a notice in the drawer. `CartDrawer` (Vaul: right on desktop, bottom sheet on phone) with lines, steppers, remove, free delivery progress, NumberFlow subtotal, empty and loading states; header `CartButton` with count; Add to cart now opens the drawer. Checked at 1440 and 390. Added dep @number-flow/react. Drawer's Checkout button links to /sign-in until /checkout exists (3.2). Tests: 23 pass
 - 2026-10-01 · 1.8 · Search dialog (`features/search`: Radix Dialog, `/` opens instantly with no animation, arrow keys + Enter + Esc, scents and notes with highlight, popular when empty, Enter with no match browses `/shop?q=`), header buttons open it, search now also matches notes (card `allNotes`). `/dupes` page with all 3 pairs (`DupeCard` shared with home, `getDupePairs`). Fixed missing `--color-info` and `--color-overlay` tokens (drawer overlay and inspired-by alert were unstyled). Skeletons for shop/product were done in 1.6/1.7. Added dep @radix-ui/react-dialog. Tests: 18 pass
 - 2026-10-01 · 1.7 · `/p/$slug`: `getProduct` server fn (Zod slug, 404 via notFound for unknown or inactive), gallery, size radiogroup (sold out dashed + struck, per-ml in whole naira), stepper capped by stock and 10, Add to cart wired to a first Zustand cart store (`features/cart/store.ts`, persisted, ids + qty only; drawer, server lookup and reconciliation come in 2.1/2.2), toast, notes pyramid, meters, chips, inspired-by alert, dupe callout, sold-out alert with dupe CTA, More {tier} row, phone sticky buy bar (tab bar hidden), skeleton. `lib/config.ts` has the free delivery threshold. Product has no `<link>` JSON-LD yet (5.2). Only one photo per product so thumbs render only when there are 2+. Tests: 15 pass. Added dep zustand

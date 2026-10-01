@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | ⬜ not started |
+| Status | 🟨 code done (2.4, 2.5); Google + Supabase dashboard setup (2.3) and live test (2.6) pending |
 | FRD | [F4](../../docs/FRD.md) |
 | Steps | 2.3 to 2.6 in [context/README.md](../README.md) |
 | Decisions | D4, D10, D26, D28, D29 ([DECISIONS.md](../../docs/DECISIONS.md)) |
@@ -18,7 +18,7 @@
 * Popup shows the supabase.co domain: known, ignored
 
 ## Files
-_List key files here as they're created._
+* `src/features/auth/*`, `src/routes/{sign-in,auth.callback,_authed,_admin}.tsx`, `src/routes/_authed/account.orders.tsx`, `src/routes/_admin/admin.index.tsx`
 
 ## Progress
 _Newest first: date · what changed · what's next._

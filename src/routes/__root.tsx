@@ -8,10 +8,14 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import { AppShell } from '#/components/layout/AppShell'
+import { userQueryOptions } from '#/features/auth/queries'
 import appCss from '../styles/app.css?url'
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
+    beforeLoad: async ({ context }) => ({
+      user: await context.queryClient.ensureQueryData(userQueryOptions()),
+    }),
     head: () => ({
       meta: [
         {

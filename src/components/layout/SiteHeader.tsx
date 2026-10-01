@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
-import { Search, User } from 'lucide-react'
+import { Search } from 'lucide-react'
+import { AccountMenu } from '#/features/auth/components/AccountMenu'
 import { CartButton } from '#/features/cart/components/CartButton'
 import { useSearchStore } from '#/features/search/store'
 import { Logo } from './Logo'
@@ -55,13 +56,7 @@ export function SiteHeader() {
             <Search size={22} strokeWidth={1.5} aria-hidden="true" />
           </button>
           <CartButton />
-          <Link
-            to="/sign-in"
-            aria-label="Account"
-            className={`inline-flex size-11 items-center justify-center rounded-pill ${pressable}`}
-          >
-            <User size={22} strokeWidth={1.5} aria-hidden="true" />
-          </Link>
+          <AccountMenu />
         </div>
       </div>
     </header>
