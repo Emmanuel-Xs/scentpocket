@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | ⬜ not started |
+| Status | 🟨 home done (1.5); shop, filters pending (1.6) |
 | FRD | [F1](../../docs/FRD.md) |
 | Steps | 1.4, 1.5, 1.6 in [context/README.md](../README.md) |
 | Decisions | D6, D7, D21, D23 ([DECISIONS.md](../../docs/DECISIONS.md)) |
@@ -18,7 +18,8 @@
 * Inactive products never public
 
 ## Files
-_List key files here as they're created._
+* `src/features/catalog/{schemas,types,tiers,queries}.ts`, `server/{cards,home}.ts`, `components/{ProductCard,TierChip}.tsx`
+* `src/features/home/components/*`, `src/routes/index.tsx`
 
 ## Progress
-_Newest first: date · what changed · what's next._
+2026-10-01 · 1.5 home built and checked at 390 and 1440. Next: /shop (1.6) reusing ProductCard and loadActiveCards.
