@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 1: Catalog** → **Phase 1** (next: 1.6; 0.9 skipped) |
+| Current phase | **Phase 1: Catalog** → **Phase 1** (next: 1.7; 0.9 skipped) |
 | Last updated | Thu 1 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.netlify.app  |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
@@ -54,7 +54,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 - [x] 1.3 Netlify Image CDN check on the live deploy (fallback decided if it fails)
 - [x] 1.4 Layout shell: demo banner, sticky header, footer, phone tab bar (safe areas), route progress bar, Sonner toaster, error + 404 components (cart pill comes with 2.2, search dialog with 1.8; /shop, /dupes, /sign-in are stubs until 1.6, 1.8, 2.4)
 - [x] 1.5 Home: hero (preloaded), tier cards, dupes strip, trust strip
-- [ ] 1.6 `/shop`: search params schema, filters, sort, search, grid, empty state
+- [x] 1.6 `/shop`: search params schema, filters, sort, search, grid, empty state
 - [ ] 1.7 `/p/$slug`: size buttons, notes, meters, chips, dupes, same tier row, sticky buy bar (phone), sold out + dupe states, 404
 - [ ] 1.8 Skeletons for shop and product (`pendingMs: 300`, `pendingMinMs: 500`); search dialog (`/` shortcut, no animation on keys); `/dupes` page
 
@@ -112,6 +112,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ## Progress log
 Newest first. One line per finished step: date, step, note.
 
+- 2026-10-01 · 1.6 · `/shop`: `getShopProducts` server fn returns all 16 cards; `filter.ts` (pure, unit tested) does tier/gender/family/occasion/q/sort; all state in Zod-validated URL params (invalid values fall back, 307 to a clean URL). Desktop sidebar, phone tier scroller + Vaul bottom sheet (`components/ui/drawer.tsx`, reused by the cart in 2.2), tier banner, empty state with Clear filters + suggestions, skeleton as `pendingComponent` (`.sk` shimmer in app.css). Added dep `vaul`. Single select per filter (tier is one at a time). Tests: 12 pass
 - 2026-10-01 · 1.5 · Home from the seeded catalog: `getHomeData` server fn (`features/catalog/server`), TanStack Query + SSR integration in router context, `lib/money.ts` formatKobo (+ tests), shared `ProductCard`/`TierChip`/`tiers.ts`, home sections in `features/home/components` (hero price ladder, tier cards, dupes strip, Lagos is wearing, trust strip). Photos use mix-blend-multiply on tier tints so white backgrounds disappear. No entrance stagger on SSR paint (rule 8). Hero LCP image has fetchpriority high but no `<link rel=preload>` yet (add in 5.2). `/p/$slug` is a stub until 1.7. Added deps @tanstack/react-query and @tanstack/react-router-ssr-query
 - 2026-10-01 · 1.4 · `components/layout/*` (Logo, DemoBanner, SiteHeader, TabBar, SiteFooter, RouteProgress, Toaster via Sonner, NotFound, ErrorPage, AppShell), router defaults (pendingMs 300, pendingMinMs 500, error + 404), `features/catalog/schemas.ts` shop search schema, `lib/utils.ts` cn(), stub routes shop/dupes/sign-in. Checked at 390 and 1440 against the export. Dev server now skips the Netlify plugin (it crashes without Deno). shadcn init NOT run yet (it would rewrite app.css tokens); run `npx shadcn add` by hand when the drawer is needed (2.2)
 - 2026-10-01 · 1.3 · Netlify Image CDN works on the live deploy: `/.netlify/images?url=<supabase public url>&w=200&fm=webp` returns 200 image/webp, cache-control max-age=31536000. No fallback needed

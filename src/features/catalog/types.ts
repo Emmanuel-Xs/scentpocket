@@ -1,6 +1,9 @@
-import type { tiers } from './schemas'
+import type { families, genders, occasions, tiers } from './schemas'
 
 export type Tier = (typeof tiers)[number]
+export type Gender = (typeof genders)[number]
+export type Occasion = (typeof occasions)[number]
+export type Family = (typeof families)[number]
 
 export type CardImage = {
   /** Public Supabase URL. */
@@ -18,6 +21,13 @@ export type ProductCardData = {
   name: string
   brand: string
   tier: Tier
+  gender: Gender
+  family: Family
+  occasions: Occasion[]
+  /** Lower sorts first; null when not featured. */
+  featuredRank: number | null
+  /** Epoch ms, for the Newest sort. */
+  createdAt: number
   /** First three top notes, for the card subtitle. */
   notes: string[]
   /** Cheapest in-stock variant (cheapest overall when everything is sold out). */

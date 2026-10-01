@@ -30,3 +30,31 @@ export const tierLabels: Record<(typeof tiers)[number], string> = {
   designer: 'Designer',
   niche: 'Niche',
 }
+
+export const genderLabels: Record<(typeof genders)[number], string> = {
+  men: 'Men',
+  women: 'Women',
+  unisex: 'Unisex',
+}
+
+export const occasionLabels: Record<(typeof occasions)[number], string> = {
+  office: 'Office',
+  owambe: 'Owambe',
+  date_night: 'Date night',
+  everyday: 'Everyday',
+}
+
+export const familyLabels: Record<(typeof families)[number], string> = {
+  fresh: 'Fresh',
+  woody: 'Woody',
+  amber: 'Amber',
+  floral: 'Floral',
+  gourmand: 'Gourmand',
+}
+
+export const sortLabels: Record<(typeof sorts)[number], string> = {
+  featured: 'Featured',
+  price_asc: 'Price: low to high',
+  price_desc: 'Price: high to low',
+  newest: 'Newest',
+}

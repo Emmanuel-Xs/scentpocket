@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | 🟨 home done (1.5); shop, filters pending (1.6) |
+| Status | 🟨 home (1.5) and shop (1.6) done; product page next (1.7) |
 | FRD | [F1](../../docs/FRD.md) |
 | Steps | 1.4, 1.5, 1.6 in [context/README.md](../README.md) |
 | Decisions | D6, D7, D21, D23 ([DECISIONS.md](../../docs/DECISIONS.md)) |
@@ -22,4 +22,5 @@
 * `src/features/home/components/*`, `src/routes/index.tsx`
 
 ## Progress
+2026-10-01 · 1.6 shop built: filters, sort, search, sheet, skeleton, empty. Dev gotcha: first dev load after adding deps shows an invalid hook error until reload.
 2026-10-01 · 1.5 home built and checked at 390 and 1440. Next: /shop (1.6) reusing ProductCard and loadActiveCards.
