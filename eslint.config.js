@@ -15,6 +15,11 @@ export default [
     },
   },
   {
+    // Tests index into arrays they just inserted; the extra optional chaining is noise there.
+    files: ['tests/**'],
+    rules: { '@typescript-eslint/no-unnecessary-condition': 'off' },
+  },
+  {
     ignores: ['eslint.config.js', 'prettier.config.js'],
   },
 ]

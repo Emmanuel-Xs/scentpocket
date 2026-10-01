@@ -13,7 +13,7 @@ const MAX_LINES = 50
  * inactive are simply absent from the result, which is how the client knows to drop them.
  */
 export const getCartLines = createServerFn({ method: 'GET' })
-  .inputValidator(z.object({ variantIds: z.array(z.uuid()).max(MAX_LINES) }))
+  .validator(z.object({ variantIds: z.array(z.uuid()).max(MAX_LINES) }))
   .handler(async ({ data }): Promise<CartLineData[]> => {
     if (data.variantIds.length === 0) return []
     const db = getDb()

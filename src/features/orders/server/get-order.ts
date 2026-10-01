@@ -12,7 +12,7 @@ import { buildOrderDetail } from './order-detail'
 
 /** One order. Only its owner or an admin can read it; anyone else gets a 404, not a 403. */
 export const getOrder = createServerFn({ method: 'GET' })
-  .inputValidator(z.object({ ref: z.string().regex(ORDER_REF_PATTERN) }))
+  .validator(z.object({ ref: z.string().regex(ORDER_REF_PATTERN) }))
   .handler(async ({ data }): Promise<OrderDetail> => {
     const user = await requireUser()
     const db = getDb()

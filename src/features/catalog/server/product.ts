@@ -11,7 +11,7 @@ import { loadActiveCards } from './cards'
 const RELATED_COUNT = 4
 
 export const getProduct = createServerFn({ method: 'GET' })
-  .inputValidator(z.object({ slug: z.string().min(1).max(120) }))
+  .validator(z.object({ slug: z.string().min(1).max(120) }))
   .handler(async ({ data }): Promise<ProductDetail> => {
     const db = getDb()
     const rows = await db

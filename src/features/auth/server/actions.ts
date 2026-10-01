@@ -12,7 +12,7 @@ export const getSessionUser = createServerFn({ method: 'GET' }).handler(
 
 /** Starts Google OAuth (PKCE; the verifier is stored in a cookie). Returns the URL to send the browser to. */
 export const startGoogleSignIn = createServerFn({ method: 'POST' })
-  .inputValidator(z.object({ next: z.string().max(500).optional() }))
+  .validator(z.object({ next: z.string().max(500).optional() }))
   .handler(async ({ data }): Promise<{ url: string }> => {
     const supabase = createSupabaseServerClient()
     const next = safeNext(data.next)

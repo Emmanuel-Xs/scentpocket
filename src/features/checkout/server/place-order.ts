@@ -14,7 +14,7 @@ export type PlaceOrderResult =
  * Email goes out after the commit and can never fail the order.
  */
 export const placeOrder = createServerFn({ method: 'POST' })
-  .inputValidator(placeOrderSchema)
+  .validator(placeOrderSchema)
   .handler(async ({ data }): Promise<PlaceOrderResult> => {
     const user = await requireUser()
     try {

@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | 🟨 orders done (4.4); products (4.5) and team (4.6) pending |
+| Status | 🟨 orders (4.4) and products (4.5) done; team (4.6) pending |
 | FRD | [F9](../../docs/FRD.md) |
 | Steps | 4.4 to 4.6 in [context/README.md](../README.md) |
 | Decisions | D9, D28, D29 ([DECISIONS.md](../../docs/DECISIONS.md)) |
@@ -16,7 +16,7 @@
 * First to be cut if behind
 
 ## Files
-* `src/features/admin/{types,queries}.ts`, `server/orders.ts`, `components/{AdminShell,AdminOrdersPage,AdminOrderPage}.tsx`, `src/routes/_admin.tsx`, `src/routes/_admin/*`, `src/features/orders/server/transition-order.ts`, `src/components/ui/ConfirmDialog.tsx`
+* `src/features/admin/{types,queries}.ts`, `server/orders.ts`, `components/{AdminShell,AdminOrdersPage,AdminOrderPage}.tsx`, `src/routes/_admin.tsx`, `src/routes/_admin/*`, `src/features/orders/server/transition-order.ts`, `src/components/ui/{ConfirmDialog,Switch,TagInput}.tsx`, `src/features/admin/{schemas.ts,server/{products,product-core}.ts,components/{AdminProductsPage,ProductForm,VariantRows,PhotoManager,product-form-state}}`, `src/features/images/server/storage.ts`
 
 ## Progress
 _Newest first: date · what changed · what's next._

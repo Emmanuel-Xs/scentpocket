@@ -21,7 +21,7 @@ const WEEK_MS = 7 * 24 * 60 * 60 * 1000
 const refSchema = z.object({ ref: z.string().regex(ORDER_REF_PATTERN) })
 
 export const listAdminOrders = createServerFn({ method: 'GET' })
-  .inputValidator(
+  .validator(
     z.object({
       status: z.enum(ORDER_STATUSES).optional(),
       q: z.string().trim().max(80).optional(),
@@ -94,7 +94,7 @@ export const listAdminOrders = createServerFn({ method: 'GET' })
   })
 
 export const getAdminOrder = createServerFn({ method: 'GET' })
-  .inputValidator(refSchema)
+  .validator(refSchema)
   .handler(async ({ data }): Promise<OrderDetail> => {
     await requireAdmin()
     const db = getDb()
@@ -111,7 +111,7 @@ export const getAdminOrder = createServerFn({ method: 'GET' })
 export type AdminActionResult = { ok: true } | { ok: false; error: string }
 
 export const setOrderStatus = createServerFn({ method: 'POST' })
-  .inputValidator(refSchema.extend({ to: z.enum(ORDER_STATUSES) }))
+  .validator(refSchema.extend({ to: z.enum(ORDER_STATUSES) }))
   .handler(async ({ data }): Promise<AdminActionResult> => {
     await requireAdmin()
     try {
@@ -126,7 +126,7 @@ export const setOrderStatus = createServerFn({ method: 'POST' })
   })
 
 export const resendOrderEmail = createServerFn({ method: 'POST' })
-  .inputValidator(refSchema)
+  .validator(refSchema)
   .handler(async ({ data }): Promise<AdminActionResult> => {
     await requireAdmin()
     const db = getDb()
