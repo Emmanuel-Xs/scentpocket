@@ -35,6 +35,10 @@ export const Route = createFileRoute('/auth/callback')({
         }
 
         const supabase = createSupabaseServerClient()
+        // Already signed in (a repeated or stray code): skip the exchange and land on a clean URL.
+        const existing = await supabase.auth.getUser()
+        if (existing.data.user) return redirectTo(next)
+
         const { data, error } = await supabase.auth.exchangeCodeForSession(code)
         const user = data.user
         if (error || !user?.email) {

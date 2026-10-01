@@ -17,11 +17,9 @@ export const Route = createFileRoute('/')({
     code: z.string().optional().catch(undefined),
     next: z.string().optional().catch(undefined),
   }),
-  beforeLoad: async ({ context, search }) => {
+  beforeLoad: async ({ search }) => {
     if (!search.code) return
     await logStrayCode()
-    // An explicit href, so the query string is really dropped (a search-less `to` kept it and looped).
-    if (context.user) throw redirect({ href: '/' })
     const next = encodeURIComponent(safeNext(search.next))
     throw redirect({
       href: `/auth/callback?code=${encodeURIComponent(search.code)}&next=${next}`,
