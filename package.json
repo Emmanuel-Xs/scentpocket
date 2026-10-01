@@ -13,7 +13,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run tests/unit",
-    "test:int": "vitest run tests/integration",
+    "test:int": "node --env-file=.env node_modules/vitest/vitest.mjs run tests/integration",
     "db:generate": "node --env-file=.env node_modules/drizzle-kit/bin.cjs generate",
     "db:migrate": "node --env-file=.env node_modules/drizzle-kit/bin.cjs migrate",
     "db:seed": "node --env-file=.env --import tsx src/db/seed.ts",

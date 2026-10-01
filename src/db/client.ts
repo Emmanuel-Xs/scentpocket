@@ -7,7 +7,10 @@ let db: ReturnType<typeof createDb> | undefined
 
 function createDb() {
   // Transaction pooler (:6543) does not support prepared statements.
-  const client = postgres(getServerEnv().DATABASE_URL, { prepare: false })
+  const client = postgres(getServerEnv().DATABASE_URL, {
+    prepare: false,
+    max: 1,
+  })
   return drizzle(client, { schema })
 }
 

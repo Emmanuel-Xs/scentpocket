@@ -1,9 +1,5 @@
-import {
-  DELIVERY_FEES_KOBO,
-  FREE_DELIVERY_THRESHOLD_KOBO
-  
-} from './config'
-import type {DeliveryZone} from './config';
+import { DELIVERY_FEES_KOBO, FREE_DELIVERY_THRESHOLD_KOBO } from './config'
+import type { DeliveryZone } from './config'
 
 /** Money is integer kobo everywhere. Format only at the edge, with these helpers. */
 

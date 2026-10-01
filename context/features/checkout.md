@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | ⬜ not started |
+| Status | 🟨 3.1, 3.3, 3.6 done (logic + tests); checkout page 3.2 and receipt 3.4 pending |
 | FRD | [F5](../../docs/FRD.md) |
 | Steps | 3.1 to 3.3 in [context/README.md](../README.md) |
 | Decisions | D3, D14, D15, D24 ([DECISIONS.md](../../docs/DECISIONS.md)) |
@@ -17,7 +17,7 @@
 * Email is sent after commit and never fails the order
 
 ## Files
-_List key files here as they're created._
+* `src/lib/{config,money,order-ref}.ts`, `src/features/checkout/{schemas.ts,server/{create-order,place-order}.ts}`, `src/features/orders/{status.ts,server/cancel-order.ts}`, `tests/unit/{money,order-ref,phone,status}.test.ts`, `tests/integration/checkout.int.test.ts`
 
 ## Progress
-_Newest first: date · what changed · what's next._
+2026-10-01 · integration tests run against the real Supabase DB with uniquely named fixture rows (the fixture product is briefly active). Use a branch DB via TEST_DATABASE_URL if that ever matters.

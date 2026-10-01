@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 2: Cart and auth** (next: 2.3 manual setup, then 2.6; 0.9 skipped) |
+| Current phase | **Phase 2: Cart and auth** (next: 3.2 checkout page, 3.4, 3.5; 2.3 manual setup then 2.6 still open; 0.9 skipped) |
 | Last updated | Thu 1 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.netlify.app  |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
@@ -69,10 +69,10 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ### Phase 3: Checkout and orders (Fri morning)
 - [x] 3.1 `lib/money.ts`, `lib/config.ts`, `lib/order-ref.ts`, phone schema + unit tests
 - [ ] 3.2 Checkout page: form, zones, live totals, summary, pay on delivery
-- [ ] 3.3 `placeOrder` server function with transaction, idempotency, stock errors
+- [x] 3.3 `placeOrder` server function with transaction, idempotency, stock errors
 - [ ] 3.4 Receipt page `/account/orders/$ref` (with `?placed=1` state)
 - [ ] 3.5 Order history `/account/orders`
-- [ ] 3.6 Integration tests: race, rollback, idempotency, cancel restock
+- [x] 3.6 Integration tests: race, rollback, idempotency, cancel restock
 
 ### Phase 4: Email and admin (Fri afternoon)
 - [ ] 4.1 React Email template, `sendOrderEmail` (Mailgun → SMTP), provider recorded on order
@@ -112,6 +112,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ## Progress log
 Newest first. One line per finished step: date, step, note.
 
+- 2026-10-01 · 3.3, 3.6 · `createOrder(db, user, input)` (`features/checkout/server/create-order.ts`): merges duplicate lines, conditional `UPDATE stock = stock - qty WHERE stock >= qty` per line in sorted order, `StockError` rolls everything back, totals from DB prices + config, snapshots on order and items, ref retry via ON CONFLICT DO NOTHING, idempotency key + 10 s identical-cart window (ignores cancelled orders). `placeOrder` server fn wraps it (`requireUser`, Zod, typed stock result; email hook comes in 4.1). `cancelOrder` (restock in one transaction, only placed/confirmed, row lock), `features/orders/status.ts` transition map (tested). 13 integration tests (`npm run test:int`, real DB, own fixture rows, cleanup verified): happy path, free delivery, race on the last bottle, 4 buyers on separate connections for 2 bottles, rollback, unknown variant, idempotency, concurrent same-key double submit, merge, DB price wins, cancel restock, double cancel, shipped not cancellable. DB client now `max: 1` per TRD §8. Found and fixed while testing: the duplicate window used to match cancelled orders
 - 2026-10-01 · 3.1 · `lib/config.ts` (zones, fees, ETAs, threshold, 37 states, duplicate window), `lib/money.ts` (`deliveryFeeKobo`, `orderTotals`, free at exactly ₦300,000), `lib/order-ref.ts` (`SP-` + 6 chars, no 0/O/1/I/L, crypto), `features/checkout/schemas.ts` (Nigerian phone normalised to +234XXXXXXXXXX, delivery + placeOrder Zod schemas). Tests: 48 pass
 - 2026-10-01 · 2.4, 2.5 · Auth code: `features/auth` (`@supabase/ssr` server client that passes cookie options through, `readSessionUser` via `getUser()` + profiles role, `requireUser`/`requireAdmin`, `startGoogleSignIn`/`signOut`/`getSessionUser` server fns), `/auth/callback` server route (exchange code, upsert profile, owner from ADMIN_EMAILS, `safeNext` open-redirect guard, tested), `/sign-in` (design, loading state, error alert, redirects if already signed in), root `beforeLoad` puts `user` in context, `_authed` and `_admin` layouts, avatar `AccountMenu` (My orders, Admin for admins, Sign out), stubs `/account/orders` and `/admin`. Verified without Google: guards 307 to `/sign-in?next=`, callback without a valid code goes to `/sign-in?error=auth`, the button reaches Supabase `/auth/v1/authorize` with PKCE + callback redirect. NOT verified: a real sign in (needs 2.3). Added dep @radix-ui/react-dropdown-menu. Tests: 26 pass
 - 2026-10-01 · 2.3 (partly) · gcloud project `scentpocket-hng` (number 835505533302) created. gcloud cannot create a web OAuth client or the consent screen; Supabase token on disk is read only (403 on auth config)
