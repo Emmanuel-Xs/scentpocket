@@ -7,7 +7,7 @@
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
 | Current phase | **Phase 0: Setup** (next: 0.4) |
 | Last updated | Thu 1 Oct 2026, by Claude Code |
-| Live URL | not deployed yet |
+| Live URL | https://scentpocket.netlify.app (site created, not deployed yet) |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
 
 Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked · ✂️ cut
@@ -39,7 +39,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 - [x] 0.1 Scaffold TanStack Start (npm, TypeScript strict, Tailwind v4, shadcn/ui, ESLint, Prettier)
 - [x] 0.2 `lib/env.ts` with Zod, `.env.example` copied
 - [x] 0.3 GitHub repo `Emmanuel-Xs/scentpocket`, first push
-- [ ] 0.4 Netlify site connected, first deploy green
+- [ ] 0.4 Netlify site connected, first deploy green (site `scentpocket` created + linked locally; GitHub CD and first deploy pending)
 - [ ] 0.5 `/privacy` and `/terms` routes live (content from `docs/legal/`)
 - [ ] 0.6 Supabase project, keys in `.env` and Netlify
 - [ ] 0.7 Drizzle schema (TRD §4), enums, RLS enabled, first migration applied
