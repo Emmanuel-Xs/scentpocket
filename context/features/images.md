@@ -20,3 +20,7 @@ _List key files here as they're created._
 
 ## Progress
 _Newest first: date · what changed · what's next._
+
+## Gotcha: egress (user note, 2026-10-01)
+* Everything stored must be WebP (`contentType: image/webp`, `cacheControl: 31536000`) to keep Supabase cached egress low. Never upload PNG/JPEG masters; the bucket still allows them only as safety.
+* Always serve through the Netlify Image CDN so Supabase is hit once per variant.

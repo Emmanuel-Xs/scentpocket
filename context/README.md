@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 0: Setup** (next: 0.6) |
+| Current phase | **Phase 0: Setup** (next: 0.7) |
 | Last updated | Thu 1 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.netlify.app  |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
@@ -41,7 +41,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 - [x] 0.3 GitHub repo `Emmanuel-Xs/scentpocket`, first push
 - [x] 0.4 Netlify site connected, first deploy green (deployed via CLI; GitHub auto deploy not linked, deploy with `netlify deploy --prod --build`)
 - [x] 0.5 `/privacy` and `/terms` routes live (content from `docs/legal/`)
-- [ ] 0.6 Supabase project, keys in `.env` and Netlify
+- [ ] 0.6 Supabase project, keys in `.env` and Netlify (project `scentpocket` ref `xogxpyzydlnmvweerjwj`, eu-west-2; `.env` filled; bucket `products` public; **Netlify env vars pending**, see log)
 - [ ] 0.7 Drizzle schema (TRD §4), enums, RLS enabled, first migration applied
 - [ ] 0.8 Verify anon key can't read `orders`
 - [ ] 0.9 Buy `scentpocket.shop`, auto renew off, start Mailgun domain verification (`mg.`)
@@ -111,6 +111,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ## Progress log
 Newest first. One line per finished step: date, step, note.
 
+- 2026-10-01 · 0.6 (partly) · Supabase project created via CLI, `.env` written (gitignored), public bucket `products` (8 MB, webp/png/jpeg). Pooler host is `aws-0-eu-west-2` (aws-1 fails). Netlify env vars NOT set: write was blocked, user to run `netlify env:import .env` then set `SITE_URL=https://scentpocket.netlify.app`. Also installed postgres, drizzle-orm, drizzle-kit, @supabase/ssr, @supabase/supabase-js
 - 2026-10-01 · 0.5 · `/privacy` and `/terms` live (TSX copies of docs/legal in `features/legal`, brackets filled: operator Emmanuel Nwaohiri, contact emmanuelxs101@gmail.com, dated 1 Oct 2026). Unstyled until 0.11
 - 2026-10-01 · 0.4 · Netlify site `scentpocket` created, first prod deploy green via CLI
 - 2026-10-01 · 0.3 · Git repo initialised, public GitHub repo `Emmanuel-Xs/scentpocket`, first push
