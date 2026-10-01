@@ -16,6 +16,7 @@
     "test:int": "vitest run tests/integration",
     "db:generate": "node --env-file=.env node_modules/drizzle-kit/bin.cjs generate",
     "db:migrate": "node --env-file=.env node_modules/drizzle-kit/bin.cjs migrate",
+    "db:seed": "node --env-file=.env --import tsx src/db/seed.ts",
     "db:studio": "node --env-file=.env node_modules/drizzle-kit/bin.cjs studio",
     "format": "prettier --write . && eslint --fix",
     "check": "prettier --check ."
@@ -54,6 +55,7 @@
     "drizzle-kit": "^0.31.11",
     "eslint": "^9.20.0",
     "prettier": "^3.8.1",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.2",
     "vite": "^8.0.0",
     "vitest": "^5.0.3"

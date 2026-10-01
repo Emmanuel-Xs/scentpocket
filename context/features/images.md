@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | 🟨 1.1 done; seed upload (1.2) and CDN check (1.3) pending |
+| Status | 🟨 1.1, 1.2 done; CDN check (1.3) pending |
 | FRD | [F8](../../docs/FRD.md) |
 | Steps | 1.1 to 1.3 in [context/README.md](../README.md) |
 | Decisions | D8, D30 ([DECISIONS.md](../../docs/DECISIONS.md)) |
@@ -24,3 +24,5 @@
 ## Gotcha: egress (user note, 2026-10-01)
 * Everything stored must be WebP (`contentType: image/webp`, `cacheControl: 31536000`) to keep Supabase cached egress low. Never upload PNG/JPEG masters; the bucket still allows them only as safety.
 * Always serve through the Netlify Image CDN so Supabase is hit once per variant.
+* Storage API rejects `sb_secret_...` keys ("Invalid Compact JWS"); use the legacy `service_role` JWT as SUPABASE_SECRET_KEY.
+* Seed uploads: 15 images, all 500x500 WebP, 5 to 32 kB.

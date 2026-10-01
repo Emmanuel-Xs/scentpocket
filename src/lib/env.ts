@@ -46,6 +46,10 @@ function parse<T extends z.ZodType>(
   return result.data
 }
 
+function nodeEnv(key: string): string | undefined {
+  return typeof process === 'undefined' ? undefined : process.env[key]
+}
+
 let publicEnv: PublicEnv | undefined
 let serverEnv: ServerEnv | undefined
 
@@ -54,9 +58,14 @@ export function getPublicEnv(): PublicEnv {
   publicEnv ??= parse(
     publicSchema,
     {
-      VITE_SUPABASE_URL: import.meta.env.VITE_SUPABASE_URL,
-      VITE_SUPABASE_PUBLISHABLE_KEY: import.meta.env
-        .VITE_SUPABASE_PUBLISHABLE_KEY,
+      /* eslint-disable @typescript-eslint/no-unnecessary-condition -- import.meta.env is undefined when run by Node (seed script) */
+      // Vite inlines import.meta.env in the browser bundle; Node scripts (seed) fall back to process.env.
+      VITE_SUPABASE_URL:
+        import.meta.env?.VITE_SUPABASE_URL ?? nodeEnv('VITE_SUPABASE_URL'),
+      VITE_SUPABASE_PUBLISHABLE_KEY:
+        import.meta.env?.VITE_SUPABASE_PUBLISHABLE_KEY ??
+        nodeEnv('VITE_SUPABASE_PUBLISHABLE_KEY'),
+      /* eslint-enable @typescript-eslint/no-unnecessary-condition */
     },
     'public',
   )
