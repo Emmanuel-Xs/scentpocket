@@ -54,6 +54,27 @@ describe('deliverySchema', () => {
     expect(deliverySchema.parse(valid).phone).toBe('+2348031234567')
   })
 
+  it('keeps state and zone consistent', () => {
+    expect(
+      deliverySchema.safeParse({ ...valid, deliveryZone: 'outside_lagos' })
+        .success,
+    ).toBe(false)
+    expect(deliverySchema.safeParse({ ...valid, state: 'Ogun' }).success).toBe(
+      false,
+    )
+    expect(
+      deliverySchema.safeParse({
+        ...valid,
+        state: 'Ogun',
+        deliveryZone: 'outside_lagos',
+      }).success,
+    ).toBe(true)
+    expect(
+      deliverySchema.safeParse({ ...valid, deliveryZone: 'lagos_island' })
+        .success,
+    ).toBe(true)
+  })
+
   it('rejects unknown states and zones', () => {
     expect(
       deliverySchema.safeParse({ ...valid, state: 'Narnia' }).success,

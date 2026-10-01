@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { Image as UnpicImage } from '@unpic/react'
-import { clsx } from 'clsx'
+import { cn } from '#/lib/utils'
 
 type Props = {
   src: string
@@ -46,7 +46,7 @@ export function Image({
     height,
     ref,
     onLoad: () => setLoaded(true),
-    className: clsx(
+    className: cn(
       'h-auto w-full transition-opacity duration-300 ease-(--ease-out)',
       loaded ? 'opacity-100' : 'opacity-0',
       className,

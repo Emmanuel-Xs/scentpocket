@@ -37,14 +37,23 @@ export const phoneSchema = z
     return phone
   })
 
-export const deliverySchema = z.object({
-  fullName: z.string().trim().min(2, 'Enter your full name').max(100),
-  phone: phoneSchema,
-  addressLine: z.string().trim().min(5, 'Enter your street address').max(200),
-  city: z.string().trim().min(2, 'Enter your city or area').max(80),
-  state: z.enum(NIGERIAN_STATES, 'Choose a state'),
-  deliveryZone: z.enum(DELIVERY_ZONES, 'Choose a delivery zone'),
-})
+export const deliverySchema = z
+  .object({
+    fullName: z.string().trim().min(2, 'Enter your full name').max(100),
+    phone: phoneSchema,
+    addressLine: z.string().trim().min(5, 'Enter your street address').max(200),
+    city: z.string().trim().min(2, 'Enter your city or area').max(80),
+    state: z.enum(NIGERIAN_STATES, 'Choose a state'),
+    deliveryZone: z.enum(DELIVERY_ZONES, 'Choose a delivery zone'),
+  })
+  .refine(
+    (d) => (d.state === 'Lagos') === (d.deliveryZone !== 'outside_lagos'),
+    {
+      path: ['deliveryZone'],
+      message:
+        'Pick Mainland or Island for Lagos, and Outside Lagos for other states',
+    },
+  )
 
 export const placeOrderSchema = z.object({
   items: z

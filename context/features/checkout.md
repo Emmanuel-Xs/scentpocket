@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | 🟨 3.1, 3.3, 3.6 done (logic + tests); checkout page 3.2 and receipt 3.4 pending |
+| Status | ✅ 3.1 to 3.6 done; email after commit is 4.1 |
 | FRD | [F5](../../docs/FRD.md) |
 | Steps | 3.1 to 3.3 in [context/README.md](../README.md) |
 | Decisions | D3, D14, D15, D24 ([DECISIONS.md](../../docs/DECISIONS.md)) |

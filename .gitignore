@@ -19,3 +19,5 @@ src/routeTree.gen.ts
 # Local Netlify folder
 .netlify
 .playwright-mcp
+.e2e-session.json
+tmp-session.mjs
