@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | ⬜ not started |
+| Status | 🟨 routes live; footer and sign in links pending (1.4, 2.4) |
 | FRD | [F10](../../docs/FRD.md) |
 | Steps | 0.5 in [context/README.md](../README.md) |
 | Decisions | D25, D26 ([DECISIONS.md](../../docs/DECISIONS.md)) |
@@ -17,7 +17,7 @@
 * Fill all [BRACKETED] values
 
 ## Files
-_List key files here as they're created._
+* `src/features/legal/{constants.ts,components/LegalPage.tsx,content/*.tsx}`, `src/routes/{privacy,terms}.tsx`
 
 ## Progress
-_Newest first: date · what changed · what's next._
+2026-10-01 · /privacy and /terms built as TSX (no markdown dep). Edit copy in content/*.tsx and the date in constants.ts.

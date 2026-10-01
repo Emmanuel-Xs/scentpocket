@@ -5,9 +5,9 @@
 | | |
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 0: Setup** (next: 0.4) |
+| Current phase | **Phase 0: Setup** (next: 0.6) |
 | Last updated | Thu 1 Oct 2026, by Claude Code |
-| Live URL | https://scentpocket.netlify.app (site created, not deployed yet) |
+| Live URL | https://scentpocket.netlify.app  |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
 
 Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked · ✂️ cut
@@ -39,8 +39,8 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 - [x] 0.1 Scaffold TanStack Start (npm, TypeScript strict, Tailwind v4, shadcn/ui, ESLint, Prettier)
 - [x] 0.2 `lib/env.ts` with Zod, `.env.example` copied
 - [x] 0.3 GitHub repo `Emmanuel-Xs/scentpocket`, first push
-- [ ] 0.4 Netlify site connected, first deploy green (site `scentpocket` created + linked locally; GitHub CD and first deploy pending)
-- [ ] 0.5 `/privacy` and `/terms` routes live (content from `docs/legal/`)
+- [x] 0.4 Netlify site connected, first deploy green (deployed via CLI; GitHub auto deploy not linked, deploy with `netlify deploy --prod --build`)
+- [x] 0.5 `/privacy` and `/terms` routes live (content from `docs/legal/`)
 - [ ] 0.6 Supabase project, keys in `.env` and Netlify
 - [ ] 0.7 Drizzle schema (TRD §4), enums, RLS enabled, first migration applied
 - [ ] 0.8 Verify anon key can't read `orders`
@@ -111,6 +111,8 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ## Progress log
 Newest first. One line per finished step: date, step, note.
 
+- 2026-10-01 · 0.5 · `/privacy` and `/terms` live (TSX copies of docs/legal in `features/legal`, brackets filled: operator Emmanuel Nwaohiri, contact emmanuelxs101@gmail.com, dated 1 Oct 2026). Unstyled until 0.11
+- 2026-10-01 · 0.4 · Netlify site `scentpocket` created, first prod deploy green via CLI
 - 2026-10-01 · 0.3 · Git repo initialised, public GitHub repo `Emmanuel-Xs/scentpocket`, first push
 - 2026-10-01 · 0.2 · `src/lib/env.ts` (lazy Zod `getPublicEnv` / `getServerEnv`, browser guard), `vite-env.d.ts`; `.env.example` already in repo. Needs a real `.env` copy once Supabase exists (0.6)
 - 2026-10-01 · 0.1 · TanStack Start scaffold (Netlify adapter, ESLint, Tailwind v4) via npm, not pnpm (D43); typecheck, lint, build pass. shadcn and Prettier config still to add with 0.11
