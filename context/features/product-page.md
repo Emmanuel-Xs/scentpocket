@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | ⬜ not started |
+| Status | ✅ 1.7 done (JSON-LD in 5.2, drawer opens on add in 2.2) |
 | FRD | [F2](../../docs/FRD.md) |
 | Steps | 1.7 in [context/README.md](../README.md) |
 | Decisions | D13, D22, D23 ([DECISIONS.md](../../docs/DECISIONS.md)) |
@@ -17,7 +17,7 @@
 * First in stock variant preselected
 
 ## Files
-_List key files here as they're created._
+* `src/features/product/components/*`, `src/features/catalog/server/product.ts`, `src/routes/p.$slug.tsx`, `src/features/cart/store.ts`, `src/components/ui/QuantityStepper.tsx`
 
 ## Progress
-_Newest first: date · what changed · what's next._
+2026-10-01 · 1.7 built and checked at 1440 (in stock + dupe callout) and 390 (sold out + sticky bar).

@@ -1,8 +1,9 @@
 import { Link } from '@tanstack/react-router'
 import { Fragment } from 'react'
+import type { Tier } from '#/features/catalog/types'
 import { cn } from '#/lib/utils'
 
-type Crumb = { label: string; to?: '/' | '/shop' }
+type Crumb = { label: string; to?: '/' | '/shop'; tier?: Tier }
 
 export function Breadcrumb({
   items,

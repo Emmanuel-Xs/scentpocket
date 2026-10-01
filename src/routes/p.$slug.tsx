@@ -1,10 +1,28 @@
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
+import { productQueryOptions } from '#/features/catalog/queries'
+import { ProductPage } from '#/features/product/components/ProductPage'
+import { ProductSkeleton } from '#/features/product/components/ProductSkeleton'
 
 export const Route = createFileRoute('/p/$slug')({
-  component: () => (
-    <main className="page-container py-16">
-      <h1 className="text-(length:--text-h1)">Product</h1>
-      <p className="mt-3 text-text-2">The product page lands in step 1.7.</p>
-    </main>
-  ),
+  loader: ({ context, params }) =>
+    context.queryClient.ensureQueryData(productQueryOptions(params.slug)),
+  pendingComponent: ProductSkeleton,
+  head: ({ loaderData }) => ({
+    meta: loaderData
+      ? [
+          {
+            title: `${loaderData.card.name} by ${loaderData.card.brand} · Scentpocket`,
+          },
+          { name: 'description', content: loaderData.description },
+        ]
+      : [],
+  }),
+  component: Product,
 })
+
+function Product() {
+  const { slug } = Route.useParams()
+  const { data } = useSuspenseQuery(productQueryOptions(slug))
+  return <ProductPage product={data} />
+}

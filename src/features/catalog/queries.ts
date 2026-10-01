@@ -1,5 +1,6 @@
 import { queryOptions } from '@tanstack/react-query'
 import { getHomeData } from './server/home'
+import { getProduct } from './server/product'
 import { getShopProducts } from './server/shop'
 
 export const homeQueryOptions = () =>
@@ -14,4 +15,11 @@ export const shopQueryOptions = () =>
     queryKey: ['catalog', 'shop'],
     queryFn: () => getShopProducts(),
     staleTime: 60_000,
+  })
+
+export const productQueryOptions = (slug: string) =>
+  queryOptions({
+    queryKey: ['catalog', 'product', slug],
+    queryFn: () => getProduct({ data: { slug } }),
+    staleTime: 30_000,
   })

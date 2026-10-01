@@ -56,3 +56,30 @@ export type HomeData = {
   featured: ProductCardData[]
   totalProducts: number
 }
+
+export type VariantData = {
+  id: string
+  label: string
+  sizeMl: number
+  priceKobo: number
+  stock: number
+}
+
+export type ProductDetail = {
+  card: ProductCardData
+  description: string
+  topNotes: string[]
+  heartNotes: string[]
+  baseNotes: string[]
+  longevity: 'short' | 'moderate' | 'long' | 'very_long'
+  projection: 'soft' | 'moderate' | 'strong'
+  /** Ordered by size, active only. */
+  variants: VariantData[]
+  images: CardImage[]
+  /** The pricier scent this one is inspired by. */
+  inspiredBy: ProductCardData | null
+  /** Cheaper scents inspired by this one. */
+  dupes: ProductCardData[]
+  /** Same tier, other products. */
+  related: ProductCardData[]
+}
