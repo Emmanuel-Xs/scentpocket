@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | ⬜ not started |
+| Status | 🟨 orders done (4.4); products (4.5) and team (4.6) pending |
 | FRD | [F9](../../docs/FRD.md) |
 | Steps | 4.4 to 4.6 in [context/README.md](../README.md) |
 | Decisions | D9, D28, D29 ([DECISIONS.md](../../docs/DECISIONS.md)) |
@@ -16,7 +16,7 @@
 * First to be cut if behind
 
 ## Files
-_List key files here as they're created._
+* `src/features/admin/{types,queries}.ts`, `server/orders.ts`, `components/{AdminShell,AdminOrdersPage,AdminOrderPage}.tsx`, `src/routes/_admin.tsx`, `src/routes/_admin/*`, `src/features/orders/server/transition-order.ts`, `src/components/ui/ConfirmDialog.tsx`
 
 ## Progress
 _Newest first: date · what changed · what's next._

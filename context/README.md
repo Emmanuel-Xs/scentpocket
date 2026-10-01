@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 4: Email and admin** (next: 4.2; 2.6 half done; 0.9 skipped) |
+| Current phase | **Phase 4: Email and admin** (next: 4.5 products, 4.6 team; 4.2, 4.3 deferred; 2.6 half done; 0.9 skipped) |
 | Last updated | Thu 1 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.netlify.app  |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
@@ -76,9 +76,9 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 
 ### Phase 4: Email and admin (Fri afternoon)
 - [x] 4.1 (built and tested with mocks; real sending needs MAILGUN_* / SMTP_* in .env and Netlify) React Email template, `sendOrderEmail` (Mailgun → SMTP), provider recorded on order
-- [ ] 4.2 Email preview iframe on receipt page
-- [ ] 4.3 Switch Mailgun to `mg.scentpocket.shop` if verified
-- [ ] 4.4 Admin layout + orders list + order detail (status actions, cancel restock, resend email)
+- [ ] 4.2 (deferred by user: emails later) Email preview iframe on receipt page
+- [ ] 4.3 (deferred by user: no domain) Switch Mailgun to `mg.scentpocket.shop` if verified
+- [x] 4.4 Admin layout + orders list + order detail (status actions, cancel restock, resend email)
 - [ ] 4.5 Admin products list + form with variants + image upload
 - [ ] 4.6 Admin team page (owner only)
 
@@ -112,6 +112,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ## Progress log
 Newest first. One line per finished step: date, step, note.
 
+- 2026-10-01 · 4.4 · Admin: `_admin` layout with dark sidebar (`AdminShell`; Team link for owner only; storefront header/footer/tab bar hidden under /admin), `/admin` redirects to orders, `/admin/orders` (stat cards, status tabs with counts, search by ref or email in URL params, empty state), `/admin/orders/$ref` (timeline, items table, customer/delivery/email status, next-step button, cancel with confirm dialog, resend email). Server: `listAdminOrders`, `getAdminOrder`, `setOrderStatus`, `resendOrderEmail`, all `requireAdmin()` first; `transitionOrder` (row lock, legal moves only, stamps confirmed/shipped/delivered; cancel goes through `cancelOrder` and restocks). 17 integration tests pass (4 new for transitions). Verified in a browser with a throwaway owner session: list, filter, search, confirm, cancel + stock restored in the DB. Fixed: Drizzle dropped the table qualifier in a correlated subquery (items column showed 0). Test users and orders deleted, stock restored. `/admin/products` and `/admin/team` are stubs until 4.5 and 4.6
 - 2026-10-01 · 4.1 · `features/email`: React Email `OrderConfirmation` (design Email board, absolute links, thumbnails as 128px JPEGs via the Netlify image CDN, plain text version), `renderOrderEmail`, `createMailgunProvider` (HTTP API, basic auth, 8 s timeout, non 2xx throws), `createSmtpProvider` (Gmail 465 + app password via Nodemailer), `deliverEmail` (ordered providers, first success wins, collects every failure, truncates to 500 chars, never throws), `sendOrderEmail(orderId)` (records `email_provider` + `email_sent_at` or `email_error` on the order; never throws). `placeOrder` awaits it after the commit and skips it for idempotent repeats. Shared `buildOrderDetail` now serves receipt and email. Tests: 65 pass. NOT yet sent for real: `MAILGUN_*` and `SMTP_*` are empty in .env
 - 2026-10-01 · 2.3 · Supabase Auth configured from the CLI: `supabase init` + `link` + `config push` (auth only; storage prompt declined). Site URL `https://scentpocket.netlify.app`, redirect URLs (localhost:3000, netlify.app, deploy previews), Google provider enabled with `env(GOOGLE_CLIENT_ID/SECRET)`. config.toml was aligned to the live values first (email confirmations, OTP length, MFA, storage analytics) so only intended settings changed. Verified: `/auth/v1/settings` shows google true, `/authorize` 302s to Google with the right client id and callback, Google returns its sign in page (no redirect_uri_mismatch). Remaining: 2.6 real sign in by the user, and confirm the Google app is In production
 - 2026-10-01 · 3.2, 3.4, 3.5 · `/checkout` (`_authed`; slim header, no footer; TanStack Form + shared Zod schema, error summary with anchors and focus, state and zone kept consistent, zone cards, live totals from server data, sticky phone Place order bar, stock conflict updates the cart and explains, idempotency key per attempt), `/account/orders/$ref` (receipt, `?placed=1` thank-you header, timeline, items, delivery/payment cards, owner or admin only else 404), `/account/orders` (tabs, rows, empty, skeleton). Verified end to end in a browser with a throwaway Supabase test user (real session cookie): validation, stock conflict, real order (₦87,000 with ₦3,000 fee, phone +234…, stock decremented), receipt, history, 404 for unknown ref, and a SECOND user got 404 for the first user's order. All test users and orders deleted afterwards, stock restored. Bugs found and fixed: empty cart redirect fired during hydration (new `useHydrated`), and again when the cart was cleared after success. Added dep @tanstack/react-form. Receipt copy says "we email it" until 4.1 lands. Email preview iframe is 4.2

@@ -1,6 +1,6 @@
 import { asc, eq } from 'drizzle-orm'
 import type { Db } from '#/db/client'
-import type { orders } from '#/db/schema';
+import type { orders } from '#/db/schema'
 import { orderItems } from '#/db/schema'
 import { productImageUrl } from '#/features/images/url'
 import type { OrderDetail } from '../types'

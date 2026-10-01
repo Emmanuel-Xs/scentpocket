@@ -17,6 +17,7 @@ import {
 } from '#/features/checkout/server/create-order'
 import type { PlaceOrderData } from '#/features/checkout/schemas'
 import { cancelOrder, CancelError } from '#/features/orders/server/cancel-order'
+import { transitionOrder } from '#/features/orders/server/transition-order'
 
 /**
  * Runs against the real database with uniquely named rows, and cleans up after itself.
@@ -406,5 +407,78 @@ describe('cancelOrder', () => {
       code: 'not_cancellable',
     })
     expect(await stockOf(variants.cheap.id)).toBe(9)
+  })
+})
+
+describe('transitionOrder', () => {
+  it('walks placed to delivered, stamping each step', async () => {
+    await reset()
+    const user = await newUser()
+    const created = await createOrder(
+      db,
+      user,
+      order([{ variantId: variants.cheap.id, qty: 1 }]),
+    )
+    await transitionOrder(db, created.ref, 'confirmed')
+    await transitionOrder(db, created.ref, 'shipped')
+    await transitionOrder(db, created.ref, 'delivered')
+    const [row] = await db
+      .select()
+      .from(orders)
+      .where(eq(orders.id, created.id))
+    expect(row.status).toBe('delivered')
+    expect(row.confirmedAt).not.toBeNull()
+    expect(row.shippedAt).not.toBeNull()
+    expect(row.deliveredAt).not.toBeNull()
+  })
+
+  it('rejects skipped, backward and post-final moves', async () => {
+    await reset()
+    const user = await newUser()
+    const created = await createOrder(
+      db,
+      user,
+      order([{ variantId: variants.cheap.id, qty: 1 }]),
+    )
+    await expect(
+      transitionOrder(db, created.ref, 'shipped'),
+    ).rejects.toMatchObject({
+      code: 'not_allowed',
+    })
+    await expect(
+      transitionOrder(db, created.ref, 'placed'),
+    ).rejects.toMatchObject({
+      code: 'not_allowed',
+    })
+    await transitionOrder(db, created.ref, 'confirmed')
+    await transitionOrder(db, created.ref, 'shipped')
+    await transitionOrder(db, created.ref, 'delivered')
+    await expect(
+      transitionOrder(db, created.ref, 'cancelled'),
+    ).rejects.toMatchObject({
+      code: 'not_cancellable',
+    })
+  })
+
+  it('cancelling through a transition restocks', async () => {
+    await reset()
+    const user = await newUser()
+    const created = await createOrder(
+      db,
+      user,
+      order([{ variantId: variants.cheap.id, qty: 3 }]),
+    )
+    expect(await stockOf(variants.cheap.id)).toBe(7)
+    await transitionOrder(db, created.ref, 'confirmed')
+    await transitionOrder(db, created.ref, 'cancelled')
+    expect(await stockOf(variants.cheap.id)).toBe(10)
+  })
+
+  it('reports an unknown order', async () => {
+    await expect(
+      transitionOrder(db, 'SP-NOPE00', 'confirmed'),
+    ).rejects.toMatchObject({
+      code: 'not_found',
+    })
   })
 })
