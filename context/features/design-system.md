@@ -18,7 +18,7 @@
 * Check every board's states in docs/design/SCREENS.md
 
 ## Files
-_List key files here as they're created._
+* `src/styles/app.css` (tokens), `src/components/layout/*`, `src/lib/utils.ts`
 
 ## Progress
-_Newest first: date · what changed · what's next._
+2026-10-01 · 0.11 and 1.4 done. Next: cart pill (2.2), search dialog + skeletons (1.8), shadcn components when first needed.

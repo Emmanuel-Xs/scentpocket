@@ -40,6 +40,7 @@
   --radius-lg: 18px;
   --radius-xl: 24px;
   --radius-2xl: 32px;
+  --radius-pill: 999px;
 
   /* shadow */
   --shadow-sm: 0 1px 2px rgb(28 25 21 / 0.06);
@@ -52,6 +53,7 @@
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 
   --animate-enter: sp-enter 240ms var(--ease-out) both;
+  --animate-progress: sp-progress 1.6s var(--ease-out) forwards;
   --animate-shimmer: sp-shimmer 1.4s ease-in-out infinite;
   @keyframes sp-enter {
     from {
@@ -63,6 +65,17 @@
       transform: none;
     }
   }
+  @keyframes sp-progress {
+    0% {
+      transform: scaleX(0);
+    }
+    60% {
+      transform: scaleX(0.7);
+    }
+    100% {
+      transform: scaleX(0.9);
+    }
+  }
   @keyframes sp-shimmer {
     to {
       transform: translateX(100%);
@@ -72,6 +85,9 @@
 
 /* z-index scale (use these, never arbitrary z values) */
 :root {
+  --container: 1280px;
+  --header-h: 72px;
+  --tabbar-h: 64px;
   --z-header: 30;
   --z-tabbar: 30;
   --z-drawer: 50;
@@ -139,4 +155,11 @@
     transition-property:
       opacity, color, background-color, border-color !important;
   }
+}
+
+@utility page-container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 24px;
 }

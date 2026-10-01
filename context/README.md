@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 1: Catalog** → **Phase 1** (next: 1.4; 0.9 skipped) |
+| Current phase | **Phase 1: Catalog** → **Phase 1** (next: 1.5; 0.9 skipped) |
 | Last updated | Thu 1 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.netlify.app  |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
@@ -52,7 +52,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 - [x] 1.1 `features/images/process.ts` (sharp → WebP + blur) and `<Image>` wrapper
 - [x] 1.2 `seed-data.ts` from [docs/CATALOG.md](../docs/CATALOG.md); `pnpm db:seed` uploads images, idempotent
 - [x] 1.3 Netlify Image CDN check on the live deploy (fallback decided if it fails)
-- [ ] 1.4 Layout shell: demo banner, sticky header, footer, phone tab bar (safe areas), route progress bar, Sonner toaster, error + 404 components
+- [x] 1.4 Layout shell: demo banner, sticky header, footer, phone tab bar (safe areas), route progress bar, Sonner toaster, error + 404 components (cart pill comes with 2.2, search dialog with 1.8; /shop, /dupes, /sign-in are stubs until 1.6, 1.8, 2.4)
 - [ ] 1.5 Home: hero (preloaded), tier cards, dupes strip, trust strip
 - [ ] 1.6 `/shop`: search params schema, filters, sort, search, grid, empty state
 - [ ] 1.7 `/p/$slug`: size buttons, notes, meters, chips, dupes, same tier row, sticky buy bar (phone), sold out + dupe states, 404
@@ -112,6 +112,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ## Progress log
 Newest first. One line per finished step: date, step, note.
 
+- 2026-10-01 · 1.4 · `components/layout/*` (Logo, DemoBanner, SiteHeader, TabBar, SiteFooter, RouteProgress, Toaster via Sonner, NotFound, ErrorPage, AppShell), router defaults (pendingMs 300, pendingMinMs 500, error + 404), `features/catalog/schemas.ts` shop search schema, `lib/utils.ts` cn(), stub routes shop/dupes/sign-in. Checked at 390 and 1440 against the export. Dev server now skips the Netlify plugin (it crashes without Deno). shadcn init NOT run yet (it would rewrite app.css tokens); run `npx shadcn add` by hand when the drawer is needed (2.2)
 - 2026-10-01 · 1.3 · Netlify Image CDN works on the live deploy: `/.netlify/images?url=<supabase public url>&w=200&fm=webp` returns 200 image/webp, cache-control max-age=31536000. No fallback needed
 - 2026-10-01 · 1.2 · `src/db/seed-data.ts` (16 products, 23 variants, 3 dupe links) + `seed.ts` (`npm run db:seed`, idempotent by slug/sku, stock only set on insert, images from thescentsstore.com product JSON to WebP in the bucket, 15 of 16 have one). Storage rejects the new sb_secret key, so `SUPABASE_SECRET_KEY` is now the legacy service_role JWT (local + Netlify). Anon REST read of products returns []. Added dev dep `tsx` (runs the seed). Public object cache-control verified max-age=31536000
 - 2026-10-01 · 1.1 · `features/images/{process.ts,url.ts,Image.tsx}`: sharp to WebP (1600 max, q80) + 16px blur; `<Image>` via unpic netlify CDN (raw img in dev), blur bg, fade in, priority/eager props. `netlify.toml` remote_images for the Supabase bucket. Vitest added (`npm test`), 3 unit tests pass
