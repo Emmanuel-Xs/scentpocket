@@ -12,6 +12,9 @@
     "preview": "vite preview",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
+    "db:generate": "node --env-file=.env node_modules/drizzle-kit/bin.cjs generate",
+    "db:migrate": "node --env-file=.env node_modules/drizzle-kit/bin.cjs migrate",
+    "db:studio": "node --env-file=.env node_modules/drizzle-kit/bin.cjs studio",
     "format": "prettier --write . && eslint --fix",
     "check": "prettier --check ."
   },
