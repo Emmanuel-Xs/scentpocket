@@ -8,9 +8,10 @@ import {
   pgTable,
   text,
   timestamp,
-  uuid,
-  type AnyPgColumn,
+  uuid
+  
 } from 'drizzle-orm/pg-core'
+import type {AnyPgColumn} from 'drizzle-orm/pg-core';
 
 export const tierEnum = pgEnum('tier', ['pocket', 'arabian_gems', 'designer', 'niche'])
 export const genderEnum = pgEnum('gender', ['men', 'women', 'unisex'])
