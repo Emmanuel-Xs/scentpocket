@@ -31,17 +31,6 @@ export const Route = createFileRoute('/auth/callback')({
     handlers: {
       GET: async ({ request }) => {
         const url = new URL(request.url)
-        console.log(
-          '[auth/callback] hit',
-          JSON.stringify({
-            hasCode: url.searchParams.has('code'),
-            next: url.searchParams.get('next'),
-            referer: request.headers.get('referer'),
-            hasVerifierCookie: (request.headers.get('cookie') ?? '').includes(
-              'code-verifier',
-            ),
-          }),
-        )
         const code = url.searchParams.get('code')
         const next = safeNext(url.searchParams.get('next'))
         if (!code) {
@@ -52,17 +41,7 @@ export const Route = createFileRoute('/auth/callback')({
         const supabase = createSupabaseServerClient()
         // Already signed in (a repeated or stray code): skip the exchange and land on a clean URL.
         const existing = await supabase.auth.getUser()
-        if (existing.data.user) {
-          console.log(
-            '[auth/callback] already signed in, redirecting to',
-            getServerEnv().SITE_URL + next,
-          )
-          return redirectTo(next)
-        }
-        console.log(
-          '[auth/callback] no session yet, exchanging',
-          existing.error?.message,
-        )
+        if (existing.data.user) return redirectTo(next)
 
         const { data, error } = await supabase.auth.exchangeCodeForSession(code)
         const user = data.user
@@ -99,7 +78,6 @@ export const Route = createFileRoute('/auth/callback')({
             },
           })
 
-        console.log('[auth/callback] ok, redirecting to', next)
         return redirectTo(next)
       },
     },
