@@ -18,7 +18,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-(--z-header) border-b border-border bg-cream/92 pt-[env(safe-area-inset-top,0px)] backdrop-blur-md backdrop-saturate-150">
       <div className="page-container flex min-h-(--header-h) items-center justify-between gap-4">
         <div className="flex items-center gap-9">
-          <Logo />
+          <Logo className="max-[359px]:[&_span]:hidden" />
           <nav
             aria-label="Main"
             className="hidden gap-7 text-[15px] font-medium md:flex"
