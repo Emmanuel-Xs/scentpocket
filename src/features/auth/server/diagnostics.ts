@@ -6,7 +6,7 @@ export const logStrayCode = createServerFn({ method: 'GET' }).handler(
   async () => {
     const req = getRequest()
     console.log(
-      '[auth] stray code on home page',
+      '[auth] home request',
       JSON.stringify({
         url: req.url.replace(/code=[^&]+/, 'code=…'),
         referer: req.headers.get('referer'),

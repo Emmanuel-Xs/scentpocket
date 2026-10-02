@@ -18,8 +18,8 @@ export const Route = createFileRoute('/')({
     next: z.string().optional().catch(undefined),
   }),
   beforeLoad: async ({ search }) => {
-    if (!search.code) return
     await logStrayCode()
+    if (!search.code) return
     const next = encodeURIComponent(safeNext(search.next))
     throw redirect({
       href: `/auth/callback?code=${encodeURIComponent(search.code)}&next=${next}`,
