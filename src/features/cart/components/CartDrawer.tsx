@@ -164,8 +164,8 @@ export function CartDrawer() {
             <span className="-mt-2 text-[13px] text-muted">
               Delivery and total are worked out at checkout.
             </span>
-            {/* Checkout route arrives in 3.2; sign in is the gate until then. */}
-            <Link to="/sign-in" onClick={close} className={primary}>
+            {/* The _authed guard sends signed out visitors to /sign-in?next=/checkout. */}
+            <Link to="/checkout" onClick={close} className={primary}>
               Checkout{' '}
               <ArrowRight size={18} strokeWidth={1.5} aria-hidden="true" />
             </Link>

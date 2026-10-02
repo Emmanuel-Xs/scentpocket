@@ -86,8 +86,9 @@ export function CheckoutForm({ user }: { user: SessionUser }) {
   const keyRef = useRef(crypto.randomUUID())
 
   // An empty cart has nothing to check out. The cart lives in the browser, so this runs after mount.
+  // Skipped once an order is placed: the cart is cleared then, and we are heading to the receipt.
   useEffect(() => {
-    if (hydrated && lines.length === 0)
+    if (hydrated && !placed && lines.length === 0)
       void navigate({ to: '/shop', replace: true })
   }, [hydrated, placed, lines.length, navigate])
 
