@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 5: Polish and submit** (next: 5.1; 4.2 deferred; 0.9 done via D46; still worth checking the Google app is In production with a non-test Gmail) |
+| Current phase | **Phase 5: Polish and submit** (5.1 to 5.5 done; 5.6 not needed; next: 5.7 submit; optional: fresh non-admin Gmail run, phone check) |
 | Last updated | Fri 2 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.com.ng (also scentpocket.netlify.app) |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
@@ -89,7 +89,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 - [~] 5.3 Lighthouse on the live domain: desktop 97/100/100/100, mobile perf 93 (LCP 2.0s, CLS 0.099 after font preload), a11y 100, SEO 100. Cart button label fixed. Skill review passes (animations, web-design-guidelines) not run; real phone test pending
 - [x] 5.4 Click through on the live domain as owner (signed in via Google): drawer Checkout, validation error, place order, receipt "Thank you" with email sent via Mailgun, admin order page, cancel + restock. Fresh non-admin Gmail not yet tried
 - [x] 5.5 README (features, stack, setup, env, test notes, Mailgun note, screenshots in docs/screenshots)
-- [ ] 5.6 Demo video
+- [~] 5.6 Demo video: not needed (user, 2 Oct)
 - [ ] 5.7 Submit (format TBD)
 
 ### Stretch (only after 5.7, or if far ahead)
