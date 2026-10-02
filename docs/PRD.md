@@ -99,7 +99,7 @@ Cut order if time runs short: F9 first, then dupes and scent family filters insi
 
 | Risk | Mitigation |
 |---|---|
-| Mailgun sandbox only delivers to 5 authorized recipients | SMTP fallback; buy `scentpocket.shop` and verify `mg.scentpocket.shop` on Thursday |
+| Mailgun sandbox only delivers to 5 authorized recipients | SMTP fallback; buy `scentpocket.com.ng` and verify `mg.scentpocket.com.ng` on Thursday |
 | Google OAuth in Testing mode blocks graders | Publish the app to production right after setup (basic scopes need no review) |
 | Supabase SSR auth in TanStack Start is new | Start from TanStack's official `start-supabase-basic` example |
 | Netlify Image CDN not listed for TanStack Start | Verify on first deploy; fallback is serving WebP straight from Supabase |

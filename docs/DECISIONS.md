@@ -19,11 +19,11 @@ Decisions made in the planning session on Thursday 1 October 2026. Each one says
 | D13 | Variants | Yes, 1 to 3 per product, price only on variant, cart keyed by variantId | One size per product | Feels real; guardrails limit cost |
 | D14 | Stock | Tracked per variant, atomic conditional decrement in a transaction | No stock | Sold out states, real admin purpose |
 | D15 | Checkout fields and delivery | Zones (Mainland ₦3,000, Island ₦4,500, Outside Lagos ₦7,000), free over ₦300,000, totals snapshotted | Flat fee | Lagos realism; ties into tiers |
-| D16 | Email | Mailgun first, Gmail SMTP fallback, provider recorded; domain `scentpocket.shop` to verify later | Sandbox only | Sandbox only delivers to 5 authorized recipients |
+| D16 | Email | Mailgun first, Gmail SMTP fallback, provider recorded; domain `scentpocket.com.ng` to verify later | Sandbox only | Sandbox only delivers to 5 authorized recipients |
 | D17 | Receipt preview | Same React Email template rendered on the receipt page | | Graders see the email even if it never arrives |
 | D18 | Order history | `/account/orders` + receipt pages | | Required (stated on the call) |
 | D19 | Hosting | Netlify | Vercel, Cloudflare | Official TanStack Start partner |
-| D20 | Brand | Scentpocket, `scentpocket.shop` (to buy, auto renew off) | Every Pocket, Oud & Okada, Lagos Scent Co. | Says the idea in one word |
+| D20 | Brand | Scentpocket, `scentpocket.com.ng` (to buy, auto renew off) | Every Pocket, Oud & Okada, Lagos Scent Co. | Says the idea in one word |
 | D21 | Visual direction | Warm editorial, tier accent colours, light only | Dark luxury, bold Lagos pop | Works for ₦3k and ₦1M products alike |
 | D22 | Product page | Notes pyramid, chips, longevity/projection, same tier suggestions; no reviews | Reviews | Reviews are a whole feature and not graded |
 | D23 | Scent family and dupes | Both: `family` enum filter, `inspired_by_id` self link | | Dupes make "every pocket" real |
@@ -49,3 +49,4 @@ Decisions made in the planning session on Thursday 1 October 2026. Each one says
 | D43 | Package manager | npm (supersedes pnpm in TRD §1 and AGENTS.md) | pnpm | pnpm install kept failing (corrupt installs) on the dev machine; user asked for npm |
 | D44 | Seed tooling | `tsx` as a dev dependency to run `src/db/seed.ts`; legacy service_role JWT as `SUPABASE_SECRET_KEY` | Node type stripping, new sb_secret key | Node cannot resolve the `#/` alias without a loader; Storage rejects sb_secret keys |
 | D45 | DB pool | postgres.js `max: 3` with idle_timeout 20, max_lifetime 300 (supersedes TRD §8 `max: 1`) | `max: 1` | Parallel queries pipelined on one pooled connection stalled intermittently behind Supavisor; reproduced outside the app |
+| D46 | Domain | `scentpocket.com.ng` bought at Whogohost, DNS hosted on Netlify (nameservers dns1-4.p04.nsone.net), `www` redirects to the apex; Mailgun on `mg.scentpocket.com.ng` (supersedes the `.shop` plan in D16 and D20) | `scentpocket.shop`, registrar DNS | Netlify DNS gives automatic HTTPS and lets us add the Mailgun records from the CLI |

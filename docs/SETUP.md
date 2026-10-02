@@ -5,14 +5,14 @@ Do these in order. Tick them off in [context/README.md](../context/README.md) Ph
 URLs used below:
 * Local: `http://localhost:3000`
 * Netlify: `https://scentpocket.netlify.app` (or whatever Netlify assigns)
-* Domain: `https://scentpocket.shop` (once bought)
+* Domain: `https://scentpocket.com.ng` (once bought)
 * Supabase: `https://<project-ref>.supabase.co`
 
 ---
 
 ## 1. Namecheap (domain)
 
-1. Search `scentpocket.shop`. If taken, try `scentpocket.store` or `.xyz`.
+1. Bought `scentpocket.com.ng` (Whogohost).
 2. Buy 1 year. **Turn off auto renew immediately** (renewal on `.shop` is about $49).
 3. Leave DNS on Namecheap for now. Netlify and Mailgun records get added below.
 
@@ -32,17 +32,17 @@ URLs used below:
 2. Netlify → Add new site → Import from GitHub → pick the repo. Netlify detects TanStack Start.
 3. Add env vars from `.env.example` (all except test ones).
 4. Deploy. Confirm `/privacy` and `/terms` load on the live URL.
-5. Later, Domain management → add `scentpocket.shop` and follow the DNS instructions in Namecheap.
+5. Later, Domain management → add `scentpocket.com.ng` and point the registrar nameservers at Netlify DNS.
 6. Add `[images] remote_images` for the Supabase storage URL in `netlify.toml` (see TRD §9) and confirm `/.netlify/images?url=...` works on the deploy.
 
 ## 4. Google Cloud Console (OAuth client)
 
 1. Create project `Scentpocket`.
-2. **Google Auth Platform → Branding**: app name `Scentpocket`, user support email (your Gmail), developer contact email. Homepage, privacy and terms URLs from the live Netlify site. **Skip the logo** (adding one can trigger brand verification). Authorized domains: `netlify.app` is not allowed as yours, so add `scentpocket.shop` once bought, and `<project-ref>.supabase.co` as Supabase docs describe.
+2. **Google Auth Platform → Branding**: app name `Scentpocket`, user support email (your Gmail), developer contact email. Homepage, privacy and terms URLs from the live Netlify site. **Skip the logo** (adding one can trigger brand verification). Authorized domains: `netlify.app` is not allowed as yours, so add `scentpocket.com.ng` once bought, and `<project-ref>.supabase.co` as Supabase docs describe.
 3. **Audience**: User type External.
 4. **Data access**: scopes `openid`, `.../auth/userinfo.email`, `.../auth/userinfo.profile` only.
 5. **Clients → Create client → Web application**:
-   * Authorized JavaScript origins: `http://localhost:3000`, the Netlify URL, `https://scentpocket.shop`.
+   * Authorized JavaScript origins: `http://localhost:3000`, the Netlify URL, `https://scentpocket.com.ng`.
    * Authorized redirect URI: `https://<project-ref>.supabase.co/auth/v1/callback` (this one only; Google redirects to Supabase, Supabase redirects to us).
 6. Copy client ID and secret.
 7. **Audience → Publish app → In production.** Without this, only listed test users can sign in. Basic scopes need no review.
@@ -52,7 +52,7 @@ URLs used below:
 1. **Authentication → Sign In / Providers → Google**: enable, paste client ID and secret.
 2. **Authentication → URL Configuration**:
    * Site URL: production URL.
-   * Redirect URLs: `http://localhost:3000/**`, `https://*--scentpocket.netlify.app/**` (deploy previews), `https://scentpocket.netlify.app/**`, `https://scentpocket.shop/**`.
+   * Redirect URLs: `http://localhost:3000/**`, `https://*--scentpocket.netlify.app/**` (deploy previews), `https://scentpocket.netlify.app/**`, `https://scentpocket.com.ng/**`.
 3. Test sign in locally and on Netlify with a Gmail that is not yours.
 
 Known cosmetic issue: the Google popup says "continue to `<project-ref>.supabase.co`". Fixing it needs Supabase's paid custom domain. Ignore for the demo.
@@ -71,10 +71,10 @@ Known cosmetic issue: the Google popup says "continue to `<project-ref>.supabase
 4. `MAILGUN_DOMAIN` = sandbox domain, `MAILGUN_FROM` = `Scentpocket <postmaster@sandboxXXXX.mailgun.org>`.
 
 **After buying the domain:**
-1. Add domain `mg.scentpocket.shop` in Mailgun.
+1. Add domain `mg.scentpocket.com.ng` in Mailgun.
 2. In Namecheap Advanced DNS, add the records Mailgun shows (SPF TXT, DKIM TXT, optional MX and tracking CNAME) on the `mg` host.
 3. Click Verify (DNS can take minutes to hours).
-4. Switch `MAILGUN_DOMAIN` to `mg.scentpocket.shop` and `MAILGUN_FROM` to `Scentpocket <orders@mg.scentpocket.shop>`.
+4. Switch `MAILGUN_DOMAIN` to `mg.scentpocket.com.ng` and `MAILGUN_FROM` to `Scentpocket <orders@mg.scentpocket.com.ng>`.
 
 ## 8. Local env
 

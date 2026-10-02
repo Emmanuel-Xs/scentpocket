@@ -13,7 +13,7 @@
 * Admin resend
 
 ## Notes and gotchas
-* Sandbox only reaches authorized recipients until `mg.scentpocket.shop` is verified
+* Sandbox only reaches authorized recipients until `mg.scentpocket.com.ng` is verified
 
 ## Files
 * `src/features/email/{templates/OrderConfirmation.tsx,render,mailgun,smtp,deliver,send,types}.ts`, `tests/unit/email.test.ts`, `src/features/orders/server/order-detail.ts`

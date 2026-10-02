@@ -6,7 +6,7 @@
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
 | Current phase | **Phase 5: Polish and submit** (next: 5.1; 4.2, 4.3 deferred; 0.9 skipped; still worth checking the Google app is In production with a non-test Gmail) |
-| Last updated | Thu 1 Oct 2026, by Claude Code |
+| Last updated | Fri 2 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.netlify.app  |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
 
@@ -44,7 +44,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 - [x] 0.6 Supabase project, keys in `.env` and Netlify (project `scentpocket` ref `xogxpyzydlnmvweerjwj`, eu-west-2; bucket `products` public)
 - [x] 0.7 Drizzle schema (TRD §4), enums, RLS enabled, first migration applied
 - [x] 0.8 Verify anon key can't read `orders`
-- [ ] 0.9 (skipped for now by user, no domain yet; Mailgun sandbox + netlify.app until bought) Buy `scentpocket.shop`, auto renew off, start Mailgun domain verification (`mg.`)
+- [ ] 0.9 (skipped for now by user, no domain yet; Mailgun sandbox + netlify.app until bought) Buy `scentpocket.com.ng`, auto renew off, start Mailgun domain verification (`mg.`)
 - [x] 0.10 Install agent skills from [docs/SKILLS.md](../docs/SKILLS.md) and run `npx @tanstack/intent install`
 - [x] 0.11 Design tokens: port [docs/design/tokens.css](../docs/design/tokens.css) into `src/styles/app.css`, Fontsource fonts, mobile native meta tags (viewport-fit, theme-color)
 
@@ -77,7 +77,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ### Phase 4: Email and admin (Fri afternoon)
 - [x] 4.1 (built and tested with mocks; real sending needs MAILGUN_* / SMTP_* in .env and Netlify) React Email template, `sendOrderEmail` (Mailgun → SMTP), provider recorded on order
 - [ ] 4.2 (deferred by user: emails later) Email preview iframe on receipt page
-- [ ] 4.3 (deferred by user: no domain) Switch Mailgun to `mg.scentpocket.shop` if verified
+- [ ] 4.3 (deferred by user: no domain) Switch Mailgun to `mg.scentpocket.com.ng` if verified
 - [x] 4.4 Admin layout + orders list + order detail (status actions, cancel restock, resend email)
 - [x] 4.5 Admin products list + form with variants + image upload
 - [x] 4.6 Admin team page (owner only)
@@ -144,3 +144,4 @@ Newest first. One line per finished step: date, step, note.
 - 2026-10-01 · 0.1 · TanStack Start scaffold (Netlify adapter, ESLint, Tailwind v4) via npm, not pnpm (D43); typecheck, lint, build pass. shadcn and Prettier config still to add with 0.11
 - 2026-10-01 · Design done · Every screen and state on the canvas; reference.css, tokens.css, SCREENS, MOTION-AND-LOADING, SEO-PWA-MOBILE, SKILLS added
 - 2026-10-01 · Planning done · Docs written (PRD, FRD, TRD, design, catalog, decisions, setup, legal drafts)
+- 2026-10-02 · domain · scentpocket.com.ng live on Netlify DNS with HTTPS; docs updated from .shop; temporary auth logging removed. Pending: Supabase config push (site_url + redirect URLs in supabase/config.toml, edited not pushed), deploy with SITE_URL=https://scentpocket.com.ng (set in Netlify, not yet deployed), Google OAuth origins, Mailgun domain (Netlify MAILGUN_API_KEY returns Invalid private key)
