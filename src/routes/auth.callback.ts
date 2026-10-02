@@ -5,11 +5,26 @@ import { safeNext } from '#/features/auth/next'
 import { createSupabaseServerClient } from '#/features/auth/server/supabase'
 import { getServerEnv } from '#/lib/env'
 
-const redirectTo = (path: string) =>
-  new Response(null, {
-    status: 302,
-    headers: { Location: `${getServerEnv().SITE_URL}${path}` },
+const escapeHtml = (v: string) =>
+  v.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
+
+/**
+ * Leaves via a 200 HTML page, not a 3xx: Netlify re-appends the incoming query string (the OAuth
+ * code) to a Location that has none, which looped the browser back to "/?code=...".
+ */
+const redirectTo = (path: string) => {
+  const target = `${getServerEnv().SITE_URL}${path}`
+  const safe = escapeHtml(target)
+  const html = `<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=${safe}"><title>Signing you in</title></head><body><script>location.replace(${JSON.stringify(target).replace(/</g, '\\u003c')})</script><a href="${safe}">Continue</a></body></html>`
+  return new Response(html, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 'no-store',
+      'Referrer-Policy': 'no-referrer',
+    },
   })
+}
 
 export const Route = createFileRoute('/auth/callback')({
   server: {
