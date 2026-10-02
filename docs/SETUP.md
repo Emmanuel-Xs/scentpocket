@@ -78,4 +78,4 @@ Known cosmetic issue: the Google popup says "continue to `<project-ref>.supabase
 
 ## 8. Local env
 
-Copy `.env.example` to `.env`, fill everything, run `pnpm db:migrate && pnpm db:seed`, then `pnpm dev`.
+Copy `.env.example` to `.env`, fill everything, run `npm run db:migrate && npm run db:seed`, then `npm run dev`.
