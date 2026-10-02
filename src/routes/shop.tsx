@@ -5,6 +5,7 @@ import { ShopSkeleton } from '#/features/catalog/components/ShopSkeleton'
 import { shopQueryOptions } from '#/features/catalog/queries'
 import { shopSearchSchema } from '#/features/catalog/schemas'
 import type { ShopSearch } from '#/features/catalog/schemas'
+import { breadcrumbLd, seoHead } from '#/lib/seo'
 import { tierStyles } from '#/features/catalog/tiers'
 
 export const Route = createFileRoute('/shop')({
@@ -14,15 +15,27 @@ export const Route = createFileRoute('/shop')({
   pendingComponent: ShopSkeleton,
   head: ({ match }) => {
     const tier = match.search.tier
-    return {
-      meta: [
-        {
-          title: tier
-            ? `${tierStyles[tier].label} perfumes in Lagos · Scentpocket`
-            : 'Shop all scents · Scentpocket',
-        },
+    if (!tier)
+      return seoHead({
+        title: 'Shop all scents · Scentpocket',
+        description:
+          'Real perfumes in four budget tiers, from ₦3,500 body sprays to ₦680,000 Baccarat Rouge. Pay on delivery in Lagos.',
+        path: '/shop',
+      })
+    const { label, blurb } = tierStyles[tier]
+    const path = `/shop?tier=${tier}`
+    return seoHead({
+      title: `${label} perfumes in Lagos · Scentpocket`,
+      description: `${blurb} Real perfumes, honest prices, pay on delivery in Lagos.`,
+      path,
+      jsonLd: [
+        breadcrumbLd([
+          { name: 'Home', path: '/' },
+          { name: 'Shop', path: '/shop' },
+          { name: label, path },
+        ]),
       ],
-    }
+    })
   },
   component: Shop,
 })

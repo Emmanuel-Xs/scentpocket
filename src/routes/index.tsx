@@ -1,6 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute, redirect } from '@tanstack/react-router'
 import { z } from 'zod'
+import { organizationLd, seoHead } from '#/lib/seo'
 import { safeNext } from '#/features/auth/next'
 import { homeQueryOptions } from '#/features/catalog/queries'
 import { DupesStrip } from '#/features/home/components/DupesStrip'
@@ -26,9 +27,14 @@ export const Route = createFileRoute('/')({
   },
   loader: ({ context }) =>
     context.queryClient.ensureQueryData(homeQueryOptions()),
-  head: () => ({
-    meta: [{ title: 'Scentpocket · A scent for every pocket' }],
-  }),
+  head: () =>
+    seoHead({
+      title: 'Scentpocket · A scent for every pocket',
+      description:
+        'A Lagos fragrance shop with four budget tiers, real perfumes and prices, and dupes that let you smell the part. Pay on delivery.',
+      path: '/',
+      jsonLd: organizationLd,
+    }),
   component: Home,
 })
 

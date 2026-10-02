@@ -1,21 +1,19 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import { DupeCard } from '#/features/catalog/components/DupeCard'
+import { seoHead } from '#/lib/seo'
 import { dupesQueryOptions } from '#/features/catalog/queries'
 
 export const Route = createFileRoute('/dupes')({
   loader: ({ context }) =>
     context.queryClient.ensureQueryData(dupesQueryOptions()),
-  head: () => ({
-    meta: [
-      { title: 'Perfume dupes in Lagos · Scentpocket' },
-      {
-        name: 'description',
-        content:
-          'Luxury scents and the affordable ones that smell close enough for people to ask. See what you save.',
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      title: 'Perfume dupes in Lagos · Scentpocket',
+      description:
+        'Luxury scents and the affordable ones that smell close enough for people to ask. See what you save.',
+      path: '/dupes',
+    }),
   component: Dupes,
 })
 
