@@ -123,7 +123,7 @@ export function AdminOrdersPage({
               : 'No orders yet.'}
           </p>
         ) : (
-          <div className="overflow-x-auto">
+          <div className="relative overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="text-left text-xs tracking-[0.08em] text-muted uppercase">

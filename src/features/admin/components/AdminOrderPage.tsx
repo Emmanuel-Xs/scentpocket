@@ -144,7 +144,7 @@ export function AdminOrderPage({ order }: { order: OrderDetail }) {
           <h2 className="px-5 pt-4.5 pb-1 font-serif text-2xl leading-none">
             Items <span className="text-base text-muted">({itemCount})</span>
           </h2>
-          <div className="overflow-x-auto">
+          <div className="relative overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="text-left text-xs tracking-[0.08em] text-muted uppercase">

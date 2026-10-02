@@ -130,7 +130,7 @@ export function AdminProductsPage({
         {shown.length === 0 ? (
           <p className="px-6 py-14 text-center text-text-2">Nothing here.</p>
         ) : (
-          <div className="overflow-x-auto">
+          <div className="relative overflow-x-auto">
             <table className="w-full border-collapse text-sm">
               <thead>
                 <tr className="text-left text-xs tracking-[0.08em] text-muted uppercase">
