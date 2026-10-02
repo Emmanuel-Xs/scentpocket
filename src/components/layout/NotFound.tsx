@@ -5,6 +5,8 @@ import { buttonPrimary, buttonSecondary, StatusPage } from './StatusPage'
 export function NotFound() {
   return (
     <StatusPage>
+      <title>Not found · Scentpocket</title>
+      <meta name="robots" content="noindex" />
       <span className="font-serif text-[88px] leading-none text-border-strong">
         404
       </span>

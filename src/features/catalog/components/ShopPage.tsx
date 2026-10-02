@@ -62,7 +62,7 @@ export function ShopPage({ products, search, setSearch, clearSearch }: Props) {
         )}
 
         <div
-          className="-mx-6 flex snap-x snap-mandatory gap-2 overflow-x-auto px-6 pb-1 md:hidden"
+          className="-mx-6 flex snap-x snap-mandatory gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden px-6 pb-1 md:hidden"
           role="group"
           aria-label="Tier"
         >
@@ -133,7 +133,7 @@ export function ShopPage({ products, search, setSearch, clearSearch }: Props) {
                     type="search"
                     enterKeyHint="search"
                     autoComplete="off"
-                    placeholder="Search name or brand…"
+                    placeholder="Search scents"
                     value={search.q ?? ''}
                     onChange={(e) =>
                       setSearch({ q: e.target.value || undefined }, true)

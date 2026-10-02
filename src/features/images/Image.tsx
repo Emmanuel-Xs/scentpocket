@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react'
-import { Image as UnpicImage } from '@unpic/react'
 import { cn } from '#/lib/utils'
 
 type Props = {
@@ -16,6 +15,12 @@ type Props = {
   sizes?: string
   className?: string
 }
+
+const CDN_WIDTHS = [240, 360, 480, 640, 800, 1080, 1440]
+
+/** Netlify Image CDN URL at one width; the height follows the master's ratio. */
+const cdnUrl = (src: string, w: number) =>
+  `/.netlify/images?url=${encodeURIComponent(src)}&w=${w}`
 
 /**
  * The only way to render a product image. Delivered through the Netlify Image CDN
@@ -62,7 +67,16 @@ export function Image({
   // `/.netlify/images` only exists on Netlify (or `netlify dev`): use the raw WebP locally.
   if (import.meta.env.DEV) return <img {...common} sizes={sizes} />
 
+  // width and height stay on the element (aspect ratio before load); the CDN serves the sizes.
+  const widths = CDN_WIDTHS.filter((w) => w <= width * 2)
+  if (!widths.length) widths.push(width)
+  const srcSet = widths.map((w) => `${cdnUrl(src, w)} ${w}w`).join(', ')
   return (
-    <UnpicImage {...common} cdn="netlify" layout="constrained" sizes={sizes} />
+    <img
+      {...common}
+      src={cdnUrl(src, widths[Math.min(2, widths.length - 1)])}
+      srcSet={srcSet}
+      sizes={sizes ?? `(min-width: ${width}px) ${width}px, 100vw`}
+    />
   )
 }

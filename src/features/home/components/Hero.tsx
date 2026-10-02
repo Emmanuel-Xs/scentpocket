@@ -67,7 +67,6 @@ export function Hero({
                 height={p.image.height}
                 blurDataUrl={p.image.blurDataUrl}
                 priority={i === ladder.length - 1}
-                eager
                 sizes="(min-width: 760px) 160px, 22vw"
                 className="mix-blend-multiply"
               />

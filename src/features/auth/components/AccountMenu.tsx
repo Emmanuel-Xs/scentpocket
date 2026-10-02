@@ -29,6 +29,8 @@ function Avatar({ user, size }: { user: SessionUser; size: number }) {
       alt=""
       width={size}
       height={size}
+      loading="lazy"
+      decoding="async"
       referrerPolicy="no-referrer"
       className="shrink-0 rounded-full"
       style={{ width: size, height: size }}

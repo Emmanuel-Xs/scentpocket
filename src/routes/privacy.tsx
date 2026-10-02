@@ -5,7 +5,7 @@ import { PrivacyPolicy } from '#/features/legal/content/PrivacyPolicy'
 export const Route = createFileRoute('/privacy')({
   head: () =>
     seoHead({
-      title: 'Privacy Policy | Scentpocket',
+      title: 'Privacy Policy · Scentpocket',
       description:
         'How Scentpocket handles your name, email, phone and delivery details.',
       path: '/privacy',

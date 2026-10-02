@@ -39,18 +39,18 @@ export function ProductCard({ product, eager }: Props) {
             className="mix-blend-multiply transition-transform duration-500 ease-(--ease-out) group-hover:-translate-y-1 group-hover:scale-105"
           />
         ) : null}
-        <div className="absolute inset-x-3.5 top-3.5 flex justify-between gap-2">
+        <div className="absolute top-3.5 left-3.5">
           <TierChip tier={product.tier} />
-          {product.soldOut ? (
-            <span className="rounded-pill bg-ink px-2.75 py-1.25 text-xs font-semibold text-cream">
-              Sold out
-            </span>
-          ) : product.lowStock !== null ? (
-            <span className="rounded-pill bg-danger/7 px-2.75 py-1.25 text-xs font-semibold text-danger">
-              Only {product.lowStock} left
-            </span>
-          ) : null}
         </div>
+        {product.soldOut ? (
+          <span className="absolute bottom-3.5 left-3.5 rounded-pill bg-ink px-2.75 py-1.25 text-xs font-semibold whitespace-nowrap text-cream">
+            Sold out
+          </span>
+        ) : product.lowStock !== null ? (
+          <span className="absolute bottom-3.5 left-3.5 rounded-pill bg-danger px-2.75 py-1.25 text-xs font-semibold whitespace-nowrap text-white">
+            Only {product.lowStock} left
+          </span>
+        ) : null}
       </div>
       <div className="flex flex-col gap-1">
         <span className="text-xs tracking-[0.12em] text-muted uppercase">

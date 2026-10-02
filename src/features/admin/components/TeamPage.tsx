@@ -25,6 +25,8 @@ function Avatar({ member }: { member: TeamMember }) {
       alt=""
       width={40}
       height={40}
+      loading="lazy"
+      decoding="async"
       referrerPolicy="no-referrer"
       className="size-10 shrink-0 rounded-full"
     />

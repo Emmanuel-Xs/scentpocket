@@ -129,6 +129,9 @@ export function SoldOutAlert({
         <div className="flex items-center gap-3 rounded-[14px] bg-surface p-3 text-ink">
           <DupeThumb dupe={dupe} />
           <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+            <span className="text-xs tracking-[0.12em] text-muted uppercase">
+              {dupe.brand}
+            </span>
             <span className="font-serif text-xl leading-[1.1]">
               {dupe.name}
             </span>

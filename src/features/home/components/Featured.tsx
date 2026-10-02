@@ -17,8 +17,8 @@ export function Featured({ products }: { products: ProductCardData[] }) {
         </Link>
       </div>
       <div className="grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-3 lg:grid-cols-4">
-        {products.map((p, i) => (
-          <ProductCard key={p.id} product={p} eager={i < 2} />
+        {products.map((p) => (
+          <ProductCard key={p.id} product={p} />
         ))}
       </div>
     </section>
