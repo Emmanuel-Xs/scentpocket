@@ -1,4 +1,5 @@
 import { Link } from '@tanstack/react-router'
+import { BottlePlaceholder } from '#/components/ui/BottlePlaceholder'
 import { Image } from '#/features/images/Image'
 import { formatKobo } from '#/lib/money'
 import { cn } from '#/lib/utils'
@@ -38,7 +39,9 @@ export function ProductCard({ product, eager }: Props) {
             sizes="(min-width: 1024px) 280px, (min-width: 640px) 33vw, 50vw"
             className="mix-blend-multiply transition-transform duration-500 ease-(--ease-out) group-hover:-translate-y-1 group-hover:scale-105"
           />
-        ) : null}
+        ) : (
+          <BottlePlaceholder label={`${product.brand} ${product.name}`} />
+        )}
         <div className="absolute top-3.5 left-3.5">
           <TierChip tier={product.tier} />
         </div>

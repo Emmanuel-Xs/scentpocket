@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { TierChip } from '#/features/catalog/components/TierChip'
 import { tierStyles } from '#/features/catalog/tiers'
 import type { ProductDetail } from '#/features/catalog/types'
+import { BottlePlaceholder } from '#/components/ui/BottlePlaceholder'
 import { Image } from '#/features/images/Image'
 import { cn } from '#/lib/utils'
 
@@ -31,7 +32,9 @@ export function Gallery({ product }: { product: ProductDetail }) {
             sizes="(min-width: 1024px) 560px, 100vw"
             className="mix-blend-multiply"
           />
-        ) : null}
+        ) : (
+          <BottlePlaceholder label={`${card.brand} ${card.name}`} />
+        )}
         <span className="absolute top-4.5 left-4.5">
           <TierChip tier={card.tier} />
         </span>
