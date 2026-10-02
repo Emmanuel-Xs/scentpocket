@@ -64,6 +64,14 @@ async function upsertVariants(productId: string, p: SeedProduct) {
 }
 
 async function fetchImage(sourceJsonUrl: string): Promise<Buffer> {
+  // A direct image URL (a product the reference store does not stock) skips the product json step.
+  if (/\.(jpe?g|png|webp)(\?|$)/i.test(sourceJsonUrl)) {
+    const direct = await fetch(sourceJsonUrl, {
+      headers: { 'user-agent': 'Mozilla/5.0' },
+    })
+    if (!direct.ok) throw new Error(`image ${direct.status}`)
+    return Buffer.from(await direct.arrayBuffer())
+  }
   const res = await fetch(sourceJsonUrl, {
     headers: { 'user-agent': 'Mozilla/5.0' },
   })

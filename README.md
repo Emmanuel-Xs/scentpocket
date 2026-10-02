@@ -27,7 +27,7 @@
 
 ## Features
 
-* **Catalog:** 15 real perfumes in four tiers (Pocket, Arabian Gems, Designer, Niche), real Lagos prices, filters by tier, gender, scent family and occasion, search (`/` opens it), sort.
+* **Catalog:** 16 real perfumes in four tiers (Pocket, Arabian Gems, Designer, Niche), real Lagos prices, filters by tier, gender, scent family and occasion, search (`/` opens it), sort.
 * **Dupes:** cheap scents link to the expensive ones they resemble, with the saving shown. Sold out originals point to their dupe.
 * **Cart:** local (Zustand), reconciled against the server so sold out or short lines are fixed before checkout. Free delivery progress over ₦300,000.
 * **Checkout:** delivery zones with fees, Nigerian phone validation, pay on delivery. One database transaction with a conditional stock decrement, so the last bottle can't be sold twice. An idempotency key makes a retried click safe.
