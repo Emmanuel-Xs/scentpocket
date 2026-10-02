@@ -52,7 +52,7 @@ export function Image({
     ref,
     onLoad: () => setLoaded(true),
     className: cn(
-      'h-auto w-full transition-opacity duration-300 ease-(--ease-out)',
+      'h-auto w-full transition-opacity duration-200 ease-(--ease-out)',
       loaded ? 'opacity-100' : 'opacity-0',
       className,
     ),

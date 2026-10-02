@@ -126,26 +126,6 @@ export const seedProducts: SeedProduct[] = [
     imageSourceUrl: store('armaf-club-de-nuit-untold-bodyspray-250ml'),
   },
   {
-    slug: 'al-rehab-choco-musk',
-    name: 'Choco Musk Roll On Oil',
-    brand: 'Al Rehab',
-    description:
-      'A pocket-sized roll-on of chocolate, vanilla and soft musk. Dab it on pulse points for a skin-close, cosy sweetness that lasts surprisingly long.',
-    tier: 'pocket',
-    gender: 'unisex',
-    family: 'gourmand',
-    occasions: ['everyday'],
-    top: ['Chocolate'],
-    heart: ['Rose', 'Vanilla'],
-    base: ['Musk', 'Sandalwood'],
-    longevity: 'long',
-    projection: 'soft',
-    // Price is an estimate: confirm before launch. No image source yet (not stocked by the reference store).
-    variants: [
-      { label: '6ml Roll On Oil', sizeMl: 6, priceKobo: n(3000), stock: 15 },
-    ],
-  },
-  {
     slug: 'lattafa-khamrah',
     name: 'Khamrah EDP',
     brand: 'Lattafa',

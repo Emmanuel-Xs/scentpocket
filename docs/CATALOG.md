@@ -2,7 +2,7 @@
 
 Prices from The Scents Store (Lagos), checked 1 Oct 2026. Notes are top / heart / base as commonly listed on Fragrantica and retailer pages. Longevity and projection are community consensus, approximate. Items marked (est.) need a second check.
 
-## Catalog (16 products)
+## Catalog (15 products)
 
 ### Pocket (under ₦15k)
 
@@ -11,7 +11,6 @@ Prices from The Scents Store (Lagos), checked 1 Oct 2026. Notes are top / heart 
 | Fragrance World Explore Deodorant Spray | Men | Fresh fruity | 200ml ₦3,500 | Pineapple, bergamot, blackcurrant / birch, patchouli, jasmine / musk, oakmoss, ambergris (est.) | Short / soft | Creed Aventus |
 | Afnan 9PM Body Spray | Men | Amber sweet | 250ml ₦11,500 | Apple, cinnamon, lavender, bitter orange / orange blossom, lily of the valley / vanilla, tonka, amber, patchouli | Moderate / moderate | JPG Ultra Male |
 | Armaf Club de Nuit Untold Body Spray | Unisex | Amber floral | 250ml ₦11,500 | Saffron, jasmine / amberwood, ambergris / fir resin, cedar | Moderate / moderate | MFK Baccarat Rouge 540 |
-| Al Rehab Choco Musk Roll On Oil | Unisex | Gourmand | 6ml ₦3,000 (est.) | Chocolate, vanilla, musk, rose, sandalwood (est.) | Long on skin / soft | none |
 
 ### Arabian Gems (₦25k to ₦70k)
 
@@ -49,7 +48,6 @@ Sold out variants are real stock states at the source, which makes them good dem
 | `fragrance-world-explore` | everyday | `creed-aventus` |
 | `afnan-9pm-body-spray` | everyday, owambe | none in catalog (Ultra Male not stocked) |
 | `cdn-untold-body-spray` | everyday, date_night | `mfk-baccarat-rouge-540` |
-| `al-rehab-choco-musk` | everyday | none |
 | `lattafa-khamrah` | owambe, date_night | none in catalog |
 | `lattafa-asad` | owambe, date_night | none in catalog |
 | `lattafa-yara` | everyday, date_night | none |

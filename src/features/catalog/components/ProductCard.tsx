@@ -37,7 +37,7 @@ export function ProductCard({ product, eager }: Props) {
             blurDataUrl={image.blurDataUrl}
             eager={eager}
             sizes="(min-width: 1024px) 280px, (min-width: 640px) 33vw, 50vw"
-            className="mix-blend-multiply transition-transform duration-500 ease-(--ease-out) group-hover:-translate-y-1 group-hover:scale-105"
+            className="mix-blend-multiply transition-transform duration-240 ease-(--ease-out) group-hover:-translate-y-1 group-hover:scale-[1.03]"
           />
         ) : (
           <BottlePlaceholder label={`${product.brand} ${product.name}`} />

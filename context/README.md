@@ -106,7 +106,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ## Parked / open
 * HNG submission format and rubric: not posted yet.
 * Show authorized email list to graders? Decide after the domain (leaning no).
-* Choco Musk price is an estimate (seeded at ₦3,000); it also has NO image yet (not stocked by the reference store). Needs a source image or a placeholder.
+* Choco Musk was dropped (D48): no source image.
 * Seed images are 500x500 (source originals); fine for cards, soft on a large product page. Look for larger sources if time allows.
 
 ## Progress log
@@ -152,3 +152,4 @@ Newest first. One line per finished step: date, step, note.
 - 2026-10-02 · 5.5 · README rewritten with live URL, screenshots (docs/screenshots), env table, Mailgun and admin notes, known limits. Next: 5.6 demo video (needs the user), 5.7 submit.
 - 2026-10-02 · 5.3 · web-design-guidelines pass, admin sidebar fixed (sticky, user card no longer cut off, no stray page scroll). Non-admin customer run confirmed by the user.
 - 2026-10-02 · polish · one priority image on home (avatar and ladder no longer preload), solid danger low stock badge placed bottom-left, hidden tier scroller scrollbar, 'Search scents' placeholder, brand on the sold-out dupe callout, 404 title + noindex, ' · ' in legal titles, /favicon.ico 301, shared <Image> renders its own <img> with width/height (Netlify CDN srcset, was unpic), bottle placeholder for products without a photo (Al Rehab Choco Musk has none: upload one in /admin/products). Auth diagnostics were already removed. Speed: functions run in us-east-2 (Ohio), Supabase in eu-west-2 (London); not changed.
+- 2026-10-02 · motion review + catalog · Hover on product photos 500ms to 240ms (scale 1.03), image fade 300ms to 200ms. Choco Musk removed from seed data and docs (D48, no sourceable photo); deactivating the live row needs the owner (Active switch in /admin/products), a direct DB write was blocked.
