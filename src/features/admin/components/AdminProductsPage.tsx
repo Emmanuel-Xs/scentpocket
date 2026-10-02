@@ -87,7 +87,7 @@ export function AdminProductsPage({
               type="search"
               autoComplete="off"
               enterKeyHint="search"
-              placeholder="Search products"
+              placeholder="Search products…"
               defaultValue={q ?? ''}
               onChange={(e) => onSearch(e.target.value)}
               className="min-h-12 w-full rounded-md border border-border-strong bg-surface pr-4 pl-11 text-base transition-[border-color,box-shadow] duration-180 hover:border-muted focus:border-ink focus:ring-3 focus:ring-ink/12 focus:outline-none"

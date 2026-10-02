@@ -16,7 +16,7 @@ export function AdminShell({
   children: ReactNode
 }) {
   return (
-    <div className="grid min-h-dvh flex-1 md:grid-cols-[248px_minmax(0,1fr)]">
+    <div className="grid min-h-[calc(100dvh-36px)] flex-1 md:grid-cols-[248px_minmax(0,1fr)]">
       <nav
         aria-label="Admin"
         className="sticky top-0 z-(--z-header) overflow-x-auto bg-ink p-2.5 text-cream md:static md:overflow-visible md:px-3.5 md:py-5"

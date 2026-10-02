@@ -132,7 +132,7 @@ export function SearchDialog() {
               autoFocus
               enterKeyHint="search"
               autoComplete="off"
-              placeholder="Search scents or notes"
+              placeholder="Search scents or notes…"
               value={query}
               onChange={(e) => {
                 setQuery(e.target.value)

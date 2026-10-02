@@ -133,7 +133,7 @@ export function ShopPage({ products, search, setSearch, clearSearch }: Props) {
                     type="search"
                     enterKeyHint="search"
                     autoComplete="off"
-                    placeholder="Search name or brand"
+                    placeholder="Search name or brand…"
                     value={search.q ?? ''}
                     onChange={(e) =>
                       setSearch({ q: e.target.value || undefined }, true)
