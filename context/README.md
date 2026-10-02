@@ -77,7 +77,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ### Phase 4: Email and admin (Fri afternoon)
 - [x] 4.1 (built and tested with mocks; real sending needs MAILGUN_* / SMTP_* in .env and Netlify) React Email template, `sendOrderEmail` (Mailgun → SMTP), provider recorded on order
 - [ ] 4.2 (deferred by user: emails later) Email preview iframe on receipt page
-- [ ] 4.3 (deferred by user: no domain) Switch Mailgun to `mg.scentpocket.com.ng` if verified
+- [x] 4.3 Switch Mailgun to `mg.scentpocket.com.ng` (verified; DNS on Netlify; test sends to two recipients went through Mailgun)
 - [x] 4.4 Admin layout + orders list + order detail (status actions, cancel restock, resend email)
 - [x] 4.5 Admin products list + form with variants + image upload
 - [x] 4.6 Admin team page (owner only)
@@ -145,3 +145,4 @@ Newest first. One line per finished step: date, step, note.
 - 2026-10-01 · Design done · Every screen and state on the canvas; reference.css, tokens.css, SCREENS, MOTION-AND-LOADING, SEO-PWA-MOBILE, SKILLS added
 - 2026-10-01 · Planning done · Docs written (PRD, FRD, TRD, design, catalog, decisions, setup, legal drafts)
 - 2026-10-02 · domain · scentpocket.com.ng live on Netlify DNS with HTTPS; docs updated from .shop; temporary auth logging removed. Pending: Supabase config push (site_url + redirect URLs in supabase/config.toml, edited not pushed), deploy with SITE_URL=https://scentpocket.com.ng (set in Netlify, not yet deployed), Google OAuth origins, Mailgun domain (Netlify MAILGUN_API_KEY returns Invalid private key)
+- 2026-10-02 · 4.3 · Mailgun domain mg.scentpocket.com.ng verified (SPF, DKIM, MX, CNAME in Netlify DNS, DMARC p=none). Real test sends via deliverEmail to an authorized and a non-authorized recipient both queued by Mailgun (no fallback). Netlify prod env updated (key, domain, from, base) and redeployed.

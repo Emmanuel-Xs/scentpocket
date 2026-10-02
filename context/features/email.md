@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | 🟨 4.1 built and tested with mocks; real send pending credentials; preview iframe (4.2) next |
+| Status | ✅ Mailgun live on the verified domain; SMTP fallback kept |
 | FRD | [F7](../../docs/FRD.md) |
 | Steps | 4.1 to 4.3 in [context/README.md](../README.md) |
 | Decisions | D16, D17 ([DECISIONS.md](../../docs/DECISIONS.md)) |
@@ -13,7 +13,7 @@
 * Admin resend
 
 ## Notes and gotchas
-* Sandbox only reaches authorized recipients until `mg.scentpocket.com.ng` is verified
+* Mailgun runs on the verified domain `mg.scentpocket.com.ng` (DNS on Netlify); sends to any recipient. From: `Scentpocket <orders@mg.scentpocket.com.ng>`. Gmail SMTP stays as the fallback
 
 ## Files
 * `src/features/email/{templates/OrderConfirmation.tsx,render,mailgun,smtp,deliver,send,types}.ts`, `tests/unit/email.test.ts`, `src/features/orders/server/order-detail.ts`
