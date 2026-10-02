@@ -5,9 +5,9 @@
 | | |
 |---|---|
 | Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 5: Polish and submit** (next: 5.1; 4.2, 4.3 deferred; 0.9 skipped; still worth checking the Google app is In production with a non-test Gmail) |
+| Current phase | **Phase 5: Polish and submit** (next: 5.1; 4.2 deferred; 0.9 done via D46; still worth checking the Google app is In production with a non-test Gmail) |
 | Last updated | Fri 2 Oct 2026, by Claude Code |
-| Live URL | https://scentpocket.netlify.app  |
+| Live URL | https://scentpocket.com.ng (also scentpocket.netlify.app) |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
 
 Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked · ✂️ cut
@@ -83,7 +83,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 - [x] 4.6 Admin team page (owner only)
 
 ### Phase 5: Polish and submit (Fri evening)
-- [ ] 5.1 Loading skeletons, error and empty states, 404
+- [x] 5.1 Loading skeletons, error and empty states, 404 (shop, product, orders had skeletons; added a shared PageSkeleton for order detail and the admin pages; default error and 404 components already on the router)
 - [ ] 5.2 SEO: route `head()`, Product + Breadcrumb JSON-LD, sitemap.xml, robots.txt, noindex private routes, OG image, favicons
 - [ ] 5.2b PWA: manifest + icons + theme color (minimum); service worker + offline page + install sheet if time allows
 - [ ] 5.3 Review skills pass: `review-animations`, `web-design-guidelines`, `fixing-accessibility`, `web-quality-audit`; Lighthouse (home ≥ 90 desktop); real phone test over LAN
@@ -146,3 +146,4 @@ Newest first. One line per finished step: date, step, note.
 - 2026-10-01 · Planning done · Docs written (PRD, FRD, TRD, design, catalog, decisions, setup, legal drafts)
 - 2026-10-02 · domain · scentpocket.com.ng live on Netlify DNS with HTTPS; docs updated from .shop; temporary auth logging removed. Pending: Supabase config push (site_url + redirect URLs in supabase/config.toml, edited not pushed), deploy with SITE_URL=https://scentpocket.com.ng (set in Netlify, not yet deployed), Google OAuth origins, Mailgun domain (Netlify MAILGUN_API_KEY returns Invalid private key)
 - 2026-10-02 · 4.3 · Mailgun domain mg.scentpocket.com.ng verified (SPF, DKIM, MX, CNAME in Netlify DNS, DMARC p=none). Real test sends via deliverEmail to an authorized and a non-authorized recipient both queued by Mailgun (no fallback). Netlify prod env updated (key, domain, from, base) and redeployed.
+- 2026-10-02 · 5.1 · `components/layout/PageSkeleton.tsx` as pendingComponent on order detail and admin orders, order, products, product form, team. Email logo (PNG, absolute URL) shipped earlier today. Checkout fixes (drawer link, receipt landing) shipped. Next: 5.2 SEO.

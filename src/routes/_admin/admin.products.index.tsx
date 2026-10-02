@@ -3,6 +3,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { z } from 'zod'
 import { AdminProductsPage } from '#/features/admin/components/AdminProductsPage'
 import { adminProductsQueryOptions } from '#/features/admin/queries'
+import { PageSkeleton } from '#/components/layout/PageSkeleton'
 
 export const Route = createFileRoute('/_admin/admin/products/')({
   validateSearch: z.object({
@@ -11,6 +12,7 @@ export const Route = createFileRoute('/_admin/admin/products/')({
   loaderDeps: ({ search }) => search,
   loader: ({ context, deps }) =>
     context.queryClient.ensureQueryData(adminProductsQueryOptions(deps.q)),
+  pendingComponent: () => <PageSkeleton label="Loading products" />,
   head: () => ({
     meta: [
       { title: 'Products · Admin · Scentpocket' },

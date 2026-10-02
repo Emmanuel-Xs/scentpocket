@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { AdminOrdersPage } from '#/features/admin/components/AdminOrdersPage'
 import { adminOrdersQueryOptions } from '#/features/admin/queries'
 import { ORDER_STATUSES } from '#/features/orders/status'
+import { PageSkeleton } from '#/components/layout/PageSkeleton'
 
 export const Route = createFileRoute('/_admin/admin/orders/')({
   validateSearch: z.object({
@@ -13,6 +14,7 @@ export const Route = createFileRoute('/_admin/admin/orders/')({
   loaderDeps: ({ search }) => search,
   loader: ({ context, deps }) =>
     context.queryClient.ensureQueryData(adminOrdersQueryOptions(deps)),
+  pendingComponent: () => <PageSkeleton label="Loading orders" />,
   head: () => ({
     meta: [
       { title: 'Orders · Admin · Scentpocket' },

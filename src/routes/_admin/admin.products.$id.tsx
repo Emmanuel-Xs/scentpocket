@@ -2,10 +2,12 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
 import { ProductForm } from '#/features/admin/components/ProductForm'
 import { adminProductQueryOptions } from '#/features/admin/queries'
+import { PageSkeleton } from '#/components/layout/PageSkeleton'
 
 export const Route = createFileRoute('/_admin/admin/products/$id')({
   loader: ({ context, params }) =>
     context.queryClient.ensureQueryData(adminProductQueryOptions(params.id)),
+  pendingComponent: () => <PageSkeleton label="Loading product" />,
   head: () => ({
     meta: [
       { title: 'Edit product · Admin · Scentpocket' },
