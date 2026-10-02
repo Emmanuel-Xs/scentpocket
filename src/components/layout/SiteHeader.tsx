@@ -9,7 +9,7 @@ const pressable =
   'active:scale-[0.97] transition-transform duration-150 ease-(--ease-out)'
 
 const navLink =
-  'border-b border-transparent py-1.5 transition-colors duration-180 aria-[current=page]:border-ink hover:border-ink'
+  'border-b border-transparent py-1.5 whitespace-nowrap transition-colors duration-180 aria-[current=page]:border-ink hover:border-ink'
 
 /** Sticky blurred header. Cart pill arrives with the cart drawer (2.2), search dialog with 1.8. */
 export function SiteHeader() {
@@ -39,7 +39,7 @@ export function SiteHeader() {
             type="button"
             onClick={() => show()}
             aria-label="Search scents"
-            className={`hidden min-h-11 min-w-55 items-center gap-2.5 rounded-pill border border-border bg-surface px-4 text-sm text-muted transition-colors duration-180 hover:border-ink hover:text-ink md:inline-flex ${pressable}`}
+            className={`hidden min-h-11 min-w-55 items-center gap-2.5 rounded-pill border border-border bg-surface px-4 text-sm text-muted transition-colors duration-180 hover:border-ink hover:text-ink lg:inline-flex ${pressable}`}
           >
             <Search size={18} strokeWidth={1.5} aria-hidden="true" />
             <span>Search scents</span>
@@ -51,7 +51,7 @@ export function SiteHeader() {
             type="button"
             onClick={() => show()}
             aria-label="Search"
-            className={`inline-flex size-11 items-center justify-center rounded-pill md:hidden ${pressable}`}
+            className={`inline-flex size-11 items-center justify-center rounded-pill lg:hidden ${pressable}`}
           >
             <Search size={22} strokeWidth={1.5} aria-hidden="true" />
           </button>

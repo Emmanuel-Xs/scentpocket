@@ -28,7 +28,7 @@ export function ProductPage({ product }: { product: ProductDetail }) {
   return (
     <main className="flex-1">
       <div className="page-container flex flex-col gap-14 pt-6 pb-32 md:pb-18">
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(340px,100%),1fr))] items-start gap-12">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] items-start gap-12">
           <div className="flex flex-col gap-3.5">
             <Breadcrumb items={crumbs} className="hidden md:flex" />
             <Gallery product={product} />
