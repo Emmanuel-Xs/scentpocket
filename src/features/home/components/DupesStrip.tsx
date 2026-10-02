@@ -29,7 +29,7 @@ export function DupesStrip({ dupes }: { dupes: DupePair[] }) {
             <ArrowRight size={18} strokeWidth={1.5} aria-hidden="true" />
           </Link>
         </div>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(290px,1fr))] gap-4">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(290px,100%),1fr))] gap-4">
           {dupes.map((pair) => (
             <DupeCard key={pair.dupe.id} {...pair} />
           ))}

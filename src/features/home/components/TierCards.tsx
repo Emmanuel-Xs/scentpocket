@@ -19,7 +19,7 @@ export function TierCards({
           Four tiers. {total} scents. One promise: you&apos;ll smell good.
         </span>
       </div>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(250px,100%),1fr))] gap-4">
         {tiers.map(({ tier, count }) => {
           const style = tierStyles[tier]
           const isNiche = tier === 'niche'

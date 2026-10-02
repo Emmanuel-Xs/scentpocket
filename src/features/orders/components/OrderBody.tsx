@@ -69,7 +69,7 @@ export function OrderBody({ order }: { order: OrderDetail }) {
             </dd>
           </dl>
         </section>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3.5">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(220px,100%),1fr))] gap-3.5">
           <div className={infoCard}>
             <span className={eyebrow}>Delivering to</span>
             <span className="font-semibold">{order.customerName}</span>

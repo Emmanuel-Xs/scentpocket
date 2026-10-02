@@ -35,7 +35,7 @@ function Dupes() {
             and how long it lasts on Lagos skin.
           </p>
         </div>
-        <div className="grid grid-cols-[repeat(auto-fit,minmax(290px,1fr))] gap-4">
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(min(290px,100%),1fr))] gap-4">
           {data.map((pair) => (
             <DupeCard key={pair.dupe.id} {...pair} />
           ))}

@@ -173,7 +173,7 @@ export function CheckoutForm({ user }: { user: SessionUser }) {
   }
 
   return (
-    <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start">
       <form
         id="checkout-form"
         noValidate
@@ -243,7 +243,7 @@ export function CheckoutForm({ user }: { user: SessionUser }) {
 
         <section className={card}>
           <h2 className="font-serif text-2xl leading-none">1. Contact</h2>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-4">
             <form.Field name="fullName">
               {(field) => {
                 const error =
@@ -338,7 +338,7 @@ export function CheckoutForm({ user }: { user: SessionUser }) {
               )
             }}
           </form.Field>
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(min(200px,100%),1fr))] gap-4">
             <form.Field name="city">
               {(field) => {
                 const error =

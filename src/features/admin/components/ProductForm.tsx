@@ -204,7 +204,7 @@ export function ProductForm({ product, options }: Props) {
         <div className="flex flex-col gap-5">
           <section className={card}>
             <h2 className={h2}>Details</h2>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3.5">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(min(200px,100%),1fr))] gap-3.5">
               <FormField id="name" label="Name" error={err('name')}>
                 <input
                   id="name"

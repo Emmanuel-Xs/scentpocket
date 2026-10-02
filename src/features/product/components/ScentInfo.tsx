@@ -80,7 +80,7 @@ export function ScentInfo({ product }: { product: ProductDetail }) {
   return (
     <section className="flex flex-col gap-5">
       <h2 className="text-(length:--text-h2)">What it smells like</h2>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-3.5">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-3.5">
         <Notes
           title="Top notes"
           hint="First 15 minutes"

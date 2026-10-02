@@ -78,7 +78,7 @@ export function PhotoManager({
   return (
     <div className="flex flex-col gap-4">
       {photos.length > 0 ? (
-        <ul className="m-0 grid list-none grid-cols-[repeat(auto-fill,minmax(130px,1fr))] gap-3 p-0">
+        <ul className="m-0 grid list-none grid-cols-[repeat(auto-fill,minmax(min(130px,100%),1fr))] gap-3 p-0">
           {photos.map((p, i) => (
             <li key={p.id} className="flex flex-col gap-2">
               <div className="relative grid aspect-4/5 place-items-center overflow-hidden rounded-lg bg-blush">

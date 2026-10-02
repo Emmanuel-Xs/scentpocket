@@ -27,7 +27,7 @@ export function TrustStrip() {
   return (
     <section className="page-container pb-16">
       <hr className="border-0 border-t-2 border-dashed border-border" />
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-7 pt-10">
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(230px,100%),1fr))] gap-7 pt-10">
         {items.map(({ Icon, title, body }) => (
           <div key={title} className="flex items-start gap-3.5">
             <span className="grid size-11 shrink-0 place-items-center rounded-full bg-blush">
