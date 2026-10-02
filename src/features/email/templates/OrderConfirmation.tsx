@@ -64,16 +64,14 @@ export function OrderConfirmation({ order, siteUrl }: Props) {
           style={{ maxWidth: 600, margin: '0 auto', backgroundColor: cream }}
         >
           <Section style={{ padding: '28px 32px 8px' }}>
-            <Link
-              href={siteUrl}
-              style={{
-                fontFamily: serif,
-                fontSize: 26,
-                color: ink,
-                textDecoration: 'none',
-              }}
-            >
-              scentpocket
+            <Link href={siteUrl} style={{ textDecoration: 'none' }}>
+              <Img
+                src={`${siteUrl}/email/scentpocket-email-logo.png`}
+                width="164"
+                height="37"
+                alt="Scentpocket"
+                style={{ display: 'block', border: 0 }}
+              />
             </Link>
           </Section>
 

@@ -104,6 +104,19 @@ describe('renderOrderEmail', () => {
     expect(html).toContain('fm=jpg')
   })
 
+  it('shows the logo as an absolute PNG linked to the home page, with no SVG', async () => {
+    const { html, text } = await renderOrderEmail(
+      order,
+      'https://scentpocket.com.ng/',
+    )
+    expect(html).toContain(
+      'src="https://scentpocket.com.ng/email/scentpocket-email-logo.png"',
+    )
+    expect(html).toContain('href="https://scentpocket.com.ng"')
+    expect(html).not.toContain('<svg')
+    expect(text.startsWith('Scentpocket\n\nTHANKS, ADA')).toBe(true)
+  })
+
   it('produces a readable plain text version without markup', async () => {
     const { text } = await renderOrderEmail(
       order,

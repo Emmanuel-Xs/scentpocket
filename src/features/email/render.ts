@@ -17,5 +17,11 @@ export async function renderOrderEmail(
     render(element),
     render(element, { plainText: true }),
   ])
-  return { subject: `Your Scentpocket order ${order.ref}`, html, text }
+  // The logo image has no text, so the plain text would open with the bare home page link.
+  const body = text.replace(/^https?:\/\/\S+\s*/, '')
+  return {
+    subject: `Your Scentpocket order ${order.ref}`,
+    html,
+    text: `Scentpocket\n\n${body}`,
+  }
 }
