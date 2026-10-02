@@ -9,7 +9,19 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import { AppShell } from '#/components/layout/AppShell'
 import { userQueryOptions } from '#/features/auth/queries'
+import serifItalic from '@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2?url'
+import serif from '@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2?url'
+import sans from '@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2?url'
 import appCss from '../styles/app.css?url'
+
+// Preloaded so the headline does not reflow when the web fonts arrive (CLS).
+const fontPreloads = [serif, serifItalic, sans].map((href) => ({
+  rel: 'preload',
+  href,
+  as: 'font',
+  type: 'font/woff2',
+  crossOrigin: 'anonymous' as const,
+}))
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   {
@@ -35,6 +47,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         },
       ],
       links: [
+        ...fontPreloads,
         { rel: 'stylesheet', href: appCss },
         { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
         {
