@@ -72,7 +72,7 @@ export function AdminProductsPage({
       <div className="flex flex-wrap items-end justify-between gap-3">
         <h1 className="text-5xl">Products</h1>
         <div className="flex flex-wrap gap-2.5">
-          <div className="relative w-[min(280px,100%)]">
+          <div className="relative w-70 max-w-full">
             <label className="sr-only" htmlFor="admin-pq">
               Search products
             </label>
