@@ -51,7 +51,8 @@ export function TeamPage({ members }: { members: TeamMember[] }) {
   const [error, setError] = useState('')
   const [adding, setAdding] = useState(false)
   const [removing, setRemoving] = useState<TeamMember | null>(null)
-  const [busy, setBusy] = useState(false)
+  // Removed members vanish at once; they come back if the server refuses.
+  const [hidden, setHidden] = useState<string[]>([])
 
   const refresh = () =>
     queryClient.invalidateQueries({ queryKey: ['admin', 'team'] })
@@ -75,20 +76,23 @@ export function TeamPage({ members }: { members: TeamMember[] }) {
 
   const confirmRemove = async () => {
     if (!removing) return
-    setBusy(true)
+    const gone = removing
+    setHidden((h) => [...h, gone.id])
+    setRemoving(null)
+    const restore = () => setHidden((h) => h.filter((id) => id !== gone.id))
     try {
-      const res = await demote({ data: { id: removing.id } })
+      const res = await demote({ data: { id: gone.id } })
       if (res.ok) {
-        toast.success(
-          `${removing.name ?? removing.email} is no longer an admin`,
-        )
+        toast.success(`${gone.name ?? gone.email} is no longer an admin`)
         await refresh()
-      } else toast.error(res.error)
+        restore()
+      } else {
+        restore()
+        toast.error(res.error)
+      }
     } catch {
+      restore()
       toast.error('Could not remove that admin. Please try again.')
-    } finally {
-      setBusy(false)
-      setRemoving(null)
     }
   }
 
@@ -101,41 +105,43 @@ export function TeamPage({ members }: { members: TeamMember[] }) {
             People with admin access
           </h2>
           <ul className="m-0 mt-2 list-none p-0">
-            {members.map((m) => (
-              <li
-                key={m.id}
-                className="flex flex-wrap items-center gap-3.5 border-b border-border py-4 last:border-b-0"
-              >
-                <Avatar member={m} />
-                <div className="flex min-w-50 flex-[1_1_200px] flex-col">
-                  <span className="font-semibold">{m.name ?? m.email}</span>
-                  <span className="text-[13px] text-muted">{m.email}</span>
-                </div>
-                {m.role === 'owner' ? (
-                  <>
-                    <span className="rounded-pill bg-niche px-2.75 py-1.25 text-xs font-semibold text-gold">
-                      Owner
-                    </span>
-                    <span className="text-[13px] text-muted">
-                      Set by ADMIN_EMAILS
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    <span className="rounded-pill border border-border bg-surface px-2.75 py-1.25 text-xs font-medium">
-                      Admin
-                    </span>
-                    <button
-                      type="button"
-                      onClick={() => setRemoving(m)}
-                      className="min-h-10 rounded-pill border border-ink px-4 text-sm font-semibold transition-transform duration-150 active:scale-[0.97]"
-                    >
-                      Remove admin
-                    </button>
-                  </>
-                )}
-              </li>
-            ))}
+            {members
+              .filter((m) => !hidden.includes(m.id))
+              .map((m) => (
+                <li
+                  key={m.id}
+                  className="flex flex-wrap items-center gap-3.5 border-b border-border py-4 last:border-b-0"
+                >
+                  <Avatar member={m} />
+                  <div className="flex min-w-50 flex-[1_1_200px] flex-col">
+                    <span className="font-semibold">{m.name ?? m.email}</span>
+                    <span className="text-[13px] text-muted">{m.email}</span>
+                  </div>
+                  {m.role === 'owner' ? (
+                    <>
+                      <span className="rounded-pill bg-niche px-2.75 py-1.25 text-xs font-semibold text-gold">
+                        Owner
+                      </span>
+                      <span className="text-[13px] text-muted">
+                        Set by ADMIN_EMAILS
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="rounded-pill border border-border bg-surface px-2.75 py-1.25 text-xs font-medium">
+                        Admin
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setRemoving(m)}
+                        className="min-h-10 rounded-pill border border-ink px-4 text-sm font-semibold transition-transform duration-150 active:scale-[0.97]"
+                      >
+                        Remove admin
+                      </button>
+                    </>
+                  )}
+                </li>
+              ))}
           </ul>
         </section>
 
@@ -192,7 +198,7 @@ export function TeamPage({ members }: { members: TeamMember[] }) {
         confirmLabel="Remove admin"
         cancelLabel="Keep admin"
         danger
-        pending={busy}
+        pending={false}
         onConfirm={() => void confirmRemove()}
       />
     </>

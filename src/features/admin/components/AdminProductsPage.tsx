@@ -11,6 +11,7 @@ import { tierStyles } from '#/features/catalog/tiers'
 import type { Tier } from '#/features/catalog/types'
 import { Image } from '#/features/images/Image'
 import { formatKobo } from '#/lib/money'
+import { useDebouncedCallback } from '#/lib/use-debounced-callback'
 import { cn } from '#/lib/utils'
 import { setProductActive } from '../server/products'
 import type { AdminProductRow } from '../types'
@@ -29,6 +30,7 @@ export function AdminProductsPage({
   onSearch: (q: string) => void
 }) {
   const queryClient = useQueryClient()
+  const debouncedSearch = useDebouncedCallback(onSearch, 300)
   const toggle = useServerFn(setProductActive)
   const [tab, setTab] = useState<Tab>('all')
   // What each switch shows right now. It leads the server value until the debounced save lands.
@@ -120,7 +122,7 @@ export function AdminProductsPage({
               enterKeyHint="search"
               placeholder="Search products…"
               defaultValue={q ?? ''}
-              onChange={(e) => onSearch(e.target.value)}
+              onChange={(e) => debouncedSearch(e.target.value)}
               className="min-h-12 w-full rounded-md border border-border-strong bg-surface pr-4 pl-11 text-base transition-[border-color,box-shadow] duration-180 hover:border-muted focus:border-ink focus:ring-3 focus:ring-ink/12 focus:outline-none"
             />
           </div>

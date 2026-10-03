@@ -1,10 +1,11 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useServerFn } from '@tanstack/react-start'
 import { ImagePlus, Loader2, Star, Trash2 } from 'lucide-react'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 import { Image } from '#/features/images/Image'
 import { cn } from '#/lib/utils'
+import { useDebouncedCallback } from '#/lib/use-debounced-callback'
 import { IMAGE_TYPES, MAX_IMAGE_BYTES } from '../schemas'
 import {
   deleteProductPhoto,
@@ -28,6 +29,10 @@ export function PhotoManager({
   const input = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
   const [dragging, setDragging] = useState(false)
+  // What the grid shows right now. It leads the server list until the save lands and the data refetches.
+  const [local, setLocal] = useState<AdminProductPhoto[] | null>(null)
+  const shown = local ?? photos
+  useEffect(() => setLocal(null), [photos])
 
   const refresh = () =>
     Promise.all([
@@ -63,23 +68,48 @@ export function PhotoManager({
     }
   }
 
-  const act = async (fn: () => Promise<{ ok: boolean }>, message: string) => {
+  const undo = () => {
+    setLocal(null)
+    toast.error('Could not do that. It is back to how it was.')
+  }
+
+  const saveMain = useDebouncedCallback(async (id: string) => {
     try {
-      const res = await fn()
-      if (res.ok) {
-        await refresh()
-        toast.success(message)
-      } else toast.error('Could not do that.')
+      const res = await makeMain({ data: { id } })
+      if (!res.ok) return undo()
+      await refresh()
+      toast.success('Main photo changed')
     } catch {
-      toast.error('Could not do that.')
+      undo()
+    }
+  }, 400)
+
+  // Optimistic and debounced: the photo jumps to the front at once, one save follows the last click.
+  const pickMain = (id: string) => {
+    const picked = shown.find((p) => p.id === id)
+    if (!picked) return
+    setLocal([picked, ...shown.filter((p) => p.id !== id)])
+    saveMain(id)
+  }
+
+  // Optimistic only: a delete is a single deliberate action, so there is nothing to debounce.
+  const removePhoto = async (id: string) => {
+    setLocal(shown.filter((p) => p.id !== id))
+    try {
+      const res = await remove({ data: { id } })
+      if (!res.ok) return undo()
+      await refresh()
+      toast.success('Photo deleted')
+    } catch {
+      undo()
     }
   }
 
   return (
     <div className="flex flex-col gap-4">
-      {photos.length > 0 ? (
+      {shown.length > 0 ? (
         <ul className="m-0 grid list-none grid-cols-[repeat(auto-fill,minmax(min(130px,100%),1fr))] gap-3 p-0">
-          {photos.map((p, i) => (
+          {shown.map((p, i) => (
             <li key={p.id} className="flex flex-col gap-2">
               <div className="relative grid aspect-4/5 place-items-center overflow-hidden rounded-lg bg-blush">
                 <Image
@@ -100,12 +130,7 @@ export function PhotoManager({
                 {i > 0 ? (
                   <button
                     type="button"
-                    onClick={() =>
-                      void act(
-                        () => makeMain({ data: { id: p.id } }),
-                        'Main photo changed',
-                      )
-                    }
+                    onClick={() => pickMain(p.id)}
                     className="inline-flex min-h-10 flex-1 items-center justify-center gap-1 rounded-pill border border-border text-xs font-semibold transition-transform duration-150 active:scale-[0.97]"
                   >
                     <Star size={14} strokeWidth={1.5} aria-hidden="true" /> Main
@@ -114,12 +139,7 @@ export function PhotoManager({
                 <button
                   type="button"
                   aria-label="Delete photo"
-                  onClick={() =>
-                    void act(
-                      () => remove({ data: { id: p.id } }),
-                      'Photo deleted',
-                    )
-                  }
+                  onClick={() => void removePhoto(p.id)}
                   className="grid size-10 place-items-center rounded-pill border border-border text-danger transition-transform duration-150 active:scale-[0.97]"
                 >
                   <Trash2 size={16} strokeWidth={1.5} aria-hidden="true" />

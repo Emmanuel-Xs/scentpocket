@@ -5,6 +5,7 @@ import { ORDER_STATUSES, STATUS_LABELS } from '#/features/orders/status'
 import type { OrderStatus } from '#/features/orders/status'
 import { formatDateTime } from '#/lib/dates'
 import { formatKobo } from '#/lib/money'
+import { useDebouncedCallback } from '#/lib/use-debounced-callback'
 import { cn } from '#/lib/utils'
 import type { AdminOrdersData } from '../types'
 
@@ -33,6 +34,8 @@ export function AdminOrdersPage({
   onStatus,
   onSearch,
 }: Props) {
+  // The URL (and the server query behind it) updates once typing pauses, not on every key.
+  const debouncedSearch = useDebouncedCallback(onSearch, 300)
   const stats = [
     { label: 'To confirm', value: String(data.stats.toConfirm) },
     { label: 'To ship', value: String(data.stats.toShip) },
@@ -70,7 +73,7 @@ export function AdminOrdersPage({
             autoComplete="off"
             placeholder="Ref or email"
             defaultValue={q ?? ''}
-            onChange={(e) => onSearch(e.target.value)}
+            onChange={(e) => debouncedSearch(e.target.value)}
             className="min-h-12 w-full rounded-md border border-border-strong bg-surface pr-4 pl-11 text-base transition-[border-color,box-shadow] duration-180 hover:border-muted focus:border-ink focus:ring-3 focus:ring-ink/12 focus:outline-none"
           />
         </div>
