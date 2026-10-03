@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
 import { Pencil, Plus, Search } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 import { Switch } from '#/components/ui/Switch'
 import { TierChip } from '#/features/catalog/components/TierChip'
@@ -16,6 +16,7 @@ import { setProductActive } from '../server/products'
 import type { AdminProductRow } from '../types'
 
 const LOW_STOCK = 3
+const TOGGLE_DEBOUNCE_MS = 500
 type Tab = 'all' | Tier | 'low'
 
 export function AdminProductsPage({
@@ -30,7 +31,17 @@ export function AdminProductsPage({
   const queryClient = useQueryClient()
   const toggle = useServerFn(setProductActive)
   const [tab, setTab] = useState<Tab>('all')
-  const [busyId, setBusyId] = useState<string | null>(null)
+  // What each switch shows right now. It leads the server value until the debounced save lands.
+  const [pending, setPending] = useState<Record<string, boolean>>({})
+  const timers = useRef(new Map<string, ReturnType<typeof setTimeout>>())
+  const rowsRef = useRef(rows)
+  rowsRef.current = rows
+  const isActive = (row: AdminProductRow) => pending[row.id] ?? row.isActive
+
+  useEffect(() => {
+    const live = timers.current
+    return () => live.forEach(clearTimeout)
+  }, [])
 
   const low = rows.filter((r) => r.isActive && r.totalStock <= LOW_STOCK)
   const shown = rows.filter((r) =>
@@ -46,25 +57,45 @@ export function AdminProductsPage({
     { key: 'low', label: 'Low stock', count: low.length },
   ]
 
-  const setActive = async (row: AdminProductRow, isActive: boolean) => {
-    setBusyId(row.id)
+  const settle = (id: string) =>
+    setPending((p) => {
+      const { [id]: _done, ...rest } = p
+      return rest
+    })
+
+  const save = async (id: string, next: boolean) => {
+    const row = rowsRef.current.find((r) => r.id === id)
+    // Flipped back to where it started inside the debounce window: nothing to save.
+    if (!row || row.isActive === next) return settle(id)
     try {
-      const res = await toggle({ data: { id: row.id, isActive } })
+      const res = await toggle({ data: { id, isActive: next } })
       if (!res.ok) throw new Error(res.error)
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ['admin'] }),
         queryClient.invalidateQueries({ queryKey: ['catalog'] }),
       ])
       toast.success(
-        isActive
-          ? `${row.name} is live`
-          : `${row.name} is hidden from the shop`,
+        next ? `${row.name} is live` : `${row.name} is hidden from the shop`,
       )
     } catch {
-      toast.error('Could not change that. Please try again.')
+      toast.error(`Could not change ${row.name}. It is back to how it was.`)
     } finally {
-      setBusyId(null)
+      settle(id)
     }
+  }
+
+  // Optimistic: the switch moves at once. Debounced: rapid flips on a row send one request.
+  const setActive = (row: AdminProductRow, next: boolean) => {
+    setPending((p) => ({ ...p, [row.id]: next }))
+    const existing = timers.current.get(row.id)
+    if (existing) clearTimeout(existing)
+    timers.current.set(
+      row.id,
+      setTimeout(() => {
+        timers.current.delete(row.id)
+        void save(row.id, next)
+      }, TOGGLE_DEBOUNCE_MS),
+    )
   }
 
   return (
@@ -156,7 +187,7 @@ export function AdminProductsPage({
                     key={p.id}
                     className={cn(
                       'transition-colors duration-150 hover:bg-[#FBF8F3]',
-                      !p.isActive && 'opacity-60',
+                      !isActive(p) && 'opacity-60',
                     )}
                   >
                     <td className="border-b border-border px-4 py-3">
@@ -212,10 +243,9 @@ export function AdminProductsPage({
                     </td>
                     <td className="border-b border-border px-4 py-3">
                       <Switch
-                        checked={p.isActive}
+                        checked={isActive(p)}
                         label={`${p.name} active`}
-                        disabled={busyId === p.id}
-                        onCheckedChange={(next) => void setActive(p, next)}
+                        onCheckedChange={(next) => setActive(p, next)}
                       />
                     </td>
                     <td className="border-b border-border px-4 py-3 text-right">
