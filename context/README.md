@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | Deadline | Lesson 2: Fri 2 Oct 2026, 11:59 PM WAT. **Lesson 3 backend: Mon 5 Oct 2026, 11:59 PM WAT** |
-| Current phase | **Phase 6: Lesson 3 backend** (Phase 5 done except 5.7 submit; 6.1 to 6.5 in progress) |
+| Current phase | **Phase 6: Lesson 3 backend** (6.1 to 6.5 done, deployed 4 Oct) |
 | Last updated | Sun 4 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.com.ng (also scentpocket.netlify.app) |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
@@ -98,7 +98,7 @@ The web app becomes the shared backend for the mobile app (separate repo `scentp
 - [x] 6.2 Web cart sync: merge once on sign in, server cart is the truth when signed in, optimistic `setCartItem` with rollback, refetch on focus + 3s poll while drawer or /checkout is open, clear local cart on sign out
 - [x] 6.3 REST API at `/api/v1` (bearer auth, 12 routes), `docs/API.md`
 - [x] 6.4 Supabase redirect URLs for the mobile app (config.toml + live project; pushed with `supabase config push`, auth only)
-- [ ] 6.5 Tests (merge + clamp unit, bearer auth + POST orders clearing the cart integration), typecheck + lint + test, deploy, curl `/api/v1/catalog` on the live domain
+- [x] 6.5 Tests (merge + clamp unit, bearer auth + POST orders clearing the cart integration), typecheck + lint + test, deploy, curl `/api/v1/catalog` on the live domain
 
 ### Stretch (only after 5.7, or if far ahead)
 - [ ] S1 Paystack test mode
