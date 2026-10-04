@@ -4,6 +4,7 @@ import { Link, useNavigate, useRouter } from '@tanstack/react-router'
 import { useServerFn } from '@tanstack/react-start'
 import { LogOut, Receipt, ShieldCheck, User } from 'lucide-react'
 import { toast } from 'sonner'
+import { clearCartOnSignOut } from '#/features/cart/sync'
 import { userQueryOptions } from '../queries'
 import { signOut } from '../server/actions'
 import { isAdminRole } from '../types'
@@ -69,10 +70,11 @@ export function AccountMenu() {
   const onSignOut = async () => {
     try {
       await doSignOut()
+      clearCartOnSignOut()
       queryClient.setQueryData(userQueryOptions().queryKey, null)
       await router.invalidate()
       await navigate({ to: '/' })
-      toast.success('Signed out. Your cart is kept.')
+      toast.success('Signed out. Your cart is saved to your account.')
     } catch {
       toast.error('Could not sign out. Please try again.')
     }

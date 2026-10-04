@@ -1,6 +1,7 @@
 import { and, asc, desc, eq, gte, inArray, ne, sql } from 'drizzle-orm'
 import type { Db } from '#/db/client'
 import {
+  cartItems,
   orderItems,
   orders,
   productImages,
@@ -257,6 +258,9 @@ export async function createOrder(
           ]
         }),
       )
+
+      // The cart is spent. Same transaction, so a failed order keeps it and a placed one never does.
+      await tx.delete(cartItems).where(eq(cartItems.userId, user.id))
 
       return { id: created.id, ref: created.ref, totals, duplicate: false }
     })

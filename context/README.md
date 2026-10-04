@@ -4,9 +4,9 @@
 
 | | |
 |---|---|
-| Deadline | **Fri 2 Oct 2026, 11:59 PM WAT** (target submit: 10:00 PM) |
-| Current phase | **Phase 5: Polish and submit** (5.1 to 5.5 done; 5.6 not needed; next: 5.7 submit; optional: fresh non-admin Gmail run, phone check) |
-| Last updated | Fri 2 Oct 2026, by Claude Code |
+| Deadline | Lesson 2: Fri 2 Oct 2026, 11:59 PM WAT. **Lesson 3 backend: Mon 5 Oct 2026, 11:59 PM WAT** |
+| Current phase | **Phase 6: Lesson 3 backend** (Phase 5 done except 5.7 submit; 6.1 to 6.5 in progress) |
+| Last updated | Sun 4 Oct 2026, by Claude Code |
 | Live URL | https://scentpocket.com.ng (also scentpocket.netlify.app) |
 | Repo | https://github.com/Emmanuel-Xs/scentpocket (public) |
 
@@ -92,6 +92,14 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 - [~] 5.6 Demo video: not needed (user, 2 Oct)
 - [ ] 5.7 Submit (format TBD)
 
+### Phase 6: Lesson 3 backend (deadline Mon 5 Oct 2026, 11:59 PM WAT)
+The web app becomes the shared backend for the mobile app (separate repo `scentpocket-mobile`). Mailgun is exempt this lesson: email stays as is.
+- [x] 6.1 Server cart: `cart_items` table + migration, `features/cart/server` (`getCart`, `setCartItem`, `clearCart`, `mergeCart`), clamp to stock, `placeOrder` clears the cart in its transaction
+- [x] 6.2 Web cart sync: merge once on sign in, server cart is the truth when signed in, optimistic `setCartItem` with rollback, refetch on focus + 3s poll while drawer or /checkout is open, clear local cart on sign out
+- [x] 6.3 REST API at `/api/v1` (bearer auth, 12 routes), `docs/API.md`
+- [x] 6.4 Supabase redirect URLs for the mobile app (config.toml + live project; pushed with `supabase config push`, auth only)
+- [ ] 6.5 Tests (merge + clamp unit, bearer auth + POST orders clearing the cart integration), typecheck + lint + test, deploy, curl `/api/v1/catalog` on the live domain
+
 ### Stretch (only after 5.7, or if far ahead)
 - [ ] S1 Paystack test mode
 - [ ] S2 Browse by persona
@@ -112,6 +120,7 @@ Status legend: ⬜ not started · 🟨 in progress · ✅ done · ⛔ blocked ·
 ## Progress log
 Newest first. One line per finished step: date, step, note.
 
+- 2026-10-04 · 6.1 to 6.4 · Server cart + web sync + REST API. `cart_items` table (migration 0001, applied live, RLS on, 0 policies). `features/cart`: `rules.ts` (clamp/merge), `server/cart-core.ts` (getCart reconciles and fixes stored rows, setCartItem, clearCart, mergeCart), server fns, `createOrder` clears the cart in its transaction (`place-order-core.ts` shared with REST). Web: store has `ownerId` (v2 migration), `sync.ts` (`cartActions`: optimistic, per variant serialised saves, rollback + toast), `CartSync` (one-time merge, server truth, refetch on focus, 3s poll while drawer or /checkout open, sign out clears local). Verified in a browser with a throwaway user: merge on sign in, a bearer PUT showed up in the open drawer within 3s, two quick taps persisted 6. API: 12 routes under `/api/v1` (`features/api/*`, thin `src/routes/api.v1.*`), `requireUser/Admin/Owner(request?)` take cookie or bearer, profile created on first bearer request (mobile users skip /auth/callback), JSON 404 for unknown API paths, `docs/API.md`. Order items/list now also carry an `image` object (size + blur). Redirect URLs `scentpocket://auth/callback` and `exp+scentpocket://**` pushed to the live project. D43 to D48 were already used, so the new decisions are D49 to D58
 - 2026-10-01 · 2.6 · Owner sign in verified: profile for emmanuelxs101@gmail.com created with role owner. The user then saw `/?code=...&next=%2F` in the address bar (a login code landing on the home page, root cause not pinned down: the callback itself ran). Home route now forwards a stray `code` to `/auth/callback` when signed out and strips it when signed in; callback logs failures with `console.error` (visible in Netlify function logs)
 - 2026-10-01 · 4.6 · Admin team: `requireOwner()`, `team-core` (`listTeam` owner first, `addAdmin` by email: must have signed in, case-insensitive, refuses existing admin/owner; `removeAdmin`: never the owner, only admins, write guarded by role), server fns `listTeamMembers`/`makeAdmin`/`demoteAdmin` (owner only), `/admin/team` page (list, owner badge "Set by ADMIN_EMAILS", add form with the design's error, remove with confirm dialog). Route 404s for non owners, nav hides Team for admins. 6 new integration tests (31 int, 70 unit). Verified in a browser with throwaway owner, admin and customer: unknown email error, promote, demote, plain admin gets 404 on /admin/team but can use orders. Found by a test: role enum order made admins sort before the owner (now desc). Test users deleted. Phase 4 done except deferred 4.2 (email preview) and 4.3 (domain)
 - 2026-10-01 · 4.5 · Admin products: list (search, tier + low stock tabs, active switch, edit link), `/admin/products/new` and `/$id` form (details, slug auto from name, tier/gender/family/occasion pills, inspired-by select, three tag inputs, longevity/projection, 1 to 3 size rows with price in naira and stock, sticky unsaved bar, discard, delete with confirm), `PhotoManager` (upload or drop, PNG/JPEG/WebP up to 8 MB, server converts to WebP + blur via the images pipeline, make main, delete). Server (`requireAdmin()` first): list, get, save, set active, delete, upload, delete photo, make main. `saveProduct` (transaction; sizes dropped from the form are deleted if never ordered, hidden if ordered; unique slug; SKUs generated) and `deleteProduct` (blocked once ordered), 8 integration tests + schema unit tests (25 int, 70 unit total). Verified in a browser with a throwaway owner: validation summary, create, photo upload (WebP in the bucket), edit + save, public page shows it, deactivate hides it (404, gone from shop), delete removes row and storage file. Inactive products stay out of search, shop and home. FOUND AND FIXED: (1) postgres.js with `max: 1` behind Supavisor intermittently left parallel queries hanging (reproduced standalone), now `max: 3` + idle_timeout 20 + max_lifetime 300; (2) `sharp` is imported lazily in the upload handler so it only loads when used; (3) `inputValidator()` is deprecated in this TanStack version, all server fns now use `validator()` (the warning spam also fed a dev-only console feedback loop); (4) toasts covered the sticky Save bar, admin toasts now sit above it. New photos for a product only after its first save. Test users and products deleted afterwards

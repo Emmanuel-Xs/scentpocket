@@ -20,3 +20,12 @@
 
 ## Progress
 2026-10-01 · 2.1 and 2.2 built and checked at 1440 and 390. Reconcile runs whenever the server data changes, not only on load.
+
+## Phase 6 (Lesson 3): server cart
+Status: ✅ 6.1 and 6.2 done. Decisions D49 to D51, D56.
+* Signed in: server cart (`cart_items`) is the truth; Zustand mirrors it. `ownerId` in the store (null = this device's own lines) decides whether the one-time `mergeCart` runs.
+* UI never calls the store actions directly: use `cartActions` from `sync.ts` (optimistic + saved per variant, rollback with toast). `CartSync` merges, mirrors, refetches on focus and polls every 3s while the drawer or /checkout is open.
+* Server rules in `rules.ts` (clamp = `min(stock, 10)`, merge adds then caps), reconciliation reuses `reconcile.ts`.
+* Gotcha: a stale in-flight poll would put the old quantity back, so `save()` cancels the cart query first and the mutation response is written into the query cache.
+* Gotcha: mobile users never pass through `/auth/callback`, so `readSessionUser` creates the profile on first sight (cart and order rows have a foreign key to it).
+* Files: `rules.ts`, `schemas.ts`, `sync.ts`, `server/{cart-core,cart,cart-data}.ts`; tests `tests/unit/{cart-rules,cart-sync}.test.ts`, `tests/integration/{cart,api}.int.test.ts`.

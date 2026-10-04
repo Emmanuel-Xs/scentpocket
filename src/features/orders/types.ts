@@ -1,3 +1,4 @@
+import type { CardImage } from '#/features/catalog/types'
 import type { DeliveryZone } from '#/lib/config'
 import type { OrderStatus } from './status'
 
@@ -6,6 +7,8 @@ export type OrderItemData = {
   productName: string
   variantLabel: string
   imageUrl: string | null
+  /** The same photo with size and blur placeholder; null when the product photo has since been removed. */
+  image: CardImage | null
   unitPriceKobo: number
   qty: number
   lineTotalKobo: number
@@ -44,4 +47,6 @@ export type OrderRow = {
   itemCount: number
   /** Up to three product photos for the row. */
   imageUrls: string[]
+  /** The same photos with size and blur placeholder. */
+  images: CardImage[]
 }

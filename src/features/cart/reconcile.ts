@@ -1,4 +1,4 @@
-import { MAX_QTY_PER_LINE } from '#/lib/config'
+import { maxCartQuantity } from './rules'
 import type { CartLine } from './store'
 import type { CartLineData } from './types'
 
@@ -29,7 +29,7 @@ export function reconcileCart(
       messages.push(`${label} sold out and was removed.`)
       continue
     }
-    const max = Math.min(info.stock, MAX_QTY_PER_LINE)
+    const max = maxCartQuantity(info.stock)
     if (line.qty > max) {
       messages.push(`${label} is down to ${max}.`)
       next.push({ ...line, qty: max })

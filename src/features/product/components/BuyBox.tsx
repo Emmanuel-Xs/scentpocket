@@ -2,7 +2,7 @@ import { ShoppingBag } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { QuantityStepper } from '#/components/ui/QuantityStepper'
-import { useCartStore } from '#/features/cart/store'
+import { cartActions } from '#/features/cart/sync'
 import { useCartUi } from '#/features/cart/ui-store'
 import type { ProductDetail } from '#/features/catalog/types'
 import { MAX_QTY_PER_LINE } from '#/lib/config'
@@ -20,7 +20,6 @@ export function BuyBox({ product }: { product: ProductDetail }) {
     (firstInStock ?? variants.at(0))?.id ?? '',
   )
   const [qty, setQty] = useState(1)
-  const addToCart = useCartStore((s) => s.add)
 
   const variant = variants.find((v) => v.id === selectedId)
   if (!variant) return null
@@ -36,7 +35,7 @@ export function BuyBox({ product }: { product: ProductDetail }) {
   }
 
   const add = () => {
-    addToCart(variant.id, qty, variant.stock)
+    cartActions.add(variant.id, qty, variant.stock)
     toast.success(`Added ${qty} × ${product.card.name} (${variant.sizeMl}ml)`)
     useCartUi.getState().setOpen(true)
   }

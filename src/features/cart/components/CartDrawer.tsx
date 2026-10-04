@@ -13,6 +13,7 @@ import { useIsPhone } from '#/lib/use-is-phone'
 import { cartLinesQueryOptions } from '../queries'
 import { cartSubtotalKobo } from '../reconcile'
 import { selectCartCount, useCartStore } from '../store'
+import { cartActions } from '../sync'
 import { useCartUi } from '../ui-store'
 import { CartLineRow } from './CartLineRow'
 import { FreeDeliveryProgress } from './FreeDeliveryProgress'
@@ -49,8 +50,7 @@ export function CartDrawer() {
   const isPhone = useIsPhone()
   const lines = useCartStore((s) => s.lines)
   const count = useCartStore(selectCartCount)
-  const setQty = useCartStore((s) => s.setQty)
-  const remove = useCartStore((s) => s.remove)
+  const { setQty, remove } = cartActions
 
   const { data = [], isPending } = useQuery(
     cartLinesQueryOptions(lines.map((l) => l.variantId)),

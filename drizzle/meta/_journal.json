@@ -8,6 +8,13 @@
       "when": 1790861180119,
       "tag": "0000_rich_tombstone",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791095749191,
+      "tag": "0001_same_excalibur",
+      "breakpoints": true
     }
   ]
 }

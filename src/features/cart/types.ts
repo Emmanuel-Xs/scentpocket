@@ -13,3 +13,20 @@ export type CartLineData = {
   stock: number
   image: CardImage | null
 }
+
+export type ServerCartLine = CartLineData & {
+  quantity: number
+  /** The server lowered this quantity (stock) while handling the request. */
+  changed: boolean
+}
+
+/** The signed in user's cart as the server sees it right now. Prices and stock are current. */
+export type ServerCart = {
+  lines: ServerCartLine[]
+  /** Sum of quantities. */
+  itemCount: number
+  subtotalKobo: number
+  /** True when anything was removed or lowered; `messages` says what. */
+  changed: boolean
+  messages: string[]
+}

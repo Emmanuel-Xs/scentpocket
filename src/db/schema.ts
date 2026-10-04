@@ -8,6 +8,7 @@ import {
   pgTable,
   text,
   timestamp,
+  unique,
   uuid,
 } from 'drizzle-orm/pg-core'
 import type { AnyPgColumn } from 'drizzle-orm/pg-core'
@@ -228,4 +229,28 @@ export const orderItems = pgTable(
     lineTotalKobo: integer('line_total_kobo').notNull(),
   },
   (t) => [index('order_items_order_idx').on(t.orderId)],
+).enableRLS()
+
+/**
+ * The signed in user's server side cart. Only variant and quantity are stored; prices and stock
+ * are always read from product_variants. Shared by the web app and the mobile app.
+ */
+export const cartItems = pgTable(
+  'cart_items',
+  {
+    id: id(),
+    userId: uuid('user_id')
+      .notNull()
+      .references(() => profiles.id, { onDelete: 'cascade' }),
+    variantId: uuid('variant_id')
+      .notNull()
+      .references(() => productVariants.id, { onDelete: 'cascade' }),
+    quantity: integer('quantity').notNull(),
+    createdAt: createdAt(),
+    updatedAt: updatedAt(),
+  },
+  (t) => [
+    unique('cart_items_user_variant_unique').on(t.userId, t.variantId),
+    check('cart_items_quantity_positive', sql`${t.quantity} > 0`),
+  ],
 ).enableRLS()

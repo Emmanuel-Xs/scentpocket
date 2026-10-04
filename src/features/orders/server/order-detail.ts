@@ -4,6 +4,7 @@ import type { orders } from '#/db/schema'
 import { orderItems } from '#/db/schema'
 import { productImageUrl } from '#/features/images/url'
 import type { OrderDetail } from '../types'
+import { loadImagesByPath } from './order-images'
 
 type OrderRow = typeof orders.$inferSelect
 
@@ -17,6 +18,11 @@ export async function buildOrderDetail(
     .from(orderItems)
     .where(eq(orderItems.orderId, order.id))
     .orderBy(asc(orderItems.productName))
+
+  const images = await loadImagesByPath(
+    db,
+    items.map((i) => i.imagePath),
+  )
 
   return {
     ref: order.ref,
@@ -45,6 +51,7 @@ export async function buildOrderDetail(
       productName: i.productName,
       variantLabel: i.variantLabel,
       imageUrl: i.imagePath ? productImageUrl(i.imagePath) : null,
+      image: images.get(i.imagePath) ?? null,
       unitPriceKobo: i.unitPriceKobo,
       qty: i.qty,
       lineTotalKobo: i.lineTotalKobo,

@@ -36,6 +36,7 @@ const order: OrderDetail = {
       variantLabel: '100ml EDP',
       imageUrl:
         'https://x.supabase.co/storage/v1/object/public/products/a.webp',
+      image: null,
       unitPriceKobo: 4_200_000,
       qty: 2,
       lineTotalKobo: 8_400_000,
@@ -45,6 +46,7 @@ const order: OrderDetail = {
       productName: 'Club de Nuit Untold',
       variantLabel: '250ml Body Spray',
       imageUrl: null,
+      image: null,
       unitPriceKobo: 1_150_000,
       qty: 1,
       lineTotalKobo: 1_150_000,

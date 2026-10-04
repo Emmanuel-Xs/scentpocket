@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import { cartLinesQueryOptions } from '#/features/cart/queries'
 import { cartSubtotalKobo } from '#/features/cart/reconcile'
 import { useCartStore } from '#/features/cart/store'
+import { cartActions } from '#/features/cart/sync'
 import type { SessionUser } from '#/features/auth/types'
 import { useHydrated } from '#/lib/use-hydrated'
 import { NIGERIAN_STATES } from '#/lib/config'
@@ -124,10 +125,10 @@ export function CheckoutForm({ user }: { user: SessionUser }) {
           const info = data.find((d) => d.variantId === s.variantId)
           const name = info ? `${info.productName} ${info.sizeMl}ml` : 'An item'
           if (s.available <= 0) {
-            useCartStore.getState().remove(s.variantId)
+            cartActions.remove(s.variantId)
             messages.push(`${name} just sold out.`)
           } else {
-            useCartStore.getState().setQty(s.variantId, s.available)
+            cartActions.setQty(s.variantId, s.available)
             messages.push(`Only ${s.available} of ${name} left.`)
           }
         }
