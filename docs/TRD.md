@@ -305,7 +305,7 @@ See [`.env.example`](../.env.example). Names that start with `VITE_` are public.
 
 | Suite | Covers |
 |---|---|
-| `unit/money.test.ts` | subtotal, fee by zone, free delivery at exactly ₦300,000, totals, naira formatting, price per ml |
+| `unit/money.test.ts` | subtotal, fee by zone, totals, naira formatting, price per ml |
 | `unit/phone.test.ts` | Nigerian phone formats → `+234...`, rejects invalid |
 | `unit/order-ref.test.ts` | format, alphabet without ambiguous characters |
 | `unit/status.test.ts` | allowed and blocked transitions |

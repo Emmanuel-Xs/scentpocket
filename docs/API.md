@@ -224,7 +224,6 @@ Static store rules, so the app never hard codes fees.
 ```
 → 200 {
   "zones": [{ "id": DeliveryZone, "label": string, "feeKobo": number, "eta": string }],
-  "freeDeliveryThresholdKobo": number,   // subtotal at or above this ships free
   "maxQuantityPerLine": number,
   "states": string[]                     // valid values for delivery.state
 }

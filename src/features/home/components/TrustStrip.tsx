@@ -1,4 +1,4 @@
-import { BadgeCheck, Banknote, Gift, Truck } from 'lucide-react'
+import { BadgeCheck, Banknote, Truck } from 'lucide-react'
 
 const items = [
   {
@@ -10,11 +10,6 @@ const items = [
     Icon: Truck,
     title: 'Lagos in 1 to 2 days',
     body: 'Mainland ₦3,000, Island ₦4,500, rest of Nigeria ₦7,000.',
-  },
-  {
-    Icon: Gift,
-    title: 'Free delivery over ₦300k',
-    body: 'Treat yourself or someone special. The ride is on us.',
   },
   {
     Icon: Banknote,

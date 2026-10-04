@@ -17,7 +17,6 @@ import {
   DELIVERY_ZONE_ETA,
   DELIVERY_ZONE_LABELS,
   DELIVERY_ZONES,
-  FREE_DELIVERY_THRESHOLD_KOBO,
   MAX_QTY_PER_LINE,
   NIGERIAN_STATES,
 } from '#/lib/config'
@@ -62,7 +61,6 @@ export const getDeliveryZones: ApiHandler = async () =>
       feeKobo: DELIVERY_FEES_KOBO[id],
       eta: DELIVERY_ZONE_ETA[id],
     })),
-    freeDeliveryThresholdKobo: FREE_DELIVERY_THRESHOLD_KOBO,
     maxQuantityPerLine: MAX_QTY_PER_LINE,
     states: NIGERIAN_STATES,
   })

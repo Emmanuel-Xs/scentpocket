@@ -4,7 +4,6 @@ import { Breadcrumb } from '#/components/ui/Breadcrumb'
 import { ProductCard } from '#/features/catalog/components/ProductCard'
 import { tierStyles } from '#/features/catalog/tiers'
 import type { ProductDetail } from '#/features/catalog/types'
-import { FREE_DELIVERY_THRESHOLD_KOBO } from '#/lib/config'
 import { formatKobo } from '#/lib/money'
 import { BuyBox } from './BuyBox'
 import { DupeCallout, InspiredAlert, SoldOutAlert } from './DupeBlocks'
@@ -23,7 +22,6 @@ export function ProductPage({ product }: { product: ProductDetail }) {
   const bestDupe = [...product.dupes]
     .sort((a, b) => a.fromKobo - b.fromKobo)
     .at(0)
-  const freeDelivery = card.fromKobo >= FREE_DELIVERY_THRESHOLD_KOBO
 
   return (
     <main className="flex-1">
@@ -68,9 +66,7 @@ export function ProductPage({ product }: { product: ProductDetail }) {
             <ul className="m-0 flex list-none flex-col gap-2.5 p-0 text-sm text-text-2">
               <li className="flex items-center gap-2.5">
                 <Truck size={18} strokeWidth={1.5} aria-hidden="true" />
-                {freeDelivery
-                  ? 'Free delivery on this order (over ₦300k)'
-                  : 'Free delivery over ₦300k'}
+                Lagos in 1 to 2 working days
               </li>
               <li className="flex items-center gap-2.5">
                 <Banknote size={18} strokeWidth={1.5} aria-hidden="true" />
@@ -99,7 +95,7 @@ export function ProductPage({ product }: { product: ProductDetail }) {
                 <ArrowRight size={18} strokeWidth={1.5} aria-hidden="true" />
               </Link>
             </div>
-            <div className="grid grid-cols-2 gap-x-5 gap-y-7 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-x-5 gap-y-7 max-sm:[&>:last-child:nth-child(odd)]:hidden sm:grid-cols-3 lg:grid-cols-4">
               {product.related.map((p) => (
                 <ProductCard key={p.id} product={p} />
               ))}

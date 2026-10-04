@@ -24,7 +24,6 @@ export const DELIVERY_ZONE_ETA: Record<DeliveryZone, string> = {
   outside_lagos: '3 to 5 working days',
 }
 
-export const FREE_DELIVERY_THRESHOLD_KOBO = 30_000_000 // ₦300,000
 export const MAX_QTY_PER_LINE = 10
 export const MAX_VARIANTS_PER_PRODUCT = 3
 export const MAX_CART_LINES = 50

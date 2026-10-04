@@ -66,7 +66,7 @@ Also stated on the call: customers must be able to see their past orders.
 |---|---|---|---|
 | F1 | Catalog: tiers, filters (gender, occasion, scent family), sort, search | Must | Shop website |
 | F2 | Product page: size buttons, notes pyramid, longevity/projection, dupes, same tier suggestions | Must | Shop website |
-| F3 | Cart drawer (local), free delivery progress | Must | Shop website |
+| F3 | Cart drawer (local) | Must | Shop website |
 | F4 | Google sign in (Supabase Auth + Google Cloud OAuth client) | Must | Google auth |
 | F5 | Checkout: delivery zones, pay on delivery, stock safe transaction | Must | Checkout, persistence |
 | F6 | Orders: confirmation/receipt page, order history, statuses | Must | Persistence, past orders |

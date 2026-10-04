@@ -82,8 +82,7 @@ export function TermsOfService() {
         </tbody>
       </table>
       <p>
-        Delivery is free for orders of ₦300,000 or more (before delivery). Times
-        are estimates.
+        Delivery times are estimates.
       </p>
       <h2>7. Returns and refunds</h2>
       <ul>

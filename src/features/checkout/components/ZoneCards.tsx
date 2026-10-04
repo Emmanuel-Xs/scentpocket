@@ -13,7 +13,6 @@ type Props = {
   onChange: (zone: DeliveryZone) => void
   /** Zones that make sense for the chosen state; the others are disabled. */
   allowed: readonly DeliveryZone[]
-  freeDelivery: boolean
   error?: string
 }
 
@@ -21,7 +20,6 @@ export function ZoneCards({
   value,
   onChange,
   allowed,
-  freeDelivery,
   error,
 }: Props) {
   return (
@@ -68,9 +66,7 @@ export function ZoneCards({
                 </span>
                 <span className="text-sm text-text-2">
                   <span className="font-semibold tabular-nums">
-                    {freeDelivery
-                      ? 'Free'
-                      : formatKobo(DELIVERY_FEES_KOBO[zone])}
+                    {formatKobo(DELIVERY_FEES_KOBO[zone])}
                   </span>{' '}
                   · {DELIVERY_ZONE_ETA[zone]}
                 </span>

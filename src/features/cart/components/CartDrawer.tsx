@@ -17,7 +17,6 @@ import { selectCartCount, useCartStore } from '../store'
 import { cartActions } from '../sync'
 import { useCartUi } from '../ui-store'
 import { CartLineRow } from './CartLineRow'
-import { FreeDeliveryProgress } from './FreeDeliveryProgress'
 
 const primary =
   'inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-pill border border-ink bg-ink px-7 text-base font-semibold text-cream no-underline transition-transform duration-150 ease-(--ease-out) active:scale-[0.97]'
@@ -149,7 +148,6 @@ export function CartDrawer() {
 
         {lines.length > 0 ? (
           <div className="flex flex-col gap-4 border-t border-border bg-cream px-5 pt-4 pb-[calc(20px+env(safe-area-inset-bottom,0px))]">
-            <FreeDeliveryProgress subtotalKobo={subtotalKobo} />
             <div className="flex justify-between text-base">
               <span>Subtotal</span>
               <NumberFlow

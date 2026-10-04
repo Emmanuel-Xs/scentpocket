@@ -1,5 +1,4 @@
 import { Link } from '@tanstack/react-router'
-import { FreeDeliveryProgress } from '#/features/cart/components/FreeDeliveryProgress'
 import type { CartLine } from '#/features/cart/store'
 import type { CartLineData } from '#/features/cart/types'
 import { tierStyles } from '#/features/catalog/tiers'
@@ -75,18 +74,13 @@ export function OrderSummary({ lines, totals, zone }: Props) {
         </dd>
         <dt className="text-text-2">Delivery · {DELIVERY_ZONE_LABELS[zone]}</dt>
         <dd className="m-0 font-semibold tabular-nums">
-          {totals.deliveryFeeKobo === 0
-            ? 'Free'
-            : formatKobo(totals.deliveryFeeKobo)}
+          {formatKobo(totals.deliveryFeeKobo)}
         </dd>
         <dt className="pt-1.5 text-[17px] font-semibold">Total</dt>
         <dd className="m-0 pt-1.5 text-[22px] font-semibold tabular-nums">
           {formatKobo(totals.totalKobo)}
         </dd>
       </dl>
-      <div className="rounded-lg bg-blush p-3.5">
-        <FreeDeliveryProgress subtotalKobo={totals.subtotalKobo} />
-      </div>
     </aside>
   )
 }

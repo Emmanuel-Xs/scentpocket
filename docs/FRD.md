@@ -12,7 +12,7 @@ Related: [PRD](./PRD.md) · [TRD](./TRD.md) · [Design](./DESIGN.md)
 * Hero with the line "A scent for every pocket", one primary CTA (Shop all) and a preloaded hero image.
 * Four tier cards (Pocket, Arabian Gems, Designer, Niche), each with its accent colour, price band and product count; each links to `/shop?tier=<tier>`.
 * A "Dupes" strip: up to 3 pairs showing expensive product and its cheaper match with both prices.
-* Trust strip: "100% authentic", delivery times per zone, free delivery over ₦300,000.
+* Trust strip: "100% authentic", delivery times per zone.
 * Persistent demo banner: "Demo store. Nothing here is for sale."
 * AC: all tier cards link to the right filtered list; banner shows on every page.
 
@@ -58,7 +58,7 @@ Related: [PRD](./PRD.md) · [TRD](./TRD.md) · [Design](./DESIGN.md)
 
 **FR-3.1** Cart stored in Zustand with `persist` (localStorage key `scentpocket-cart`). Items are `{ variantId, qty }` only. Display data (name, image, price, stock) is fetched from the server.
 
-**FR-3.2 Cart drawer**: line items with image, name, size, unit price, qty stepper, remove; subtotal; free delivery progress bar ("₦X away from free delivery" or "You've unlocked free delivery"); Checkout button.
+**FR-3.2 Cart drawer**: line items with image, name, size, unit price, qty stepper, remove; subtotal; Checkout button.
 
 **FR-3.3 Reconciliation**: on load, drop items whose variant no longer exists or is inactive, and clamp qty to current stock, with a toast explaining what changed.
 

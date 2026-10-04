@@ -396,7 +396,6 @@ export function CheckoutForm({ user }: { user: SessionUser }) {
                 value={field.state.value as DeliveryZone}
                 onChange={(zone) => field.handleChange(zone)}
                 allowed={allowedZones}
-                freeDelivery={totals.deliveryFeeKobo === 0}
                 error={
                   attempts > 0 ? messageOf(field.state.meta.errors.at(0)) : ''
                 }
