@@ -29,3 +29,4 @@ Status: ✅ 6.1 and 6.2 done. Decisions D49 to D51, D56.
 * Gotcha: a stale in-flight poll would put the old quantity back, so `save()` cancels the cart query first and the mutation response is written into the query cache.
 * Gotcha: mobile users never pass through `/auth/callback`, so `readSessionUser` creates the profile on first sight (cart and order rows have a foreign key to it).
 * Files: `rules.ts`, `schemas.ts`, `sync.ts`, `server/{cart-core,cart,cart-data}.ts`; tests `tests/unit/{cart-rules,cart-sync}.test.ts`, `tests/integration/{cart,api}.int.test.ts`.
+* While the sign in merge runs, `useCartUi.merging` is true and the cart controls (Add to cart, steppers, Remove, drawer Checkout) are disabled, so no edit can be overwritten by the merge result.

@@ -14,6 +14,8 @@ type Props = {
   onQty: (qty: number) => void
   onRemove: () => void
   onNavigate: () => void
+  /** The sign in merge is running: edits would be overwritten. */
+  disabled?: boolean
 }
 
 export function CartLineRow({
@@ -22,6 +24,7 @@ export function CartLineRow({
   onQty,
   onRemove,
   onNavigate,
+  disabled,
 }: Props) {
   const max = Math.max(1, Math.min(info.stock, MAX_QTY_PER_LINE))
   return (
@@ -63,12 +66,18 @@ export function CartLineRow({
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <QuantityStepper value={line.qty} max={max} onChange={onQty} />
+          <QuantityStepper
+            value={line.qty}
+            max={max}
+            onChange={onQty}
+            disabled={disabled}
+          />
           <button
             type="button"
             onClick={onRemove}
+            disabled={disabled}
             aria-label={`Remove ${info.productName}`}
-            className="inline-flex min-h-10 items-center rounded-pill px-2 text-[13px] font-semibold text-muted underline underline-offset-4 transition-transform duration-150 active:scale-[0.97] hover:text-ink"
+            className="inline-flex min-h-10 items-center rounded-pill px-2 text-[13px] font-semibold text-muted underline underline-offset-4 transition-transform duration-150 active:scale-[0.97] hover:text-ink disabled:cursor-not-allowed disabled:text-disabled disabled:no-underline"
           >
             Remove
           </button>

@@ -1,3 +1,4 @@
+import { cn } from '#/lib/utils'
 import NumberFlow from '@number-flow/react'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from '@tanstack/react-router'
@@ -46,7 +47,7 @@ function EmptyCart({ onClose }: { onClose: () => void }) {
 
 /** Right drawer on desktop, bottom sheet on phone. Prices and stock come from the server. */
 export function CartDrawer() {
-  const { open, notice, setOpen } = useCartUi()
+  const { open, notice, merging, setOpen } = useCartUi()
   const isPhone = useIsPhone()
   const lines = useCartStore((s) => s.lines)
   const count = useCartStore(selectCartCount)
@@ -139,6 +140,7 @@ export function CartDrawer() {
                   onQty={(qty) => setQty(line.variantId, qty)}
                   onRemove={() => remove(line.variantId)}
                   onNavigate={close}
+                  disabled={merging}
                 />
               ))}
             </ul>
@@ -165,7 +167,15 @@ export function CartDrawer() {
               Delivery and total are worked out at checkout.
             </span>
             {/* The _authed guard sends signed out visitors to /sign-in?next=/checkout. */}
-            <Link to="/checkout" onClick={close} className={primary}>
+            <Link
+              to="/checkout"
+              onClick={close}
+              aria-disabled={merging}
+              className={cn(
+                primary,
+                merging && 'pointer-events-none opacity-50',
+              )}
+            >
               Checkout{' '}
               <ArrowRight size={18} strokeWidth={1.5} aria-hidden="true" />
             </Link>

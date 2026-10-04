@@ -20,6 +20,7 @@ export function BuyBox({ product }: { product: ProductDetail }) {
     (firstInStock ?? variants.at(0))?.id ?? '',
   )
   const [qty, setQty] = useState(1)
+  const merging = useCartUi((s) => s.merging)
 
   const variant = variants.find((v) => v.id === selectedId)
   if (!variant) return null
@@ -58,7 +59,7 @@ export function BuyBox({ product }: { product: ProductDetail }) {
         />
         <button
           type="button"
-          disabled={soldOut || variant.stock === 0}
+          disabled={soldOut || variant.stock === 0 || merging}
           onClick={add}
           className={`${addButton} flex-[1_1_240px]`}
         >
@@ -83,7 +84,7 @@ export function BuyBox({ product }: { product: ProductDetail }) {
         </div>
         <button
           type="button"
-          disabled={soldOut || variant.stock === 0}
+          disabled={soldOut || variant.stock === 0 || merging}
           onClick={add}
           className={`${addButton} min-h-12 flex-1`}
         >

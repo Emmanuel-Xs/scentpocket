@@ -51,6 +51,7 @@ export function CartSync() {
   useEffect(() => {
     if (!hydrated || !userId || ownerId === userId || adopting.current) return
     adopting.current = true
+    useCartUi.getState().setMerging(true)
     const own = ownerId === null ? useCartStore.getState().lines : []
     mergeCart({
       data: {
@@ -71,6 +72,7 @@ export function CartSync() {
       })
       .finally(() => {
         adopting.current = false
+        useCartUi.getState().setMerging(false)
       })
   }, [hydrated, userId, ownerId, queryClient])
 
