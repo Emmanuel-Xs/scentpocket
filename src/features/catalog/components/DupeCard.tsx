@@ -17,25 +17,27 @@ function DupeSide({
       params={{ slug: product.slug }}
       className={`flex flex-col items-center gap-2.5 rounded-lg px-2 py-4 no-underline ${original ? 'bg-ink/6' : 'bg-pocket/10'}`}
     >
-      {product.image ? (
-        <Image
-          src={product.image.src}
-          alt={product.image.alt}
-          width={product.image.width}
-          height={product.image.height}
-          blurDataUrl={product.image.blurDataUrl}
-          sizes="140px"
-          className="max-w-28 mix-blend-multiply"
-        />
-      ) : null}
+      <span className="grid h-28 w-full place-items-center">
+        {product.image ? (
+          <Image
+            src={product.image.src}
+            alt={product.image.alt}
+            width={product.image.width}
+            height={product.image.height}
+            blurDataUrl={product.image.blurDataUrl}
+            sizes="140px"
+            className="max-h-28 max-w-28 object-contain mix-blend-multiply"
+          />
+        ) : null}
+      </span>
       <span className="text-center font-serif text-[19px] leading-[1.1]">
         {product.name}
       </span>
       <span
         className={
           original
-            ? 'text-sm text-muted tabular-nums line-through'
-            : 'text-[15px] font-semibold tabular-nums'
+            ? 'mt-auto text-sm text-muted tabular-nums line-through'
+            : 'mt-auto text-[15px] font-semibold tabular-nums'
         }
       >
         {formatKobo(product.fromKobo)}
@@ -52,7 +54,7 @@ export function DupeCard({
 }: DupePair) {
   return (
     <div className="flex flex-col gap-4.5 rounded-3xl border border-border bg-surface p-5.5">
-      <div className="grid grid-cols-2 items-end gap-3">
+      <div className="grid grid-cols-2 items-stretch gap-3">
         <DupeSide product={original} original />
         <DupeSide product={dupe} />
       </div>
