@@ -1,12 +1,10 @@
 import { createClient } from '@supabase/supabase-js'
 import type { User } from '@supabase/supabase-js'
 import { getRequestHeader } from '@tanstack/react-start/server'
-import { eq } from 'drizzle-orm'
-import { getDb } from '#/db/client'
-import { profiles } from '#/db/schema'
-import { getPublicEnv, getServerEnv } from '#/lib/env'
+import { getPublicEnv } from '#/lib/env'
 import { isAdminRole } from '../types'
 import type { SessionUser } from '../types'
+import { ensureProfile } from './profile'
 import { createSupabaseServerClient } from './supabase'
 
 /**
@@ -52,49 +50,17 @@ export async function readSessionUser(
   const authUser = token ? await userFromToken(token) : await userFromCookies()
   if (!authUser?.email) return null
 
-  const db = getDb()
+  const profile = await ensureProfile({ ...authUser, email: authUser.email })
   const meta = authUser.user_metadata as Record<string, unknown>
   const text = (v: unknown) => (typeof v === 'string' && v ? v : null)
 
-  let profile = (
-    await db
-      .select()
-      .from(profiles)
-      .where(eq(profiles.id, authUser.id))
-      .limit(1)
-  ).at(0)
-  if (!profile) {
-    // Mobile users sign in with Supabase directly and never pass through /auth/callback, so their
-    // profile (the target of cart and order foreign keys) is created the first time we see them.
-    const email = authUser.email.toLowerCase()
-    await db
-      .insert(profiles)
-      .values({
-        id: authUser.id,
-        email,
-        fullName: text(meta.full_name) ?? text(meta.name),
-        avatarUrl: text(meta.avatar_url) ?? text(meta.picture),
-        role: getServerEnv().ADMIN_EMAILS.includes(email)
-          ? 'owner'
-          : 'customer',
-      })
-      .onConflictDoNothing()
-    profile = (
-      await db
-        .select()
-        .from(profiles)
-        .where(eq(profiles.id, authUser.id))
-        .limit(1)
-    ).at(0)
-  }
-
   return {
     id: authUser.id,
-    email: profile?.email ?? authUser.email,
-    name: profile?.fullName ?? text(meta.full_name) ?? text(meta.name),
+    email: profile.email,
+    name: profile.fullName ?? text(meta.full_name) ?? text(meta.name),
     avatarUrl:
-      profile?.avatarUrl ?? text(meta.avatar_url) ?? text(meta.picture),
-    role: profile?.role ?? 'customer',
+      profile.avatarUrl ?? text(meta.avatar_url) ?? text(meta.picture),
+    role: profile.role,
   }
 }
 
